@@ -2,6 +2,4 @@
   File_Unittest.cpp
   Parser_Unittest.cpp
   코드를 생성하고 있습니다...
-Parser_Unittest.obj : error LNK2005: "private: virtual void __thiscall TestCaseName_TestName_Test::TestBody(void)" (?TestBody@TestCaseName_TestName_Test@@EAEXXZ)이(가) File_Unittest.obj에 이미 정의되어 있습니다.
-Parser_Unittest.obj : error LNK2005: "private: static class testing::TestInfo * TestCaseName_TestName_Test::test_info_" (?test_info_@TestCaseName_TestName_Test@@0QAVTestInfo@testing@@A)이(가) File_Unittest.obj에 이미 정의되어 있습니다.
-C:\Users\gkstm\source\repos\GCR Project\Debug\UnitTest.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.
+  UnitTest.vcxproj -> D:\Test\Week3\GreatCodeReviewer\Debug\UnitTest.exe
