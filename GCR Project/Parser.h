@@ -2,5 +2,4 @@
 class Parser{
 public:
 	string parse(const string input_txt);
-
-}
+};
