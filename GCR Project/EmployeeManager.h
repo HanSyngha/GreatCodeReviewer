@@ -12,13 +12,13 @@ public:
 	int GetEmployeeSize(void);
 
 	//[Modify]
-	std::map<int, Employee> ModifyByFirstName(std::string column, std::string value, std::string tagetValue);
-	std::map<int, Employee> ModifyByLastName(std::string column, std::string value, std::string tagetValue);
-	std::map<int, Employee> ModifyByPhoneMidNumber(std::string column, std::string value, std::string tagetValue);
-	std::map<int, Employee> ModifyByPhoneLastNumber(std::string column, std::string value, std::string tagetValue);
-	std::map<int, Employee> ModifyByBirthYear(std::string column, std::string value, std::string tagetValue);
-	std::map<int, Employee> ModifyByBirthMonth(std::string column, std::string value, std::string tagetValue);
-	std::map<int, Employee> ModifyByBirthDay(std::string column, std::string value, std::string tagetValue);
+	std::map<int, Employee> ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
+	std::map<int, Employee> ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
+	std::map<int, Employee> ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
+	std::map<int, Employee> ModifyByPhoneLastNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
+	std::map<int, Employee> ModifyByBirthYear(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
+	std::map<int, Employee> ModifyByBirthMonth(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
+	std::map<int, Employee> ModifyByBirthDay(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 
 	//[Delelte]
 	std::map<int, Employee> DeleteByFirstName(std::string column, std::string value);

@@ -9,30 +9,33 @@ int EmployeeManager::GetEmployeeSize() {
 	return (int)m_Employees.size();
 }
 
+
+
 //[Modify]
-std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
+	
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
