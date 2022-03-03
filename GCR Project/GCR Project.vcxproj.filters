@@ -44,6 +44,9 @@
     <ClCompile Include="Parser.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input_20_20.txt">
