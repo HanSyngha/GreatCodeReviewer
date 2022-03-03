@@ -8,6 +8,9 @@
     <ClCompile Include="Parser_Unittest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="EmployeeManager_Unittest2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

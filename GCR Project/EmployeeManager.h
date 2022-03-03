@@ -7,11 +7,16 @@
 
 class EmployeeManager {
 public:
+	~EmployeeManager() {
+		m_Employees.clear();
+		m_Results.clear();
+	}
 	//[Add]
 	void Add(const Employee& employee);
 	int GetEmployeeSize(void);
 
 	//[Modify]
+  std::map<int, Employee> ModifyWithNoOption(std::string column, std::string value, std::string tagetValue);
 	std::map<int, Employee> ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
@@ -19,8 +24,9 @@ public:
 	std::map<int, Employee> ModifyByBirthYear(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByBirthMonth(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByBirthDay(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
-
-	//[Delelte]
+	
+  //[Delelte]
+	std::map<int, Employee> DeleteWithNoOption(std::string column, std::string value);
 	std::map<int, Employee> DeleteByFirstName(std::string column, std::string value);
 	std::map<int, Employee> DeleteByLastName(std::string column, std::string value);
 	std::map<int, Employee> DeleteByPhoneMidNumber(std::string column, std::string value);
@@ -30,6 +36,7 @@ public:
 	std::map<int, Employee> DeleteByBirthDay(std::string column, std::string value);
 
 	//[Search]
+	std::map<int, Employee> SearchWithNoOption(std::string column, std::string value);
 	std::map<int, Employee> SearchByFirstName(std::string column, std::string value);
 	std::map<int, Employee> SearchByLastName(std::string column, std::string value);
 	std::map<int, Employee> SearchByPhoneMidNumber(std::string column, std::string value);
@@ -39,9 +46,9 @@ public:
 	std::map<int, Employee> SearchByBirthDay(std::string column, std::string value);
 
 private:
-	//´ÙÀ½ result Àü´ŞÀ» À§ÇØ ±âÁ¸ °á°ú clear, È£Ãâ Å¸ÀÌ¹ÖÀº?
+	//ë‹¤ìŒ result ì „ë‹¬ì„ ìœ„í•´ ê¸°ì¡´ ê²°ê³¼ clear, í˜¸ì¶œ íƒ€ì´ë°ì€?
 	void clearResults() { m_Results.clear(); };
-	//DEL,MOD,SCH¿ë Àû¿ëµÉ dbÀÇ record¸¦ °Ë»öÇÏ´Â ³»ºÎÇÔ¼ö, ÀÌ¸§Àº ÀÏ´Ü °£´ÜÈ÷ Á¤ÇÔ.
+	//DEL,MOD,SCHìš© ì ìš©ë  dbì˜ recordë¥¼ ê²€ìƒ‰í•˜ëŠ” ë‚´ë¶€í•¨ìˆ˜, ì´ë¦„ì€ ì¼ë‹¨ ê°„ë‹¨íˆ ì •í•¨.
 	std::map<int, Employee> search(std::string column, std::string value);
 
 	std::map<int, Employee> m_Employees;

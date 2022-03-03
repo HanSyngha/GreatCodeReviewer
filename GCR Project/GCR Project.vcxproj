@@ -139,17 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="common.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="EmployeeManager.h" />
     <ClInclude Include="File.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="Paser.h" />
+    <ClInclude Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EmployeeManager.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input_20_20.txt" />
+    <Text Include="output_20_20.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
