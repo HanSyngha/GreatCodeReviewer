@@ -146,7 +146,6 @@
     <ClInclude Include="Paser.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Employee.cpp" />
     <ClCompile Include="EmployeeManager.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="main.cpp" />
