@@ -5,6 +5,9 @@ void EmployeeManager::Add(const Employee& employee) {
 
 }
 
+int EmployeeManager::GetEmployeeSize() {
+	return (int)m_Employees.size();
+}
 //[Modify]
 std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string column, std::string value, std::string tagetValue) {
 	return std::map<int, Employee>();

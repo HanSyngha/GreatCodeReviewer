@@ -9,6 +9,7 @@ class EmployeeManager {
 public:
 	//[Add]
 	void Add(const Employee& employee);
+	int GetEmployeeSize(void);
 
 	//[Modify]
 	std::map<int, Employee> ModifyByFirstName(std::string column, std::string value, std::string tagetValue);
@@ -36,7 +37,6 @@ public:
 	std::map<int, Employee> SearchByBirthYear(std::string column, std::string value);
 	std::map<int, Employee> SearchByBirthMonth(std::string column, std::string value);
 	std::map<int, Employee> SearchByBirthDay(std::string column, std::string value);
-
 
 private:
 	//다음 result 전달을 위해 기존 결과 clear, 호출 타이밍은?
