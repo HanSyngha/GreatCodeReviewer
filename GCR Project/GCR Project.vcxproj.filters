@@ -24,5 +24,28 @@
     <ClInclude Include="EmployeeMananger.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Employee.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Employee.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EmployeeManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="File.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,12 +1,17 @@
-#include "main.h"
+#include <string>
+using namespace std;
 
-class Employee {
-		String EmpNo
-		String Name
-		String Career_level
-		String Phone_number->PhoneMid, PhoneLast
-		String Birth->BirthYear, BirthMonth, BirthDay
-		String Certi
+struct Employee {
+	string EmpNo;
+	string Name;
+	string Career_level;
+	string Phone_number;
+	string PhoneMid;
+	string PhoneLast;
+	string BirthYear;
+	string BirthMonth;
+	string BirthDay;
+	string Certi;
 
-		static int makeKeyValue();
+	static int makeKeyValue();
 };
