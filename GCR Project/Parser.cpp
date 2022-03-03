@@ -1,6 +1,5 @@
 #include "Parser.h"
-#include <iostream>
-using namespace std;
+#include "common.h"
 
 string Parser::parse(const string input_txt)
 {
