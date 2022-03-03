@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Paser.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="File.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -27,7 +24,10 @@
     <ClInclude Include="Employee.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,5 +44,13 @@
     <ClCompile Include="Parser.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input_20_20.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="output_20_20.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>
