@@ -2,7 +2,7 @@
 
 //[Add]
 void EmployeeManager::Add(const Employee& employee) {
-	this->m_Employees.insert(std::pair<int, Employee>(employee.makeKeyValueFromString(employee.EmpNo), employee));
+	m_Employees[Employee::makeKeyValueFromString(employee.EmpNo)] = employee;
 }
 
 int EmployeeManager::GetEmployeeSize() {
