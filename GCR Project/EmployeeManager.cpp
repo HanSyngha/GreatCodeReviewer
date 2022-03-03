@@ -5,6 +5,11 @@ void EmployeeManager::Add(const Employee& employee) {
 
 }
 
+std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string column, std::string value, std::string tagetValue)
+{
+	return std::map<int, Employee>();
+}
+
 //[Modify]
 std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string column, std::string value, std::string tagetValue) {
 	return std::map<int, Employee>();
@@ -30,6 +35,11 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string column, 
 }
 std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string column, std::string value, std::string tagetValue) {
 
+	return std::map<int, Employee>();
+}
+
+std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, std::string value)
+{
 	return std::map<int, Employee>();
 }
 
@@ -90,5 +100,10 @@ std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, 
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, std::string value) {
 
+	return std::map<int, Employee>();
+}
+
+std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, std::string value)
+{
 	return std::map<int, Employee>();
 }
