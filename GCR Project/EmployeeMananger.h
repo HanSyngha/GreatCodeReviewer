@@ -5,7 +5,7 @@
 #include "Employee.h"
 
 
-class EmployManager {
+class EmployeeManager {
 public:
 	//[Add]
 	void Add(const Employee& employee);
@@ -39,7 +39,9 @@ public:
 
 
 private:
+	//다음 result 전달을 위해 기존 결과 clear, 호출 타이밍은?
 	void clearResults() { m_Results.clear(); };
+	//DEL,MOD,SCH용 적용될 db의 record를 검색하는 내부함수, 이름은 일단 간단히 정함.
 	std::map<int, Employee> search(std::string column, std::string value);
 
 	std::map<int, Employee> m_Employees;
