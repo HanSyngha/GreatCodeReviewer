@@ -166,16 +166,16 @@ std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, 
 {
 	clearResults();
 	//TODO: refactoring 필요
-	for (auto& dbInfo : m_Employees) {
-		if ((column == "empNo" && dbInfo.second.EmpNo == value) ||
-			(column == "cl" && dbInfo.second.Career_level == value) ||
-			(column == "certi" && dbInfo.second.Certi == value)) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		if ((column == "empNo" && (*iter).second.EmpNo == value) ||
+			(column == "cl" && (*iter).second.Career_level == value) ||
+			(column == "certi" && (*iter).second.Certi == value)) {
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results; //copy values
 }
@@ -183,15 +183,15 @@ std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, s
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 	
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Name, ' ');
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		std::vector<std::string> tokens = splitString((*iter).second.Name, ' ');
 		if (tokens[0] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;		
 	}
 	return m_Results;
 }
@@ -199,15 +199,15 @@ std::map<int, Employee> EmployeeManager::DeleteByLastName(std::string column, st
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Name, ' ');
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		std::vector<std::string> tokens = splitString((*iter).second.Name, ' ');
 		if (tokens[1] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results;
 }
@@ -215,15 +215,15 @@ std::map<int, Employee> EmployeeManager::DeleteByPhoneMidNumber(std::string colu
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		std::vector<std::string> tokens = splitString((*iter).second.Phone_number, '-');
 		if (tokens[1] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results;
 }
@@ -231,15 +231,15 @@ std::map<int, Employee> EmployeeManager::DeleteByPhoneLastNumber(std::string col
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		std::vector<std::string> tokens = splitString((*iter).second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
 		if (tokens[2] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results;
 }
@@ -247,14 +247,14 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, s
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(0,3) == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		if ((*iter).second.BirthDay.substr(0, 4) == value) {
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results;
 }
@@ -262,14 +262,14 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, 
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(4, 6) == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		if ((*iter).second.BirthDay.substr(4, 2) == value) {
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results;
 }
@@ -277,14 +277,14 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, st
 	//TODO: column을 쓸일이 없다.
 	clearResults();
 
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(7, 9) == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			m_Employees.erase(dbInfo.first);
+	auto iter = m_Employees.begin();
+	while (iter != m_Employees.end()) {
+		if ((*iter).second.BirthDay.substr(6, 2) == value) {
+			m_Results[(*iter).first] = (*iter).second;
+			m_Employees.erase((*iter++).first);
+			continue;
 		}
-		else {
-			//TODO: throw invalid operation
-		}
+		iter++;
 	}
 	return m_Results;
 }
@@ -371,7 +371,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, s
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(0, 3) == value) {
+		if (dbInfo.second.BirthDay.substr(0, 4) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {
@@ -385,7 +385,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, 
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(4, 6) == value) {
+		if (dbInfo.second.BirthDay.substr(4, 2) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {
@@ -399,7 +399,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, st
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(7, 9) == value) {
+		if (dbInfo.second.BirthDay.substr(6, 2) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {
