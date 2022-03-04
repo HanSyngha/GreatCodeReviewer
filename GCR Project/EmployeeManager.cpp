@@ -31,7 +31,7 @@ std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string targetCo
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if ((targetColumn == "empNo" && dbInfo.second.EmpNo == targetValue) ||
+		if ((targetColumn == "employeeNum" && dbInfo.second.EmpNo == targetValue) ||
 			(targetColumn == "cl" && dbInfo.second.Career_level == targetValue) ||
 			(targetColumn == "certi" && dbInfo.second.Certi == targetValue)) {
 			m_Results[dbInfo.first] = dbInfo.second;
@@ -170,7 +170,7 @@ std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, 
 
 	auto iter = m_Employees.begin();
 	while (iter != m_Employees.end()) {
-		if ((column == "empNo" && (*iter).second.EmpNo == value) ||
+		if ((column == "employeeNum" && (*iter).second.EmpNo == value) ||
 			(column == "cl" && (*iter).second.Career_level == value) ||
 			(column == "certi" && (*iter).second.Certi == value)) {
 			m_Results[(*iter).first] = (*iter).second;
@@ -290,7 +290,7 @@ std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, 
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if ((column == "empNo" && dbInfo.second.EmpNo == value) ||
+		if ((column == "employeeNum" && dbInfo.second.EmpNo == value) ||
 			(column == "cl" && dbInfo.second.Career_level == value) ||
 			(column == "certi" && dbInfo.second.Certi == value)) {
 			m_Results[dbInfo.first] = dbInfo.second;
