@@ -8,9 +8,6 @@
     <ClCompile Include="Parser_Unittest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="EmployeeManager_Unittest2.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="EmployeeManager_unittest_hm.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
