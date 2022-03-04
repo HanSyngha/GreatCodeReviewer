@@ -28,9 +28,22 @@ int EmployeeManager::GetEmployeeSize() {
 }
 
 //[Modify]
-std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string column, std::string value, std::string tagetValue)
+std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue)
 {
-	return std::map<int, Employee>();
+	clearResults();
+	//TODO: refactoring 필요
+	for (auto& dbInfo : m_Employees) {
+		if ((targetColumn == "empNo" && dbInfo.second.EmpNo == targetValue) ||
+			(targetColumn == "cl" && dbInfo.second.Career_level == targetValue) ||
+			(targetColumn == "certi" && dbInfo.second.Certi == targetValue)) {
+			m_Results[dbInfo.first] = dbInfo.second;
+			Modify(dbInfo.second, changeColumn, changeValue);
+		}
+		else {
+			//TODO: throw invalid operation
+		}
+	}
+	return m_Results; //copy values
 }
 
 void EmployeeManager::Modify(Employee& employee, std::string column, std::string value) {
