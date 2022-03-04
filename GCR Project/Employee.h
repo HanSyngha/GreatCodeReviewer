@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
 #include <string>
+using std::string;
 
 struct Employee {
+
 	std::string EmpNo;
 	std::string Name;
 	std::string Career_level;

@@ -6,43 +6,47 @@
 
 //[Add]
 void EmployeeManager::Add(const Employee& employee) {
-
+	m_Employees[Employee::makeKeyValueFromString(employee.EmpNo)] = employee;
 }
 
+int EmployeeManager::GetEmployeeSize() {
+	return (int)m_Employees.size();
+}
+
+//[Modify]
 std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string column, std::string value, std::string tagetValue)
 {
 	return std::map<int, Employee>();
 }
-
-//[Modify]
-std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
+	
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string column, std::string value, std::string tagetValue) {
-
-	return std::map<int, Employee>();
-}
-std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
-std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string column, std::string value, std::string tagetValue) {
+std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
+
+	return std::map<int, Employee>();
+}
+std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
 
 	return std::map<int, Employee>();
 }
 
-//TODO: parserµµ ÇÊ¿äÇÑ ÀÛ¾÷ÀÏµí, commonÀ¸·Î?
+//TODO: parserë„ í•„ìš”í•œ ì‘ì—…ì¼ë“¯, commonìœ¼ë¡œ?
 std::vector<std::string> splitString(const std::string& orgString, const char delimiter) {
 	std::vector<std::string> tokens;
 	std::istringstream strStream(orgString);
@@ -54,12 +58,12 @@ std::vector<std::string> splitString(const std::string& orgString, const char de
 
 	return tokens;
 }
-//TODO: columnÀ» parser°¡ ¾î¶»°Ô ³Ñ°ÜÁà¾ß ÇÏ³ª?
+//TODO: columnì„ parserê°€ ì–´ë–»ê²Œ ë„˜ê²¨ì¤˜ì•¼ í•˜ë‚˜?
 //[Delelte]
 std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, std::string value)
 {
 	clearResults();
-	//TODO: refactoring ÇÊ¿ä
+	//TODO: refactoring í•„ìš”
 	for (auto& dbInfo : m_Employees) {
 		if ((column == "empNo" && dbInfo.second.EmpNo == value) ||
 			(column == "cl" && dbInfo.second.Career_level == value) ||
@@ -74,7 +78,7 @@ std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, 
 	return m_Results; //copy values
 }
 std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 	
 	for (auto& dbInfo : m_Employees) {
@@ -90,7 +94,7 @@ std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByLastName(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -106,11 +110,11 @@ std::map<int, Employee> EmployeeManager::DeleteByLastName(std::string column, st
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByPhoneMidNumber(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidµµ ÀÖ±ä ÇÏ´Ù.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidë„ ìˆê¸´ í•˜ë‹¤.
 		if (tokens[1] == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			m_Employees.erase(dbInfo.first);
@@ -122,11 +126,11 @@ std::map<int, Employee> EmployeeManager::DeleteByPhoneMidNumber(std::string colu
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByPhoneLastNumber(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidµµ ÀÖ±ä ÇÏ´Ù.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidë„ ìˆê¸´ í•˜ë‹¤.
 		if (tokens[2] == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			m_Employees.erase(dbInfo.first);
@@ -138,7 +142,7 @@ std::map<int, Employee> EmployeeManager::DeleteByPhoneLastNumber(std::string col
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -153,7 +157,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -168,7 +172,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, 
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -187,7 +191,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, st
 std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, std::string value)
 {
 	clearResults();
-	//TODO: refactoring ÇÊ¿ä
+	//TODO: refactoring í•„ìš”
 	for (auto& dbInfo : m_Employees) {
 		if ((column == "empNo" && dbInfo.second.EmpNo == value) ||
 			(column == "cl" && dbInfo.second.Career_level == value) ||
@@ -201,7 +205,7 @@ std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, 
 	return m_Results; //copy values
 }
 std::map<int, Employee> EmployeeManager::SearchByFirstName(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -216,7 +220,7 @@ std::map<int, Employee> EmployeeManager::SearchByFirstName(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByLastName(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -231,11 +235,11 @@ std::map<int, Employee> EmployeeManager::SearchByLastName(std::string column, st
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByPhoneMidNumber(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidµµ ÀÖ±ä ÇÏ´Ù.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidë„ ìˆê¸´ í•˜ë‹¤.
 		if (tokens[1] == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
@@ -246,11 +250,11 @@ std::map<int, Employee> EmployeeManager::SearchByPhoneMidNumber(std::string colu
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByPhoneLastNumber(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidµµ ÀÖ±ä ÇÏ´Ù.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMidë„ ìˆê¸´ í•˜ë‹¤.
 		if (tokens[2] == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
@@ -261,7 +265,7 @@ std::map<int, Employee> EmployeeManager::SearchByPhoneLastNumber(std::string col
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -275,7 +279,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -289,7 +293,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, 
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, std::string value) {
-	//TODO: columnÀ» ¾µÀÏÀÌ ¾ø´Ù.
+	//TODO: columnì„ ì“¸ì¼ì´ ì—†ë‹¤.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
