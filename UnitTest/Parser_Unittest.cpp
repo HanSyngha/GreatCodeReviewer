@@ -1,5 +1,8 @@
 #include "pch.h"
+#include "../GCR Project/Employee.h"
+#include "../GCR Project/EmployeeManager.h"
 #include "../GCR Project/Parser.cpp"
+
 
 TEST(ParserTest, ParserAdd) {
 	Parser parser;
