@@ -146,7 +146,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, s
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthYear == value) {
+		if (dbInfo.second.BirthDay.substr(0,3) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			m_Employees.erase(dbInfo.first);
 		}
@@ -161,7 +161,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, 
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthMonth == value) {
+		if (dbInfo.second.BirthDay.substr(4, 6) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			m_Employees.erase(dbInfo.first);
 		}
@@ -176,7 +176,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, st
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay == value) {
+		if (dbInfo.second.BirthDay.substr(7, 9) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			m_Employees.erase(dbInfo.first);
 		}
@@ -269,7 +269,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, s
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthYear == value) {
+		if (dbInfo.second.BirthDay.substr(0, 3) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {
@@ -283,7 +283,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, 
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthMonth == value) {
+		if (dbInfo.second.BirthDay.substr(4, 6) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {
@@ -297,7 +297,7 @@ std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, st
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay == value) {
+		if (dbInfo.second.BirthDay.substr(7, 9) == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {
