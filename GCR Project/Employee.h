@@ -7,10 +7,6 @@ struct Employee {
 	std::string Name;
 	std::string Career_level;
 	std::string Phone_number;
-	std::string PhoneMid;
-	std::string PhoneLast;
-	std::string BirthYear;
-	std::string BirthMonth;
 	std::string BirthDay;
 	std::string Certi;
 
