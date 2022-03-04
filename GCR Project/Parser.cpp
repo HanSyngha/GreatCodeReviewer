@@ -278,7 +278,10 @@ string Parser::make_return_str(const map<int, Employee> recived_value, string co
 	if (print_option)
 		return return_str;
 	else
-		return command + "," + to_string(recived_value.size());
+		if (recived_value.size() == 0)
+			return command + ", NONE";
+		else
+			return command + "," + to_string(recived_value.size());
 }
 
 string Parser::parse(const string input_txt)
