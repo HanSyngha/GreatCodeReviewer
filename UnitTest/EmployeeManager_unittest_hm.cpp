@@ -27,8 +27,8 @@ TEST(EmployeeManagerHMTest, ModifyByFirstNameTest)
 	
 	std::map<int, Employee> result;
 	
-	employeeManager.ModifyByFirstName("FirstName", "Hyeonmin", "phone_number", "010-8463-5516");
-	result = employeeManager.SearchByPhoneMidNumber("", "8453");
+	employeeManager.ModifyByFirstName("FirstName", "Hyeonmin", "phoneNum", "010-8463-5516");
+	result = employeeManager.SearchByPhoneLastNumber("", "5516");
 	EXPECT_EQ(2, result.size());
 
 }
@@ -41,7 +41,7 @@ TEST(EmployeeManagerHMTest, ModifyByLastNameTest)
 	std::map<int, Employee> result;
 
 	employeeManager.ModifyByLastName("LastName", "Seo", "cl", "CL4");
-	result = employeeManager.SearchByPhoneLastNumber("", "5526");
+	result = employeeManager.SearchWithNoOption("cl", "CL4");
 
 	EXPECT_EQ(3, result.size());
 }
@@ -67,7 +67,7 @@ TEST(EmployeeManagerHMTest, ModifyByPhoneLastNumberTest)
 	std::map<int, Employee> result;
 
 	employeeManager.ModifyByPhoneLastNumber("PhoneLastNumber", "5516", "birthday", "19900420");
-	result = employeeManager.SearchByBirthYear("BirthYear", "90");
+	result = employeeManager.SearchByBirthYear("BirthYear", "1990");
 	EXPECT_EQ(1, result.size());
 }
 
@@ -78,7 +78,7 @@ TEST(EmployeeManagerHMTest, ModifyByBirthYearTest)
 	
 	std::map<int, Employee> result;
 
-	employeeManager.ModifyByBirthYear("BirthYear", "87", "birthday", "19970402");
+	employeeManager.ModifyByBirthYear("BirthYear", "1987", "birthday", "19970402");
 	result = employeeManager.SearchByBirthMonth("BirthMonth", "04");
 
 	EXPECT_EQ(1, result.size());
