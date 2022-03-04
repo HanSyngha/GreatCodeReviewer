@@ -21,6 +21,7 @@ TEST(IntegrationTest, ITScene1) {
 	try {
 		do {
 			strLineForRead = file.ReadLine();
+			if (strLineForRead == "") break;
 			strLineForWrite = parser.parse(strLineForRead);
 			file.WriteLine(strLineForWrite);
 		} while (strLineForRead != "");
