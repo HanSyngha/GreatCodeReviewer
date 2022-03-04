@@ -1,6 +1,6 @@
 #include "pch.h"
 #include <vector>
-#include "../GCR Project/EmployeeManager.cpp"
+#include "../GCR Project/EmployeeManager.h"
 #include "../GCR Project/Employee.h"
 
 using namespace std;
