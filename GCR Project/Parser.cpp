@@ -8,7 +8,7 @@
 
 using namespace std;
 
-vector<string> splitString(const string& orgString, const char delimiter) {
+vector<string> p_splitString(const string& orgString, const char delimiter) {
 	vector<string> tokens;
 	istringstream strStream(orgString);
 	string token;
@@ -41,12 +41,12 @@ vector<string> split_birth(const string birth) {
 	return tokens;
 }
 
-string Parser::request_add(const vector<string> tokens) {
+void Parser::request_add(const vector<string> tokens) {
 
-	vector<string> split_phone_number = splitString(tokens[7], '-');
+	vector<string> split_phone_number = p_splitString(tokens[7], '-');
 	vector<string> split_birthday = split_birth(tokens[8]);
 
-	struct Employee new_employee;
+	Employee new_employee;
 	new_employee.EmpNo = tokens[4];
 	new_employee.Name = tokens[5];
 	new_employee.Career_level = tokens[6];
@@ -59,8 +59,7 @@ string Parser::request_add(const vector<string> tokens) {
 	new_employee.Career_level = tokens[9];
 
 	EmployeeManager employee;
-	void Add(const Employee & employee);
-	
+	employee.Add(new_employee);
 }
 
 string Parser::request_del(const vector<string> tokens) {
@@ -94,7 +93,7 @@ string Parser::request_mod(const vector<string> tokens) {
 
 string Parser::request_management(const vector<string> tokens) {
 	if (!tokens[0].compare("ADD"))
-		return request_add(tokens);
+		request_add(tokens);
 	else if (!tokens[0].compare("DEL"))
 		return request_del(tokens);
 	else if (!tokens[0].compare("SCH"))
@@ -113,7 +112,7 @@ string Parser::parse(const string input_txt)
 {
 	string return_str,recived_str;
 	
-	vector<string> tokens = splitString(input_txt, ',');
+	vector<string> tokens = p_splitString(input_txt, ',');
 
 	recived_str = request_management(tokens);
 	

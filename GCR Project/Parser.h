@@ -4,7 +4,7 @@
 class Parser{
 public:
 	string request_management(const vector<string> tokens);
-	string request_add(const vector<string> tokens);
+	void request_add(const vector<string> tokens);
 	string request_del(const vector<string> tokens);
 	string request_search(const vector<string> tokens);
 	string request_mod(const vector<string> tokens);
