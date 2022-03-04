@@ -20,42 +20,14 @@ vector<string> p_splitString(const string& orgString, const char delimiter) {
 	return tokens;
 }
 
-vector<string> split_birth(const string birth) {
-	vector<string> tokens;
-	string year = "0000";
-	string month = "00";
-	string day = "00";
-
-	for (int idx = 0; idx < 4; idx++)
-		year[idx] = birth[idx];
-	tokens.push_back(year);
-
-	for (int idx = 0; idx < 2; idx++)
-		month[idx] = birth[4 + idx];
-	tokens.push_back(month);
-
-	for (int idx = 0; idx < 2; idx++)
-		day[idx] = birth[6 + idx];
-	tokens.push_back(day);
-	
-	return tokens;
-}
-
 void Parser::request_add(const vector<string> tokens) {
-
-	vector<string> split_phone_number = p_splitString(tokens[7], '-');
-	vector<string> split_birthday = split_birth(tokens[8]);
 
 	Employee new_employee;
 	new_employee.EmpNo = tokens[4];
 	new_employee.Name = tokens[5];
 	new_employee.Career_level = tokens[6];
 	new_employee.Phone_number = tokens[7];
-	new_employee.PhoneMid = split_phone_number[1];
-	new_employee.PhoneLast = split_phone_number[2];
-	new_employee.BirthYear = split_birthday[0];
-	new_employee.BirthMonth = split_birthday[1];
-	new_employee.BirthDay = split_birthday[2];
+	new_employee.BirthDay = tokens[8];
 	new_employee.Career_level = tokens[9];
 
 	EmployeeManager employee;
