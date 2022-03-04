@@ -21,7 +21,7 @@ TEST(ParserTest, ParserDELdefult) {
 TEST(ParserTest, ParserDELbyname) {
 	Parser parser;
 	parser.parse("ADD, , , ,08117441,BMU MPOSXU,CL3,010-2703-3153,20010215,ADV");
-	EXPECT_EQ(parser.parse("DEL,-p,-l, ,name,BMU MPOSXU"), "DEL,08117441,BMU MPOSXU,CL3,010-2703-3153,20010215,ADV");
+	EXPECT_EQ(parser.parse("DEL,-p,-l, ,name,MPOSXU"), "DEL,08117441,BMU MPOSXU,CL3,010-2703-3153,20010215,ADV");
 	EXPECT_TRUE(true);
 }
 
