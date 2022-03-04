@@ -4,19 +4,19 @@
 
 
 void initEmployManager(EmployeeManager& employeeManager) {
-	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "870319", "PRO" });
-	employeeManager.Add({ "13009500", "Hyeonmia Seo", "CL1", "010-8463-5516", "881129", "ADV" });
-	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "890130", "EXP" });
-	employeeManager.Add({ "13009522", "Hyeonmic Leo", "CL3", "010-8443-5536", "810719", "PRO" });
-	employeeManager.Add({ "13009523", "Hyeonmid Aeo", "CL4", "010-8453-5536", "820911", "ADV" });
+	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "19870319", "PRO" });
+	employeeManager.Add({ "13009500", "Hyeonmia Seo", "CL1", "010-8463-5516", "19881129", "ADV" });
+	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "19890130", "EXP" });
+	employeeManager.Add({ "13009522", "Hyeonmic Leo", "CL3", "010-8443-5536", "19810719", "PRO" });
+	employeeManager.Add({ "13009523", "Hyeonmid Aeo", "CL4", "010-8453-5536", "19820911", "ADV" });
 }
 
 TEST(EmployeeManagerHMTest, AddTest) {
 	EmployeeManager employeeManager;
 	EXPECT_EQ(0, employeeManager.GetEmployeeSize());	
-	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "870319", "PRO" });
+	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "19870319", "PRO" });
 	EXPECT_EQ(1, employeeManager.GetEmployeeSize());
-	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "890130", "EXP" });	
+	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "19890130", "EXP" });	
 	EXPECT_EQ(2, employeeManager.GetEmployeeSize());
 }
 
@@ -53,7 +53,7 @@ TEST(EmployeeManagerHMTest, ModifyByPhoneMidNumberTest)
 
 	std::map<int, Employee> result;
 
-	employeeManager.ModifyByPhoneMidNumber("PhoneMidNumber", "8443", "birthday", "691130");
+	employeeManager.ModifyByPhoneMidNumber("PhoneMidNumber", "8443", "birthday", "19691130");
 	result = employeeManager.SearchByBirthDay("birthday", "30");
 	
 	EXPECT_EQ(2, result.size());
@@ -66,7 +66,7 @@ TEST(EmployeeManagerHMTest, ModifyByPhoneLastNumberTest)
 
 	std::map<int, Employee> result;
 
-	employeeManager.ModifyByPhoneLastNumber("PhoneLastNumber", "5516", "birthday", "900420");
+	employeeManager.ModifyByPhoneLastNumber("PhoneLastNumber", "5516", "birthday", "19900420");
 	result = employeeManager.SearchByBirthYear("BirthYear", "90");
 	EXPECT_EQ(1, result.size());
 }
@@ -78,7 +78,7 @@ TEST(EmployeeManagerHMTest, ModifyByBirthYearTest)
 	
 	std::map<int, Employee> result;
 
-	employeeManager.ModifyByBirthYear("BirthYear", "87", "birthday", "970402");
+	employeeManager.ModifyByBirthYear("BirthYear", "87", "birthday", "19970402");
 	result = employeeManager.SearchByBirthMonth("BirthMonth", "04");
 
 	EXPECT_EQ(1, result.size());
@@ -90,7 +90,7 @@ TEST(EmployeeManagerHMTest, ModifyByBirthMonthTest)
 	
 	std::map<int, Employee> result;
 
-	employeeManager.ModifyByBirthMonth("BirthMonth", "11", "birthday", "770819");
+	employeeManager.ModifyByBirthMonth("BirthMonth", "11", "birthday", "19770819");
 	result = employeeManager.SearchByBirthDay("BirthDay", "19");
 
 	EXPECT_EQ(3, result.size());
