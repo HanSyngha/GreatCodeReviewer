@@ -65,8 +65,8 @@ void Parser::request_add(const vector<string> tokens) {
 	new_employee.Career_level = tokens[6];
 	new_employee.Phone_number = tokens[7];
 	new_employee.BirthDay = tokens[8];
-	new_employee.Career_level = tokens[9];
-
+	new_employee.Certi = tokens[9];
+	
 	employeemanager.Add(new_employee);
 }
 
