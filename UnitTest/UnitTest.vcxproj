@@ -39,6 +39,7 @@
     <ClCompile Include="EmployeeManager_Unittest2.cpp" />
     <ClCompile Include="EmployeeManager_unittest_hm.cpp" />
     <ClCompile Include="File_Unittest.cpp" />
+    <ClCompile Include="IntegrationTest.cpp" />
     <ClCompile Include="Parser_Unittest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
