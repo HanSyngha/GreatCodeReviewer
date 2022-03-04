@@ -222,7 +222,12 @@ string Parser::request_management(const vector<string> tokens) {
 
 string Parser::make_return_str(const map<int, Employee> recived_value, string commad, bool print_option)
 {
-	return string();
+	string return_str;
+	for (auto iter = recived_value.begin(); iter != recived_value.end(); iter++) {
+		return_str += commad + "," + (iter)->second.EmpNo + "," + (iter)->second.Name + "," + (iter)->second.Career_level + "," + (iter)->second.Phone_number + "," + (iter)->second.BirthDay + "," + (iter)->second.Certi;
+		return_str += "\n";
+	}
+	return return_str;
 }
 
 string Parser::parse(const string input_txt)
