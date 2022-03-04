@@ -14,28 +14,6 @@
 
 using namespace std;
 
-
-vector<string> split_birth(const string birth) {
-	vector<string> tokens;
-	string year = "0000";
-	string month = "00";
-	string day = "00";
-
-	for (int idx = 0; idx < 4; idx++)
-		year[idx] = birth[idx];
-	tokens.push_back(year);
-
-	for (int idx = 0; idx < 2; idx++)
-		month[idx] = birth[4 + idx];
-	tokens.push_back(month);
-
-	for (int idx = 0; idx < 2; idx++)
-		day[idx] = birth[6 + idx];
-	tokens.push_back(day);
-
-	return tokens;
-}
-
 bool check_value_type(const string value) {
 	if (value[0] == '0')
 		return false;
@@ -93,7 +71,7 @@ void Parser::request_add(const vector<string> tokens) {
 }
 
 string Parser::request_del(const vector<string> tokens) {
-	string return_str,name,number;
+	string return_str;
 	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
@@ -109,34 +87,27 @@ string Parser::request_del(const vector<string> tokens) {
 		cout << recived_value.size() << endl;
 		break;
 	case FIRSTNAME:
-		name = p_splitString(value, ' ')[0];
-		recived_value = employeemanager.DeleteByFirstName(column, name);
+		recived_value = employeemanager.DeleteByFirstName(column, value);
 		break;
 	case MIDNUMBER:
-		number = p_splitString(value, '-')[1];
-		recived_value = employeemanager.DeleteByPhoneMidNumber(column, number);
+		recived_value = employeemanager.DeleteByPhoneMidNumber(column, value);
 		break;
 	case LAST:
 		if (check_value_type(value)) {
-			name = p_splitString(value, ' ')[1];
-			recived_value = employeemanager.DeleteByLastName(column, name);
+			recived_value = employeemanager.DeleteByLastName(column, value);
 		}
 		else {
-			number = p_splitString(value, '-')[2];
-			recived_value = employeemanager.DeleteByPhoneLastNumber(column, number);
+			recived_value = employeemanager.DeleteByPhoneLastNumber(column, value);
 		}
 		break;
 	case YEAR:
-		number = split_birth(value)[0];
-		recived_value = employeemanager.DeleteByBirthYear(column, number);
+		recived_value = employeemanager.DeleteByBirthYear(column, value);
 		break;
 	case MONTH:
-		number = split_birth(value)[1];
-		recived_value = employeemanager.DeleteByBirthMonth(column, number);
+		recived_value = employeemanager.DeleteByBirthMonth(column, value);
 		break;
 	case DAY:
-		number = split_birth(value)[2];
-		recived_value = employeemanager.DeleteByBirthDay(column, number);
+		recived_value = employeemanager.DeleteByBirthDay(column, value);
 		break;
 	default:
 		break;
@@ -147,7 +118,7 @@ string Parser::request_del(const vector<string> tokens) {
 }
 
 string Parser::request_search(const vector<string> tokens) {
-	string return_str, name, number;
+	string return_str;
 	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
@@ -161,34 +132,27 @@ string Parser::request_search(const vector<string> tokens) {
 		recived_value = employeemanager.SearchWithNoOption(column, value);
 		break;
 	case FIRSTNAME:
-		name = p_splitString(value, ' ')[0];
-		recived_value = employeemanager.SearchByFirstName(column, name);
+		recived_value = employeemanager.SearchByFirstName(column, value);
 		break;
 	case MIDNUMBER:
-		number = p_splitString(value, '-')[1];
-		recived_value = employeemanager.SearchByPhoneMidNumber(number, value);
+		recived_value = employeemanager.SearchByPhoneMidNumber(column, value);
 		break;
 	case LAST:
 		if (check_value_type(value)) {
-			name = p_splitString(value, ' ')[1];
-			recived_value = employeemanager.SearchByLastName(name, value);
+			recived_value = employeemanager.SearchByLastName(column, value);
 		}
 		else {
-			number = p_splitString(value, '-')[2];
 			recived_value = employeemanager.DeleteByPhoneLastNumber(column, value);
 		}
 		break;
 	case YEAR:
-		number = split_birth(value)[0];
-		recived_value = employeemanager.SearchByBirthYear(column, number);
+		recived_value = employeemanager.SearchByBirthYear(column, value);
 		break;
 	case MONTH:
-		number = split_birth(value)[1];
-		recived_value = employeemanager.SearchByBirthMonth(column, number);
+		recived_value = employeemanager.SearchByBirthMonth(column, value);
 		break;
 	case DAY:
-		number = split_birth(value)[2];
-		recived_value = employeemanager.SearchByBirthDay(column, number);
+		recived_value = employeemanager.SearchByBirthDay(column, value);
 		break;
 	default:
 		break;
@@ -199,7 +163,7 @@ string Parser::request_search(const vector<string> tokens) {
 }
 
 string Parser::request_mod(const vector<string> tokens) {
-	string return_str, name, number;
+	string return_str;
 	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
@@ -215,34 +179,27 @@ string Parser::request_mod(const vector<string> tokens) {
 		recived_value = employeemanager.ModifyWithNoOption(search_column, search_value,target_column,target_value);
 		break;
 	case FIRSTNAME:
-		name = p_splitString(search_value, ' ')[0];
-		recived_value = employeemanager.ModifyByFirstName(search_column, name,target_column,target_value);
+		recived_value = employeemanager.ModifyByFirstName(search_column, search_value,target_column,target_value);
 		break;
 	case MIDNUMBER:
-		number = p_splitString(search_value, '-')[1];
-		recived_value = employeemanager.ModifyByPhoneMidNumber(search_column, number,target_column,target_value);
+		recived_value = employeemanager.ModifyByPhoneMidNumber(search_column, search_value,target_column,target_value);
 		break;
 	case LAST:
 		if (check_value_type(search_value)) {
-			name = p_splitString(search_value, ' ')[1];
-			recived_value = employeemanager.ModifyByLastName(search_column, name,target_column,target_value);
+			recived_value = employeemanager.ModifyByLastName(search_column, search_value,target_column,target_value);
 		}
 		else {
-			number = p_splitString(search_value, '-')[2];
-			recived_value = employeemanager.ModifyByPhoneLastNumber(search_column, number,target_column,target_value);
+			recived_value = employeemanager.ModifyByPhoneLastNumber(search_column, search_value,target_column,target_value);
 		}
 		break;
 	case YEAR:
-		number = split_birth(search_value)[0];
-		recived_value = employeemanager.ModifyByBirthYear(search_column, number,target_column,target_value);
+		recived_value = employeemanager.ModifyByBirthYear(search_column, search_value,target_column,target_value);
 		break;
 	case MONTH:
-		number = split_birth(search_value)[1];
-		recived_value = employeemanager.ModifyByBirthMonth(search_column, number,target_column,target_value);
+		recived_value = employeemanager.ModifyByBirthMonth(search_column, search_value,target_column,target_value);
 		break;
 	case DAY:
-		number = split_birth(search_value)[2];
-		recived_value = employeemanager.ModifyByBirthDay(search_column, number,target_column,target_value);
+		recived_value = employeemanager.ModifyByBirthDay(search_column, search_value,target_column,target_value);
 		break;
 	default:
 		break;
