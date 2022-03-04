@@ -6,13 +6,13 @@
 using namespace std;
 
 void initEmployeeData(EmployeeManager& em) {
-	em.Add({ "85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "8900", "1478", "1978", "02", "28", "ADV" });
-	em.Add({ "08117441", "BMU MPOSXU", "CL3", "010-2703-3153", "2703", "3153", "2001", "02", "15", "ADV" });
-	em.Add({ "10127115", "KBU MHU", "CL3", "010-3284-4054", "3284", "4054", "1966", "08" "14", "ADV" });
-	em.Add({ "12117017", "LFIS JJIVL", "CL1", "010-7914-4067", "7914", "4067", "2012", "08", "12", "PRO" });
-	em.Add({ "11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "6734", "2289", "1999", "10", "01", "PRO" });
-	em.Add({ "11109136", "QKAHCEX LTODDO", "CL4", "010-2627-8566", "2627", "8566", "1964", "01", "30", "PRO" });
-	em.Add({ "05101762", "VCUHLE HMU", "CL4", "010-3988-9289", "3988", "9289", "2003", "08", "19", "PRO" });
+	em.Add({ "85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV" });
+	em.Add({ "08117441", "BMU MPOSXU", "CL3", "010-2703-3153", "20010215", "ADV" });
+	em.Add({ "10127115", "KBU MHU", "CL3", "010-3284-4054", "19660814", "ADV" });
+	em.Add({ "12117017", "LFIS JJIVL", "CL1", "010-7914-4067", "20120812", "PRO" });
+	em.Add({ "11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "19991001", "PRO" });
+	em.Add({ "11109136", "QKAHCEX LTODDO", "CL4", "010-2627-8566", "19640130", "PRO" });
+	em.Add({ "05101762", "VCUHLE HMU", "CL4", "010-3988-9289", "20030819", "PRO" });
 }
 
 TEST(EmployeeManagerTest2, SearchNoOptionTest) {
@@ -32,7 +32,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 	results.clear();
 
 	//Add CL4
-	em.Add({ "20091154", "LFIS AEDLW", "CL4", "010-6681-1104", "6681", "1104", "2008", "11", "13", "ADV" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL4", "010-6681-1104", "20081113", "ADV" });
 	results = em.SearchWithNoOption("cl", "cl4");
 	EXPECT_EQ(3, results.size());
 	results.clear();
@@ -54,7 +54,7 @@ TEST(EmployeeManagerTest2, SearchFirstNameTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-6681-1104", "6681", "1104", "2008", "11", "13", "ADV" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-6681-1104", "20081113", "ADV" });
 	results = em.SearchByFirstName("name", "LFIS");
 	EXPECT_EQ(2, results.size());
 	results.clear();
@@ -87,7 +87,7 @@ TEST(EmployeeManagerTest2, SearchLastNameTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "QKAHCEX MPOSXU", "CL4", "010-1978-6651", "1978", "6651", "2010", "01", "11", "PRO" });
+	em.Add({ "20091154", "QKAHCEX MPOSXU", "CL4", "010-1978-6651", "20100111", "PRO" });
 	results = em.SearchByLastName("name", "MPOSXU");
 	EXPECT_EQ(2, results.size());
 	results.clear();
@@ -124,7 +124,7 @@ TEST(EmployeeManagerTest2, SearchPhoneMiddleNumberTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-2808", "7914", "2808", "2011", "09", "25", "PRO" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-2808", "20110925", "PRO" });
 	results = em.SearchByPhoneMidNumber("phoneNum", "7914");
 	EXPECT_EQ(2, results.size());
 	results.clear();
@@ -157,7 +157,7 @@ TEST(EmployeeManagerTest2, SearchPhoneLastNumberTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "7914", "8566", "2011", "09", "25", "PRO" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20110925", "PRO" });
 	results = em.SearchByPhoneLastNumber("phoneNum", "8566");
 	EXPECT_EQ(2, results.size());
 	results.clear();
@@ -190,7 +190,7 @@ TEST(EmployeeManagerTest2, SearchBirthYearTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "7914", "8566", "2012", "09", "25", "PRO" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120925", "PRO" });
 	results = em.SearchByBirthYear("birthday", "2012");
 	EXPECT_EQ(2, results.size());
 	results.clear();
@@ -223,7 +223,7 @@ TEST(EmployeeManagerTest2, SearchBirthMonthTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "7914", "8566", "2012", "02", "25", "PRO" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120225", "PRO" });
 	results = em.SearchByBirthMonth("birthday", "02");
 	EXPECT_EQ(3, results.size());
 	results.clear();
@@ -256,7 +256,7 @@ TEST(EmployeeManagerTest2, SearchBirthDayTest) {
 	results.clear();
 
 	//Add
-	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "7914", "8566", "2012", "02", "15", "PRO" });
+	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120215", "PRO" });
 	results = em.SearchByBirthDay("birthday", "15");
 	EXPECT_EQ(2, results.size());
 	results.clear();
