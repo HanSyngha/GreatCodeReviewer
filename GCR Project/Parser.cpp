@@ -68,7 +68,7 @@ void Parser::request_add(const vector<string> tokens) {
 	new_employee.Career_level = tokens[9];
 
 	//[Bug] Link Error
-	//employeemanager.Add(new_employee);
+	employeemanager.Add(new_employee);
 }
 
 string Parser::request_del(const vector<string> tokens) {
@@ -217,8 +217,8 @@ string Parser::request_management(const vector<string> tokens) {
 		return request_search(tokens);
 	else if (!tokens[0].compare("MOD"))
 		return request_mod(tokens);
-	else
-		return string();
+	
+	return string();
 }
 
 string Parser::make_return_str(const map<int, Employee> recived_value)
