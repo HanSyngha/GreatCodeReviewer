@@ -4,8 +4,6 @@
 #include <sstream>
 #include <vector>
 
-
-//TODO: parser도 필요한 작업일듯, common으로?
 std::vector<std::string> splitString(const std::string& orgString, const char delimiter) {
 	std::vector<std::string> tokens;
 	std::istringstream strStream(orgString);
@@ -31,7 +29,7 @@ int EmployeeManager::GetEmployeeSize() {
 std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue)
 {
 	clearResults();
-	//TODO: refactoring 필요
+
 	for (auto& dbInfo : m_Employees) {
 		if ((targetColumn == "empNo" && dbInfo.second.EmpNo == targetValue) ||
 			(targetColumn == "cl" && dbInfo.second.Career_level == targetValue) ||
@@ -62,7 +60,6 @@ void EmployeeManager::Modify(Employee& employee, std::string column, std::string
 }
 
 std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -79,8 +76,6 @@ std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string targetCol
 }
 
 std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -96,11 +91,10 @@ std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string targetColu
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');
 		if (tokens[1] == targetValue) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			Modify(dbInfo.second, changeColumn, changeValue);
@@ -112,11 +106,10 @@ std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string targ
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');
 		if (tokens[2] == targetValue) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			Modify(dbInfo.second, changeColumn, changeValue);
@@ -128,7 +121,6 @@ std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string tar
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -143,7 +135,6 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string targetCol
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -158,7 +149,6 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string targetCo
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -173,12 +163,11 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string targetColu
 	return m_Results;
 }
 
-//TODO: column을 parser가 어떻게 넘겨줘야 하나?
 //[Delelte]
 std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, std::string value)
 {
 	clearResults();
-	//TODO: refactoring 필요
+
 	auto iter = m_Employees.begin();
 	while (iter != m_Employees.end()) {
 		if ((column == "empNo" && (*iter).second.EmpNo == value) ||
@@ -193,7 +182,6 @@ std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, 
 	return m_Results; //copy values
 }
 std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 	
 	auto iter = m_Employees.begin();
@@ -209,7 +197,6 @@ std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByLastName(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	auto iter = m_Employees.begin();
@@ -225,7 +212,6 @@ std::map<int, Employee> EmployeeManager::DeleteByLastName(std::string column, st
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByPhoneMidNumber(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	auto iter = m_Employees.begin();
@@ -241,12 +227,11 @@ std::map<int, Employee> EmployeeManager::DeleteByPhoneMidNumber(std::string colu
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByPhoneLastNumber(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	auto iter = m_Employees.begin();
 	while (iter != m_Employees.end()) {
-		std::vector<std::string> tokens = splitString((*iter).second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+		std::vector<std::string> tokens = splitString((*iter).second.Phone_number, '-');
 		if (tokens[2] == value) {
 			m_Results[(*iter).first] = (*iter).second;
 			m_Employees.erase((*iter++).first);
@@ -257,7 +242,6 @@ std::map<int, Employee> EmployeeManager::DeleteByPhoneLastNumber(std::string col
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	auto iter = m_Employees.begin();
@@ -272,7 +256,6 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	auto iter = m_Employees.begin();
@@ -287,7 +270,6 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, 
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	auto iter = m_Employees.begin();
@@ -306,7 +288,7 @@ std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, st
 std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, std::string value)
 {
 	clearResults();
-	//TODO: refactoring 필요
+
 	for (auto& dbInfo : m_Employees) {
 		if ((column == "empNo" && dbInfo.second.EmpNo == value) ||
 			(column == "cl" && dbInfo.second.Career_level == value) ||
@@ -320,7 +302,6 @@ std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, 
 	return m_Results; //copy values
 }
 std::map<int, Employee> EmployeeManager::SearchByFirstName(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -335,7 +316,6 @@ std::map<int, Employee> EmployeeManager::SearchByFirstName(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByLastName(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -350,11 +330,10 @@ std::map<int, Employee> EmployeeManager::SearchByLastName(std::string column, st
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByPhoneMidNumber(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	
 		if (tokens[1] == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
@@ -365,11 +344,10 @@ std::map<int, Employee> EmployeeManager::SearchByPhoneMidNumber(std::string colu
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByPhoneLastNumber(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	//PhoneLast, PhoneMid도 있긴 하다.
+		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');
 		if (tokens[2] == value) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
@@ -380,7 +358,6 @@ std::map<int, Employee> EmployeeManager::SearchByPhoneLastNumber(std::string col
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -394,7 +371,6 @@ std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, s
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -408,7 +384,6 @@ std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, 
 	return m_Results;
 }
 std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, std::string value) {
-	//TODO: column을 쓸일이 없다.
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
@@ -421,5 +396,3 @@ std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, st
 	}
 	return m_Results;
 }
-
-
