@@ -19,7 +19,7 @@ public:
 
 	void Modify(Employee& employee, std::string column, std::string value);
 
-	std::map<int, Employee> ModifyWithNoOption(std::string column, std::string value, std::string tagetValue);
+	std::map<int, Employee> ModifyWithNoOption(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
 	std::map<int, Employee> ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue);
