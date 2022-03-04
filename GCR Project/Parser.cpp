@@ -67,12 +67,12 @@ void Parser::request_add(const vector<string> tokens) {
 	new_employee.BirthDay = tokens[8];
 	new_employee.Career_level = tokens[9];
 
-	//[Bug] Link Error
 	employeemanager.Add(new_employee);
 }
 
 string Parser::request_del(const vector<string> tokens) {
 	string return_str;
+	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
 	int search_option = get_search_option(tokens[2]);
@@ -111,13 +111,13 @@ string Parser::request_del(const vector<string> tokens) {
 		break;
 	}
 	
-	if (print_option)
-		make_return_str(recived_value);
+	return_str = make_return_str(recived_value, command, print_option);
 	return return_str;
 }
 
 string Parser::request_search(const vector<string> tokens) {
 	string return_str;
+	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
 	int search_option = get_search_option(tokens[2]);
@@ -156,13 +156,13 @@ string Parser::request_search(const vector<string> tokens) {
 		break;
 	}
 
-	if (print_option)
-		make_return_str(recived_value);
+	return_str = make_return_str(recived_value, command, print_option);
 	return return_str;
 }
 
 string Parser::request_mod(const vector<string> tokens) {
 	string return_str;
+	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
 	int search_option = get_search_option(tokens[2]);
@@ -203,8 +203,7 @@ string Parser::request_mod(const vector<string> tokens) {
 		break;
 	}
 
-	if (print_option)
-		return_str = make_return_str(recived_value);
+	return_str = make_return_str(recived_value, command, print_option);
 	return return_str;
 }
 
@@ -221,9 +220,14 @@ string Parser::request_management(const vector<string> tokens) {
 	return string();
 }
 
-string Parser::make_return_str(const map<int, Employee> recived_value)
+string Parser::make_return_str(const map<int, Employee> recived_value, string commad, bool print_option)
 {
-	return string();
+	string return_str;
+	for (auto iter = recived_value.begin(); iter != recived_value.end(); iter++) {
+		return_str += commad + "," + (iter)->second.EmpNo + "," + (iter)->second.Name + "," + (iter)->second.Career_level + "," + (iter)->second.Phone_number + "," + (iter)->second.BirthDay + "," + (iter)->second.Certi;
+		return_str += "\n";
+	}
+	return return_str;
 }
 
 string Parser::parse(const string input_txt)
