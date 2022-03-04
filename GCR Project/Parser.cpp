@@ -2,6 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <map>
 
 #define NOOPTION 0
 #define FIRSTNAME 1
@@ -66,14 +67,13 @@ void Parser::request_add(const vector<string> tokens) {
 	new_employee.BirthDay = tokens[8];
 	new_employee.Career_level = tokens[9];
 
-	EmployeeManager employee = EmployeeManager();
 	//[Bug] Link Error
-	//employee.Add(new_employee);
+	//employeemanager.Add(new_employee);
 }
 
 string Parser::request_del(const vector<string> tokens) {
-	string return_str = string();
-	string recived_str = string();
+	string return_str;
+	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
 	int search_option = get_search_option(tokens[2]);
 	string column = tokens[4];
@@ -82,51 +82,43 @@ string Parser::request_del(const vector<string> tokens) {
 	switch (search_option)
 	{
 	case NOOPTION:
-		//[Bug] Link Error
-		//recived_str = EM.DeleteWithNoOption(column, value);
+		recived_value = employeemanager.DeleteWithNoOption(column, value);
 		break;
 	case FIRSTNAME:
-		//[Bug] Link Error
-		//recived_str = EM.DeleteByFirstName(column, value);
+		recived_value = employeemanager.DeleteByFirstName(column, value);
 		break;
 	case MIDNUMBER:
-		//[Bug] Link Error
-		//recived_str = EM.DeleteByPhoneMidNumber(column, value);
+		recived_value = employeemanager.DeleteByPhoneMidNumber(column, value);
 		break;
 	case LAST:
 		if (check_value_type(value)) {
-			//[Bug] Link Error
-			//recived_str = EM.DeleteByLastName(column, value);
+			recived_value = employeemanager.DeleteByLastName(column, value);
 		}
 		else {
-			//[Bug] Link Error
-			//recived_str = EM.DeleteByPhoneLastNumber(column, value)
+			recived_value = employeemanager.DeleteByPhoneLastNumber(column, value);
 		}
 		break;
 	case YEAR:
-		//[Bug] Link Error
-		//recived_str = EM.DeleteByBirthYear(column, value);
+		recived_value = employeemanager.DeleteByBirthYear(column, value);
 		break;
 	case MONTH:
-		//[Bug] Link Error
-		//recived_str = EM.DeleteByBirthMonth(column, value);
+		recived_value = employeemanager.DeleteByBirthMonth(column, value);
 		break;
 	case DAY:
-		//[Bug] Link Error
-		//recived_str = EM.DeleteByBirthDay(column, value);
+		recived_value = employeemanager.DeleteByBirthDay(column, value);
 		break;
 	default:
 		break;
 	}
 	
 	if (print_option)
-		make_return_str(return_str);
+		make_return_str(recived_value);
 	return return_str;
 }
 
 string Parser::request_search(const vector<string> tokens) {
-	string return_str = string();
-	string recived_str = string();
+	string return_str;
+	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
 	int search_option = get_search_option(tokens[2]);
 	string column = tokens[4];
@@ -135,51 +127,43 @@ string Parser::request_search(const vector<string> tokens) {
 	switch (search_option)
 	{
 	case NOOPTION:
-		//[Bug] Link Error
-		//recived_str = EM.SearchWithNoOption(column, value);
+		recived_value = employeemanager.SearchWithNoOption(column, value);
 		break;
 	case FIRSTNAME:
-		//[Bug] Link Error
-		//recived_str = EM.SearchByFirstName(column, value);
+		recived_value = employeemanager.SearchByFirstName(column, value);
 		break;
 	case MIDNUMBER:
-		//[Bug] Link Error
-		//recived_str = EM.SearchByPhoneMidNumber(column, value);
+		recived_value = employeemanager.SearchByPhoneMidNumber(column, value);
 		break;
 	case LAST:
 		if (check_value_type(value)) {
-			//[Bug] Link Error
-			//recived_str = EM.SearchByLastName(column, value);
+			recived_value = employeemanager.SearchByLastName(column, value);
 		}
 		else {
-			//[Bug] Link Error
-			//recived_str = EM.DeleteByPhoneLastNumber(column, value)
+			recived_value = employeemanager.DeleteByPhoneLastNumber(column, value);
 		}
 		break;
 	case YEAR:
-		//[Bug] Link Error
-		//recived_str = EM.SearchByBirthYear(column, value);
+		recived_value = employeemanager.SearchByBirthYear(column, value);
 		break;
 	case MONTH:
-		//[Bug] Link Error
-		//recived_str = EM.SearchByBirthMonth(column, value);
+		recived_value = employeemanager.SearchByBirthMonth(column, value);
 		break;
 	case DAY:
-		//[Bug] Link Error
-		//recived_str = EM.SearchByBirthDay(column, value);
+		recived_value = employeemanager.SearchByBirthDay(column, value);
 		break;
 	default:
 		break;
 	}
 
 	if (print_option)
-		make_return_str(return_str);
+		make_return_str(recived_value);
 	return return_str;
 }
 
 string Parser::request_mod(const vector<string> tokens) {
-	string return_str = string();
-	string recived_str = string();
+	string return_str;
+	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
 	int search_option = get_search_option(tokens[2]);
 	string search_column = tokens[4];
@@ -190,45 +174,37 @@ string Parser::request_mod(const vector<string> tokens) {
 	switch (search_option)
 	{
 	case NOOPTION:
-		//[Bug] Link Error
-		//recived_str = EM.ModifyWithNoOption(search_column, search_value,target_column,target_value);
+		recived_value = employeemanager.ModifyWithNoOption(search_column, search_value,target_column,target_value);
 		break;
 	case FIRSTNAME:
-		//[Bug] Link Error
-		//recived_str = EM.ModifyByFirstName(search_column, search_value,target_column,target_value);
+		recived_value = employeemanager.ModifyByFirstName(search_column, search_value,target_column,target_value);
 		break;
 	case MIDNUMBER:
-		//[Bug] Link Error
-		//recived_str = EM.ModifyByPhoneMidNumber(search_column, search_value,target_column,target_value);
+		recived_value = employeemanager.ModifyByPhoneMidNumber(search_column, search_value,target_column,target_value);
 		break;
 	case LAST:
 		if (check_value_type(search_value)) {
-			//[Bug] Link Error
-			//recived_str = EM.ModifyByLastName(search_column, search_value,target_column,target_value);
+			recived_value = employeemanager.ModifyByLastName(search_column, search_value,target_column,target_value);
 		}
 		else {
-			//[Bug] Link Error
-			//recived_str = EM.ModifyByPhoneLastNumber(search_column, search_value,target_column,target_value);
+			recived_value = employeemanager.ModifyByPhoneLastNumber(search_column, search_value,target_column,target_value);
 		}
 		break;
 	case YEAR:
-		//[Bug] Link Error
-		//recived_str = EM.ModifyByBirthYear(search_column, search_value,target_column,target_value);
+		recived_value = employeemanager.ModifyByBirthYear(search_column, search_value,target_column,target_value);
 		break;
 	case MONTH:
-		//[Bug] Link Error
-		//recived_str = EM.ModifyByBirthMonth(search_column, search_value,target_column,target_value);
+		recived_value = employeemanager.ModifyByBirthMonth(search_column, search_value,target_column,target_value);
 		break;
 	case DAY:
-		//[Bug] Link Error
-		//recived_str = EM.ModifyByBirthDay(search_column, search_value,target_column,target_value);
+		recived_value = employeemanager.ModifyByBirthDay(search_column, search_value,target_column,target_value);
 		break;
 	default:
 		break;
 	}
 
 	if (print_option)
-		return_str = make_return_str(recived_str);
+		return_str = make_return_str(recived_value);
 	return return_str;
 }
 
@@ -245,8 +221,8 @@ string Parser::request_management(const vector<string> tokens) {
 		return string();
 }
 
-string Parser::make_return_str(const string reviced_str) {
-	//TODO
+string Parser::make_return_str(const map<int, Employee> recived_value)
+{
 	return string();
 }
 
@@ -258,7 +234,5 @@ string Parser::parse(const string input_txt)
 
 	recived_str = request_management(tokens);
 	
-	return_str = make_return_str(recived_str);
-	
-	return string();
+	return recived_str;
 }
