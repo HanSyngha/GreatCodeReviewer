@@ -14,6 +14,28 @@
 
 using namespace std;
 
+
+vector<string> split_birth(const string birth) {
+	vector<string> tokens;
+	string year = "0000";
+	string month = "00";
+	string day = "00";
+
+	for (int idx = 0; idx < 4; idx++)
+		year[idx] = birth[idx];
+	tokens.push_back(year);
+
+	for (int idx = 0; idx < 2; idx++)
+		month[idx] = birth[4 + idx];
+	tokens.push_back(month);
+
+	for (int idx = 0; idx < 2; idx++)
+		day[idx] = birth[6 + idx];
+	tokens.push_back(day);
+
+	return tokens;
+}
+
 bool check_value_type(const string value) {
 	if (value[0] == '0')
 		return false;
@@ -105,13 +127,16 @@ string Parser::request_del(const vector<string> tokens) {
 		}
 		break;
 	case YEAR:
-		recived_value = employeemanager.DeleteByBirthYear(column, value);
+		number = split_birth(value)[0];
+		recived_value = employeemanager.DeleteByBirthYear(column, number);
 		break;
 	case MONTH:
-		recived_value = employeemanager.DeleteByBirthMonth(column, value);
+		number = split_birth(value)[1];
+		recived_value = employeemanager.DeleteByBirthMonth(column, number);
 		break;
 	case DAY:
-		recived_value = employeemanager.DeleteByBirthDay(column, value);
+		number = split_birth(value)[2];
+		recived_value = employeemanager.DeleteByBirthDay(column, number);
 		break;
 	default:
 		break;
@@ -154,13 +179,16 @@ string Parser::request_search(const vector<string> tokens) {
 		}
 		break;
 	case YEAR:
-		recived_value = employeemanager.SearchByBirthYear(column, value);
+		number = split_birth(value)[0];
+		recived_value = employeemanager.SearchByBirthYear(column, number);
 		break;
 	case MONTH:
-		recived_value = employeemanager.SearchByBirthMonth(column, value);
+		number = split_birth(value)[1];
+		recived_value = employeemanager.SearchByBirthMonth(column, number);
 		break;
 	case DAY:
-		recived_value = employeemanager.SearchByBirthDay(column, value);
+		number = split_birth(value)[2];
+		recived_value = employeemanager.SearchByBirthDay(column, number);
 		break;
 	default:
 		break;
@@ -205,13 +233,16 @@ string Parser::request_mod(const vector<string> tokens) {
 		}
 		break;
 	case YEAR:
-		recived_value = employeemanager.ModifyByBirthYear(search_column, search_value,target_column,target_value);
+		number = split_birth(search_value)[0];
+		recived_value = employeemanager.ModifyByBirthYear(search_column, number,target_column,target_value);
 		break;
 	case MONTH:
-		recived_value = employeemanager.ModifyByBirthMonth(search_column, search_value,target_column,target_value);
+		number = split_birth(search_value)[1];
+		recived_value = employeemanager.ModifyByBirthMonth(search_column, number,target_column,target_value);
 		break;
 	case DAY:
-		recived_value = employeemanager.ModifyByBirthDay(search_column, search_value,target_column,target_value);
+		number = split_birth(search_value)[2];
+		recived_value = employeemanager.ModifyByBirthDay(search_column, number,target_column,target_value);
 		break;
 	default:
 		break;
