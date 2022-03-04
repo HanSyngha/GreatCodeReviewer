@@ -7,7 +7,7 @@
 TEST(ParserTest, ParserAdd) {
 	Parser parser;
 	string str = parser.parse("ADD, , , ,15123099,MPOSXU,CL3,010-3112-2609,19771211,ADV");
-	EXPECT_EQ(str.compare(NULL), 0);
+	EXPECT_EQ(str.compare(""), 0);
 	EXPECT_TRUE(true);
 }
 
@@ -15,7 +15,7 @@ TEST(ParserTest, ParserDELdefult) {
 	Parser parser;
 	parser.parse("ADD, , , ,18115040,MPOSXU,CL3,010-3112-2609,19771211,ADV");
 	string str = parser.parse("DEL, , , ,employeeNum,18115040");
-	EXPECT_EQ(str.compare(NULL), 0);
+	EXPECT_EQ(str.compare(""), 0);
 	EXPECT_TRUE(true);
 }
 
@@ -37,7 +37,7 @@ TEST(ParserTest, ParserSRHNone) {
 	Parser parser;
 	parser.parse("ADD, , , ,15123099,MPOSXU,CL3,010-3112-2609,19770901,ADV");
 	string str = parser.parse("SCH,-p, , ,birthday,10");
-	EXPECT_EQ(str.compare(NULL), 0);
+	EXPECT_EQ(str.compare(""), 0);
 	EXPECT_TRUE(true);
 }
 
