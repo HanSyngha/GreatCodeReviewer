@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "../GCR Project/File.cpp"
-#include "../GCR Project/Parser.cpp"
+#include "../GCR Project/Parser.h"
 
 TEST(FileTest, FileSelfTest1) {
 	File file = File();
