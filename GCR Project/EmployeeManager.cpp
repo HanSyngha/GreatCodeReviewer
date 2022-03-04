@@ -31,9 +31,13 @@ std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string targetCo
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if ((targetColumn == "empNo" && dbInfo.second.EmpNo == targetValue) ||
+		if ((targetColumn == "employeeNum" && dbInfo.second.EmpNo == targetValue) ||
 			(targetColumn == "cl" && dbInfo.second.Career_level == targetValue) ||
-			(targetColumn == "certi" && dbInfo.second.Certi == targetValue)) {
+			(targetColumn == "certi" && dbInfo.second.Certi == targetValue) ||
+			(targetColumn == "name" && dbInfo.second.Name == targetValue) ||
+			(targetColumn == "phoneNum" && dbInfo.second.Phone_number == targetValue) ||
+			(targetColumn == "birthday" && dbInfo.second.BirthDay == targetValue)			
+			) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			Modify(dbInfo.second, changeColumn, changeValue);
 		}
@@ -170,9 +174,12 @@ std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, 
 
 	auto iter = m_Employees.begin();
 	while (iter != m_Employees.end()) {
-		if ((column == "empNo" && (*iter).second.EmpNo == value) ||
+		if ((column == "employeeNum" && (*iter).second.EmpNo == value) ||
 			(column == "cl" && (*iter).second.Career_level == value) ||
-			(column == "certi" && (*iter).second.Certi == value)) {
+			(column == "certi" && (*iter).second.Certi == value) ||
+			(column == "name" && (*iter).second.Name == value) ||
+			(column == "phoneNum" && (*iter).second.Phone_number == value) ||
+			(column == "birthday" && (*iter).second.BirthDay == value)) {
 			m_Results[(*iter).first] = (*iter).second;
 			m_Employees.erase((*iter++).first);
 			continue;
@@ -290,9 +297,12 @@ std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, 
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if ((column == "empNo" && dbInfo.second.EmpNo == value) ||
+		if ((column == "employeeNum" && dbInfo.second.EmpNo == value) ||
 			(column == "cl" && dbInfo.second.Career_level == value) ||
-			(column == "certi" && dbInfo.second.Certi == value)) {
+			(column == "certi" && dbInfo.second.Certi == value) ||
+			(column == "name" && dbInfo.second.Name == value) ||
+			(column == "phoneNum" && dbInfo.second.Phone_number == value) ||
+			(column == "birthday" && dbInfo.second.BirthDay == value)) {
 			m_Results[dbInfo.first] = dbInfo.second;
 		}
 		else {

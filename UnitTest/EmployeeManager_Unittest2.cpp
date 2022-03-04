@@ -22,7 +22,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 	initEmployeeData(em);
 
 	//EmployeeNum search
-	results = em.SearchWithNoOption("empNo", "11125777");
+	results = em.SearchWithNoOption("employeeNum", "11125777");
 	EXPECT_EQ(1, results.size());
 	results.clear();
 
