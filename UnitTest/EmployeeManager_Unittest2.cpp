@@ -60,7 +60,7 @@ TEST(EmployeeManagerTest2, SearchFirstNameTest) {
 	results.clear();
 
 	//Modify
-	em.ModifyByFirstName("name", "LFIS", "TGYH");
+	em.ModifyByFirstName("name", "LFIS", "name", "TGYH");
 	results = em.SearchByFirstName("name", "LFIS");
 	EXPECT_EQ(0, results.size());
 	results.clear();
@@ -93,7 +93,7 @@ TEST(EmployeeManagerTest2, SearchLastNameTest) {
 	results.clear();
 
 	//Modify
-	em.ModifyByLastName("name", "MPOSXU", "OOJUR");
+	em.ModifyByLastName("name", "MPOSXU", "name", "OOJUR");
 	results = em.SearchByLastName("name", "MPOSXU");
 	EXPECT_EQ(0, results.size());
 	results.clear();
@@ -119,29 +119,29 @@ TEST(EmployeeManagerTest2, SearchPhoneMiddleNumberTest) {
 
 	initEmployeeData(em);
 
-	results = em.SearchByPhoneMidNumber("phoneNum", "7914");
+	results = em.SearchByPhoneMidNumber("phone_number", "7914");
 	EXPECT_EQ(1, results.size());
 	results.clear();
 
 	//Add
 	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-2808", "20110925", "PRO" });
-	results = em.SearchByPhoneMidNumber("phoneNum", "7914");
+	results = em.SearchByPhoneMidNumber("phone_number", "7914");
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
 	//Modify
-	em.ModifyByPhoneMidNumber("phoneNum", "7914", "2567");
-	results = em.SearchByPhoneMidNumber("phoneNum", "7914");
+	em.ModifyByPhoneMidNumber("phone_number", "7914", "phone_number", "2567");
+	results = em.SearchByPhoneMidNumber("phone_number", "7914");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 
-	results = em.SearchByPhoneMidNumber("phoneNum", "2567");
+	results = em.SearchByPhoneMidNumber("phone_number", "2567");
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
 	//Delete
-	em.DeleteByPhoneMidNumber("phoneNum", "2567");
-	results = em.SearchByPhoneMidNumber("phoneNum", "2567");
+	em.DeleteByPhoneMidNumber("phone_number", "2567");
+	results = em.SearchByPhoneMidNumber("phone_number", "2567");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 }
@@ -152,29 +152,29 @@ TEST(EmployeeManagerTest2, SearchPhoneLastNumberTest) {
 
 	initEmployeeData(em);
 
-	results = em.SearchByPhoneLastNumber("phoneNum", "8566");
+	results = em.SearchByPhoneLastNumber("phone_number", "8566");
 	EXPECT_EQ(1, results.size());
 	results.clear();
 
 	//Add
 	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20110925", "PRO" });
-	results = em.SearchByPhoneLastNumber("phoneNum", "8566");
+	results = em.SearchByPhoneLastNumber("phone_number", "8566");
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
 	//Modify
-	em.ModifyByPhoneLastNumber("phoneNum", "8566", "2567");
-	results = em.SearchByPhoneLastNumber("phoneNum", "8566");
+	em.ModifyByPhoneLastNumber("phone_number", "8566", "phone_number", "2567");
+	results = em.SearchByPhoneLastNumber("phone_number", "8566");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 
-	results = em.SearchByPhoneLastNumber("phoneNum", "2567");
+	results = em.SearchByPhoneLastNumber("phone_number", "2567");
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
 	//Delete
-	em.DeleteByPhoneLastNumber("phoneNum", "2567");
-	results = em.SearchByPhoneLastNumber("phoneNum", "2567");
+	em.DeleteByPhoneLastNumber("phone_number", "2567");
+	results = em.SearchByPhoneLastNumber("phone_number", "2567");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 }
@@ -196,18 +196,18 @@ TEST(EmployeeManagerTest2, SearchBirthYearTest) {
 	results.clear();
 
 	//Modify
-	em.ModifyByBirthYear("birthday", "2012", "2003");
+	em.ModifyByBirthYear("birthDay", "2012", "birthDay", "2003");
 	results = em.SearchByBirthYear("birthday", "2012");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 
-	results = em.SearchByBirthYear("birthday", "2003");
+	results = em.SearchByBirthYear("birthDay", "2003");
 	EXPECT_EQ(3, results.size());
 	results.clear();
 
 	//Delete
-	em.DeleteByBirthYear("birthday", "2003");
-	results = em.SearchByBirthYear("birthday", "2003");
+	em.DeleteByBirthYear("birthDay", "2003");
+	results = em.SearchByBirthYear("birthDay", "2003");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 }
@@ -218,29 +218,29 @@ TEST(EmployeeManagerTest2, SearchBirthMonthTest) {
 
 	initEmployeeData(em);
 
-	results = em.SearchByBirthMonth("birthday", "02");
+	results = em.SearchByBirthMonth("birthDay", "02");
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
 	//Add
 	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120225", "PRO" });
-	results = em.SearchByBirthMonth("birthday", "02");
+	results = em.SearchByBirthMonth("birthDay", "02");
 	EXPECT_EQ(3, results.size());
 	results.clear();
 
 	//Modify
-	em.ModifyByBirthMonth("birthday", "02", "08");
-	results = em.SearchByBirthMonth("birthday", "02");
+	em.ModifyByBirthMonth("birthDay", "02", "birthDay", "08");
+	results = em.SearchByBirthMonth("birthDay", "02");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 
-	results = em.SearchByBirthMonth("birthday", "08");
+	results = em.SearchByBirthMonth("birthDay", "08");
 	EXPECT_EQ(5, results.size());
 	results.clear();
 
 	//Delete
 	em.DeleteByBirthMonth("birthday", "08");
-	results = em.SearchByBirthMonth("birthday", "08");
+	results = em.SearchByBirthMonth("birthDay", "08");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 }
@@ -251,29 +251,29 @@ TEST(EmployeeManagerTest2, SearchBirthDayTest) {
 
 	initEmployeeData(em);
 
-	results = em.SearchByBirthDay("birthday", "15");
+	results = em.SearchByBirthDay("birthDay", "15");
 	EXPECT_EQ(1, results.size());
 	results.clear();
 
 	//Add
 	em.Add({ "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120215", "PRO" });
-	results = em.SearchByBirthDay("birthday", "15");
+	results = em.SearchByBirthDay("birthDay", "15");
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
 	//Modify
-	em.ModifyByBirthDay("birthday", "15", "12");
-	results = em.SearchByBirthDay("birthday", "15");
+	em.ModifyByBirthDay("birthDay", "15", "birthDay", "12");
+	results = em.SearchByBirthDay("birthDay", "15");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 
-	results = em.SearchByBirthDay("birthday", "12");
+	results = em.SearchByBirthDay("birthDay", "12");
 	EXPECT_EQ(3, results.size());
 	results.clear();
 
 	//Delete
-	em.DeleteByBirthDay("birthday", "12");
-	results = em.SearchByBirthDay("birthday", "12");
+	em.DeleteByBirthDay("birthDay", "12");
+	results = em.SearchByBirthDay("birthDay", "12");
 	EXPECT_EQ(0, results.size());
 	results.clear();
 }
@@ -352,8 +352,8 @@ TEST(EmployeeManagerTest2, DeletePhoneMidNumberTest) {
 
 	initEmployeeData(em);
 
-	searchResults = em.SearchByPhoneMidNumber("phoneNum", "7914");
-	deleteResults = em.DeleteByPhoneMidNumber("phoneNum", "7914");
+	searchResults = em.SearchByPhoneMidNumber("phone_number", "7914");
+	deleteResults = em.DeleteByPhoneMidNumber("phone_number", "7914");
 
 	EXPECT_EQ(deleteResults.size(), searchResults.size());
 
@@ -368,8 +368,8 @@ TEST(EmployeeManagerTest2, DeletePhoneLastNumberTest) {
 
 	initEmployeeData(em);
 
-	searchResults = em.SearchByPhoneLastNumber("phoneNum", "4054");
-	deleteResults = em.DeleteByPhoneLastNumber("phoneNum", "4054");
+	searchResults = em.SearchByPhoneLastNumber("phone_number", "4054");
+	deleteResults = em.DeleteByPhoneLastNumber("phone_number", "4054");
 
 	EXPECT_EQ(deleteResults.size(), searchResults.size());
 
