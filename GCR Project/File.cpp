@@ -26,7 +26,8 @@ string File::ReadLine(void) {
 }
 
 void File::WriteLine(string strLine) {
-	outFile_ << strLine << endl;
+	if(strLine.length() > 0) 
+		outFile_ << strLine << endl;
 }
 
 void File::CloseFile(void) {
