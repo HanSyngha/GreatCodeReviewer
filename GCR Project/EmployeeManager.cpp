@@ -45,15 +45,15 @@ std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string targetCo
 }
 
 void EmployeeManager::Modify(Employee& employee, std::string column, std::string value) {
-	if (column == "empNo")
+	if (column == "employeeNum")
 		employee.EmpNo = value;
 	else if (column == "name")
 		employee.Name = value;
 	else if (column == "cl")
 		employee.Career_level = value;
-	else if (column == "phone_number")
+	else if (column == "phoneNum")
 		employee.Phone_number = value;
-	else if (column == "birthDay")
+	else if (column == "birthday")
 		employee.BirthDay = value;
 	else if (column == "certi")
 		employee.Certi = value;
@@ -124,7 +124,7 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string targetCol
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(0, 3) == targetValue) {
+		if (dbInfo.second.BirthDay.substr(0, 4) == targetValue) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			Modify(dbInfo.second, changeColumn, changeValue);
 		}
@@ -138,7 +138,7 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string targetCo
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(4, 6) == targetValue) {
+		if (dbInfo.second.BirthDay.substr(4, 2) == targetValue) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			Modify(dbInfo.second, changeColumn, changeValue);
 		}
@@ -152,7 +152,7 @@ std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string targetColu
 	clearResults();
 
 	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(7, 9) == targetValue) {
+		if (dbInfo.second.BirthDay.substr(6, 2) == targetValue) {
 			m_Results[dbInfo.first] = dbInfo.second;
 			Modify(dbInfo.second, changeColumn, changeValue);
 		}
