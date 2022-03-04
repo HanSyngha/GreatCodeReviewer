@@ -4,19 +4,19 @@
 
 
 void initEmployManager(EmployeeManager& employeeManager) {
-	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "8463", "5536", "87", "03", "19", "Pro" });
-	employeeManager.Add({ "13009500", "Hyeonmia Seo", "CL1", "010-8463-5516", "8463", "5516", "88", "11", "29", "Adv" });
-	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "8463", "5526", "89", "01", "30", "Exp" });
-	employeeManager.Add({ "13009522", "Hyeonmic Leo", "CL3", "010-8443-5536", "8443", "5536", "81", "07", "19", "Pro" });
-	employeeManager.Add({ "13009523", "Hyeonmid Aeo", "CL4", "010-8453-5536", "8453", "5536", "82", "09", "11", "Adv" });
+	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "870319", "Pro" });
+	employeeManager.Add({ "13009500", "Hyeonmia Seo", "CL1", "010-8463-5516", "881129", "Adv" });
+	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "890130", "Exp" });
+	employeeManager.Add({ "13009522", "Hyeonmic Leo", "CL3", "010-8443-5536", "810719", "Pro" });
+	employeeManager.Add({ "13009523", "Hyeonmid Aeo", "CL4", "010-8453-5536", "820911", "Adv" });
 }
 
 TEST(EmployeeManagerHMTest, AddTest) {
 	EmployeeManager employeeManager;
 	EXPECT_EQ(0, employeeManager.GetEmployeeSize());	
-	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "8463", "5536", "87", "03", "19", "Pro" });
+	employeeManager.Add({ "13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "870319", "Pro" });
 	EXPECT_EQ(1, employeeManager.GetEmployeeSize());
-	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "8463", "5526", "89", "01", "30", "Exp" });	
+	employeeManager.Add({ "13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "890130", "Exp" });	
 	EXPECT_EQ(2, employeeManager.GetEmployeeSize());
 }
 
