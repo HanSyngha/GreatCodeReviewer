@@ -39,7 +39,7 @@ int get_search_option(const string option) {
 }
 
 bool check_print_option(const string option) {
-	if (option.compare("-p"))
+	if (!option.compare("-p"))
 		return true;
 	else
 		return false;
@@ -71,7 +71,7 @@ void Parser::request_add(const vector<string> tokens) {
 }
 
 string Parser::request_del(const vector<string> tokens) {
-	string return_str;
+	string return_str,name,number;
 	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
@@ -79,23 +79,28 @@ string Parser::request_del(const vector<string> tokens) {
 	string column = tokens[4];
 	string value = tokens[5];
 
+
 	switch (search_option)
 	{
 	case NOOPTION:
 		recived_value = employeemanager.DeleteWithNoOption(column, value);
 		break;
 	case FIRSTNAME:
-		recived_value = employeemanager.DeleteByFirstName(column, value);
+		name = p_splitString(value, ' ')[0];
+		recived_value = employeemanager.DeleteByFirstName(column, name);
 		break;
 	case MIDNUMBER:
-		recived_value = employeemanager.DeleteByPhoneMidNumber(column, value);
+		number = p_splitString(value, '-')[1];
+		recived_value = employeemanager.DeleteByPhoneMidNumber(column, number);
 		break;
 	case LAST:
 		if (check_value_type(value)) {
-			recived_value = employeemanager.DeleteByLastName(column, value);
+			name = p_splitString(value, ' ')[1];
+			recived_value = employeemanager.DeleteByLastName(column, name);
 		}
 		else {
-			recived_value = employeemanager.DeleteByPhoneLastNumber(column, value);
+			number = p_splitString(value, '-')[2];
+			recived_value = employeemanager.DeleteByPhoneLastNumber(column, number);
 		}
 		break;
 	case YEAR:
@@ -220,14 +225,19 @@ string Parser::request_management(const vector<string> tokens) {
 	return string();
 }
 
-string Parser::make_return_str(const map<int, Employee> recived_value, string commad, bool print_option)
+string Parser::make_return_str(const map<int, Employee> recived_value, string command, bool print_option)
 {
 	string return_str;
 	for (auto iter = recived_value.begin(); iter != recived_value.end(); iter++) {
-		return_str += commad + "," + (iter)->second.EmpNo + "," + (iter)->second.Name + "," + (iter)->second.Career_level + "," + (iter)->second.Phone_number + "," + (iter)->second.BirthDay + "," + (iter)->second.Certi;
-		return_str += "\n";
+		if(iter != recived_value.begin())
+			return_str += "\n";
+		return_str += command + "," + (iter)->second.EmpNo + "," + (iter)->second.Name + "," + (iter)->second.Career_level + "," + (iter)->second.Phone_number + "," + (iter)->second.BirthDay + "," + (iter)->second.Certi;
 	}
-	return return_str;
+
+	if (print_option)
+		return return_str;
+	else
+		return command + " " + to_string(recived_value.size());
 }
 
 string Parser::parse(const string input_txt)
