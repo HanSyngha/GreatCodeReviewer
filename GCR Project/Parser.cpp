@@ -84,6 +84,7 @@ string Parser::request_del(const vector<string> tokens) {
 	{
 	case NOOPTION:
 		recived_value = employeemanager.DeleteWithNoOption(column, value);
+		cout << recived_value.size() << endl;
 		break;
 	case FIRSTNAME:
 		name = p_splitString(value, ' ')[0];
@@ -121,7 +122,7 @@ string Parser::request_del(const vector<string> tokens) {
 }
 
 string Parser::request_search(const vector<string> tokens) {
-	string return_str;
+	string return_str, name, number;
 	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
@@ -135,16 +136,20 @@ string Parser::request_search(const vector<string> tokens) {
 		recived_value = employeemanager.SearchWithNoOption(column, value);
 		break;
 	case FIRSTNAME:
-		recived_value = employeemanager.SearchByFirstName(column, value);
+		name = p_splitString(value, ' ')[0];
+		recived_value = employeemanager.SearchByFirstName(column, name);
 		break;
 	case MIDNUMBER:
-		recived_value = employeemanager.SearchByPhoneMidNumber(column, value);
+		number = p_splitString(value, '-')[1];
+		recived_value = employeemanager.SearchByPhoneMidNumber(number, value);
 		break;
 	case LAST:
 		if (check_value_type(value)) {
-			recived_value = employeemanager.SearchByLastName(column, value);
+			name = p_splitString(value, ' ')[1];
+			recived_value = employeemanager.SearchByLastName(name, value);
 		}
 		else {
+			number = p_splitString(value, '-')[2];
 			recived_value = employeemanager.DeleteByPhoneLastNumber(column, value);
 		}
 		break;
@@ -166,7 +171,7 @@ string Parser::request_search(const vector<string> tokens) {
 }
 
 string Parser::request_mod(const vector<string> tokens) {
-	string return_str;
+	string return_str, name, number;
 	string command = tokens[0];
 	map<int, Employee> recived_value;
 	bool print_option = check_print_option(tokens[1]);
@@ -182,17 +187,21 @@ string Parser::request_mod(const vector<string> tokens) {
 		recived_value = employeemanager.ModifyWithNoOption(search_column, search_value,target_column,target_value);
 		break;
 	case FIRSTNAME:
-		recived_value = employeemanager.ModifyByFirstName(search_column, search_value,target_column,target_value);
+		name = p_splitString(search_value, ' ')[0];
+		recived_value = employeemanager.ModifyByFirstName(search_column, name,target_column,target_value);
 		break;
 	case MIDNUMBER:
-		recived_value = employeemanager.ModifyByPhoneMidNumber(search_column, search_value,target_column,target_value);
+		number = p_splitString(search_value, '-')[1];
+		recived_value = employeemanager.ModifyByPhoneMidNumber(search_column, number,target_column,target_value);
 		break;
 	case LAST:
 		if (check_value_type(search_value)) {
-			recived_value = employeemanager.ModifyByLastName(search_column, search_value,target_column,target_value);
+			name = p_splitString(search_value, ' ')[1];
+			recived_value = employeemanager.ModifyByLastName(search_column, name,target_column,target_value);
 		}
 		else {
-			recived_value = employeemanager.ModifyByPhoneLastNumber(search_column, search_value,target_column,target_value);
+			number = p_splitString(search_value, '-')[2];
+			recived_value = employeemanager.ModifyByPhoneLastNumber(search_column, number,target_column,target_value);
 		}
 		break;
 	case YEAR:
@@ -234,10 +243,11 @@ string Parser::make_return_str(const map<int, Employee> recived_value, string co
 		return_str += command + "," + (iter)->second.EmpNo + "," + (iter)->second.Name + "," + (iter)->second.Career_level + "," + (iter)->second.Phone_number + "," + (iter)->second.BirthDay + "," + (iter)->second.Certi;
 	}
 
+
 	if (print_option)
 		return return_str;
 	else
-		return command + " " + to_string(recived_value.size());
+		return command + "," + to_string(recived_value.size());
 }
 
 string Parser::parse(const string input_txt)

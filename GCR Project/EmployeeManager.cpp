@@ -190,6 +190,7 @@ std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, 
 		}
 		iter++;
 	}
+	std::cout << m_Results.size() << "mresult" << std::endl;
 	return m_Results; //copy values
 }
 std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, std::string value) {
