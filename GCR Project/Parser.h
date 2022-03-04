@@ -1,16 +1,22 @@
-#include "common.h"
+#pragma once
+#include "EmployeeManager.h"
+#include "Employee.h"
 #include <vector>
+#include <iostream>
+using namespace std;
 
 class Parser{
 public:
+	Parser() {
+		employeemanager = EmployeeManager();
+	}
 	string request_management(const vector<string> tokens);
-	void request_add(const vector<string> tokens);
 	string request_del(const vector<string> tokens);
 	string request_search(const vector<string> tokens);
 	string request_mod(const vector<string> tokens);
-	string make_return_str(const string reviced_str);
+	string make_return_str(const map<int, Employee> recived_value);
 	string parse(const string input_txt);
-	int parse_cmd(const string cmd);
+	void request_add(const vector<string> tokens);
+private:
+	EmployeeManager employeemanager;
 };
-
-vector<string> split_birth(const string birth);
