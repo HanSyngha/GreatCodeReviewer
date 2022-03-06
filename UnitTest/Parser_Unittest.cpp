@@ -28,15 +28,14 @@ TEST(ParserTest, ParserDELbyname) {
 TEST(ParserTest, ParserSRHdefult) {
 	Parser parser;
 	parser.parse("ADD, , , ,15123099,BMU MPOSXU,CL3,010-3112-2609,19770901,ADV");
-	EXPECT_EQ(parser.parse("SCH,-p, , , certi, ADV"), "SCH,15123099,BMU MPOSXU,CL3,010-3112-2609,19770901,ADV");
+	EXPECT_EQ(parser.parse("SCH,-p, , ,certi,ADV"), "SCH,15123099,BMU MPOSXU,CL3,010-3112-2609,19770901,ADV");
 	EXPECT_TRUE(true);
 }
 
 TEST(ParserTest, ParserSRHNone) {
 	Parser parser;
 	parser.parse("ADD, , , ,15123099,BMU MPOSXU,CL3,010-3112-2609,19770901,ADV");
-	string str = parser.parse("SCH,-p, , ,birthday,10");
-	EXPECT_EQ(str.compare(""), 0);
+	EXPECT_EQ(parser.parse("SCH,-p, , ,birthday,10") , "SCH,NONE");
 	EXPECT_TRUE(true);
 }
 

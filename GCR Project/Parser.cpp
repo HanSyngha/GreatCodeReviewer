@@ -88,7 +88,6 @@ string Parser::request_del(const vector<string> tokens) {
 	{
 	case NOOPTION:
 		recived_value = employeemanager.DeleteWithNoOption(column, value);
-		cout << recived_value.size() << endl;
 		break;
 	case FIRSTNAME:
 		recived_value = employeemanager.DeleteByFirstName(column, value);
