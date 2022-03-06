@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sys/stat.h>
 #include <string>
 using namespace std;
 
@@ -12,6 +13,7 @@ public:
 	void WriteLine(string strLine);
 	void CloseFile(void);
 	bool IsValidFiles(void);
+	bool IsExistedFile(string& filename);
 
 private:
 	fstream inFile_;
