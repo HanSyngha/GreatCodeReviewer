@@ -19,12 +19,12 @@ TEST(IntegrationTest, ITScene1) {
 	Parser parser = Parser();
 
 	try {
-		do {
+		while (true) {
 			strLineForRead = file.ReadLine();
 			if (strLineForRead == "") break;
 			strLineForWrite = parser.parse(strLineForRead);
 			file.WriteLine(strLineForWrite);
-		} while (strLineForRead != "");
+		}
 	}
 	catch (const exception& e) {
 		cout << "Error : " << e.what() << endl;

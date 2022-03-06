@@ -6,6 +6,8 @@ bool File::OpenFile(string inFileName, string outFileName) {
 	outFileName_ = outFileName;
 
 	inFile_.open(inFileName, ios_base::in);
+
+	if (IsExistedFile(outFileName)) return false;
 	outFile_.open(outFileName, ios_base::out);
 
 	if (IsValidFiles() == false) return false;
@@ -37,4 +39,10 @@ void File::CloseFile(void) {
 
 bool File::IsValidFiles(void) {
 	return inFile_.is_open() && outFile_.is_open();
+}
+
+bool File::IsExistedFile(string& filename) {
+	struct stat buf;
+	if (stat(filename.c_str(), &buf) != -1) return true;
+	return false;
 }
