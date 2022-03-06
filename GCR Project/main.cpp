@@ -16,20 +16,19 @@ int main(int argc, char* argv[]) {
 	File file = File();
 	string strLineForRead;
 	string strLineForWrite;
-	bool bOpen = file.OpenFile(input_filename, output_filename);
-
-	if (bOpen == false) {
+	if (file.OpenFile(input_filename, output_filename) == false) {
 		cout << "Error : File cannot open" << endl;
 		return -1;
 	}
 
 	Parser parser = Parser();
 	
-	do {
+	while (true) {
 		strLineForRead = file.ReadLine();
+		if (strLineForRead == "") break;
 		strLineForWrite = parser.parse(strLineForRead);
 		file.WriteLine(strLineForWrite);
-	} while (strLineForRead != "");
+	}
 
 	return 0;
 }
