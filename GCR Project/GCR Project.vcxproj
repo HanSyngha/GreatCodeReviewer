@@ -157,7 +157,7 @@
     <Text Include="output_20_20.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="legay.puml" />
+    <None Include="legacy.puml" />
     <None Include="refactoring_em.puml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

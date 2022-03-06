@@ -57,7 +57,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="legay.puml">
+    <None Include="legacy.puml">
       <Filter>리소스 파일</Filter>
     </None>
     <None Include="refactoring_em.puml">

@@ -1,0 +1,226 @@
+@startuml
+circle main
+
+class File {
+-inFile_ : fstream;
+-outFile_ : fstream;
+-inFileName_ : string;
+-outFileName_ : string;
++OpenFile(string, string) : bool;
++ReadLine(void) : string ;
++WriteLine(string) : void ; 
++CloseFile(void) : void ;
++IsValidFiles(void) : bool ;
+}
+
+class Parser {
+-employeemanager : EmployeeManager;
++request_management(const vector<string>) : string
++request_del(const vector<string>) : string
++request_search(const vector<string>) : string
++request_mod(const vector<string>) : string
++make_return_str(const map<int, Employee>, string, bool) : string
++parse(const string) : string
++request_add(const vector<string>) : void
+}
+
+class EmployeeManager {
+-m_Employees : map<int, Employee>
+-m_Results : map<int, Employee>
+-m_SearcherFactory : IFactorySearcher*
+-m_ExecutorFactory : IFactoryExecutor*
++search(const Option&) : map<int, Employee>
++execute(const map<int, Employee>*, const Option&) : map<int, Employee>
+}
+
+entity Employee {
++EmpNo : string
++Name : string
++Career_level : string
++Phone_number : string
++BirthDay : string
++Certi : string
+{static} int makeKeyValueFromString(const string&)
+}
+
+enum OPTION1 {
+NONE = 0
+P
+}
+
+enum OPTION2 {
+NONE = 0,
+FIRST_NAME,
+LAST_NAME,
+MID_NUMBER,
+LAST_NUMBER,
+YEAR, 
+MONTH, 
+DAY,
+}
+
+enum COMMAND {
+NONE = 0,
+ADD,
+DEL,
+SCH,
+MOD,
+}
+
+enum COLUMN {
+NONE = 0,
+EMPLOYEENUM,
+NAME,
+CL,
+PHONENUM,
+BIRTHDAY,
+CERTI,
+}
+
+entity Option {
++cmd : COMMAND
++op1 : OPTION1
++op2 : OPTION2
+..
++employee : Employee
+..
++searchColumn : COLUMN
++searchData : string
+..
++changeColumn : COLUMN
++changeData : string
+}
+note right of Option::"employee"
+	For ADD command	
+end note
+note right of Option::"searchColumn"
+	For DEL/SCH/MOD command	
+end note
+note right of Option::"changeColumn"
+	For MOD command	only
+end note
+
+interface IFactorySearcher {
++{abstract}~IFactorySearcher()
++{abstract}getConcreteSearcher(const Option& option) const : Searcher*
+}
+
+class FactorySearcher {
+-pEmpNumSearcher_ : Searcher*
+-pNameSearcher_ : Searcher*
+-pClSearcher_ : Searcher*
+-pPhoneNumberSearcher_ : Searcher*
+-pBirthdaySearcher_ : Searcher*
+-pCertiSearcher_ : Searcher*
++{abstract}getConcreteSearcher(const Option& option) const : Searcher*
+}
+
+IFactorySearcher <|-- FactorySearcher
+
+
+abstract class Searcher {
+#pEmployees_ : map<int, Employee>*
++Searcher(map<int, Employee>*)
++{abstract}~Searcher()
++{abstract}search(const Option& option) const : map<int, Employee>
+}
+
+class EmployeeNumSearcher {
++search(const Option& option) const : map<int, Employee>
+}
+
+class NameSearcher {
++search(const Option& option) const : map<int, Employee>
+}
+
+class ClSearcher {
++search(const Option& option) const : map<int, Employee>
+}
+
+class PhoneNumberSearcher {
++search(const Option& option) const : map<int, Employee>
+}
+
+class BirthdaySearcher {
++search(const Option& option) const : map<int, Employee>
+}
+
+class CertiSearcher {
++search(const Option& option) const : map<int, Employee>
+}
+
+EmployeeNumSearcher --|> Searcher
+NameSearcher --|> Searcher
+ClSearcher --|> Searcher
+PhoneNumberSearcher --|> Searcher
+BirthdaySearcher --|> Searcher
+CertiSearcher --|> Searcher
+
+FactorySearcher .left.> EmployeeNumSearcher : <<use>>
+FactorySearcher .left.> NameSearcher : <<use>>
+FactorySearcher .right.> ClSearcher : <<use>>
+FactorySearcher .right.> PhoneNumberSearcher : <<use>>
+FactorySearcher .down.> BirthdaySearcher : <<use>>
+FactorySearcher .down.> CertiSearcher : <<use>>
+
+interface IFactoryExecutor {
++{abstract}~IFactoryExecutor()
++{abstract}getConcreteExecutor(const Option& option) : Executor*
+}
+
+class FactoryExecutor {
++m_pAddExecutor_ : Executor*
++m_pDelExecutor_ : Executor*
++m_pModExecutor_ : Executor*
++getConcreteExecutor(const Option& option) : Executor*
+}
+
+IFactoryExecutor <|-- FactoryExecutor
+
+abstract class Executor {
+#pEmployees_ : map<int, Employee>*
++{abstract}Executor(map<int, Employee>*) 
++{abstract}~Executor()
++{abstract}execute(const map<int, Employee>*, const Option&) : map<int, Employee>
+}
+
+class AddExecutor {
++AddExecutor(map<int, Employee>*)
++execute(const map<int, Employee>*, const Option&) : map<int, Employee>
+}
+
+class DeleteExecutor {
++DeleteExecutor(map<int, Employee>*)
++execute(const map<int, Employee>*, const Option&) : map<int, Employee>
+}
+
+class ModifyExecutor {
++ModifyExecutor(map<int, Employee>*)
++execute(const map<int, Employee>*, const Option&) : map<int, Employee>
+}
+
+AddExecutor --|> Executor
+DeleteExecutor --|> Executor
+ModifyExecutor --|> Executor
+
+FactoryExecutor .left.> AddExecutor : <<use>>
+FactoryExecutor .right.> DeleteExecutor : <<use>>
+FactoryExecutor .down.> ModifyExecutor: <<use>>
+
+main ..> File : <<use>>
+main ..> Parser : <<use>>
+
+Option "1"-->"1" OPTION1
+Option "1"-->"1" OPTION2 
+Option "1"-->"1" COMMAND 
+Option "1"-->"0..1" Employee
+Option "1"-->"2" COLUMN
+
+Parser ..> EmployeeManager : <<use>>
+Option <.. Parser : <<use>>
+Option <.. EmployeeManager : <<use>>
+EmployeeManager ..> IFactorySearcher : <<use>>
+EmployeeManager ..> IFactoryExecutor : <<use>>
+Employee --o EmployeeManager
+
+@enduml
