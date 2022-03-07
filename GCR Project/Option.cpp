@@ -2,14 +2,6 @@
 
 using namespace std;
 
-void Option::fillOptionCommand(string token) {
-	if (token == "ADD") cmd_ = COMMAND::ADD;
-	else if (token == "DEL") cmd_ = COMMAND::DEL;
-	else if (token == "SCH") cmd_ = COMMAND::SCH;
-	else if (token == "MOD") cmd_ = COMMAND::MOD;
-	else throw runtime_error("ERROR:: invalid COMMAND!");
-}
-
 void Option::fillOption1(string token) {
 	if (token == "-p") op1_ = OPTION1::P;
 	else op1_ = OPTION1::NONE;

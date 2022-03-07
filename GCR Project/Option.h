@@ -57,12 +57,8 @@ public:
 		}
 	}
 
-	void fillOptionCommand(string token);
 	void fillOption1(string token);
-	//void fillColumn(string token, bool isSearch);
 	virtual	void fillOption2(string token) = 0;
-	//void fillSearchData(string token);
-	//void fillChangeData(string token);
 	string getStringFromOptionCommand(void);
 
 	bool isAddCommand() { return cmd_ == COMMAND::ADD; }
