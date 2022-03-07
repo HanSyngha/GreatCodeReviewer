@@ -2,9 +2,8 @@
 
 using namespace std;
 
-map<int, Employee> EmployeeNumSearcher::search(Option* option) const {
+map<int, Employee> EmployeeNumSearcher::search(ISchOption* schOption) const {
 	std::map<int, Employee> results;
-	ISchOption* schOption = (ISchOption*)option;
 
 	int keyVal = Employee::makeKeyValueFromString(schOption->getSearchData());
 	if ((*pEmployees_).count(keyVal)) {
@@ -14,10 +13,9 @@ map<int, Employee> EmployeeNumSearcher::search(Option* option) const {
 	return results;
 }
 
-map<int, Employee> NameSearcher::search(Option* option) const {
+map<int, Employee> NameSearcher::search(ISchOption* schOption) const {
 	map<int, Employee> results;
-	ISchOption* schOption = (ISchOption*)option;
-
+	
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Name_, schOption->getOption2())) {
 			results[employee.first] = employee.second;
@@ -49,9 +47,8 @@ string NameSearcher::getOption2String(const string& name, const Option::OPTION2 
 	}
 }
 
-map<int, Employee> ClSearcher::search(Option* option) const {
+map<int, Employee> ClSearcher::search(ISchOption* schOption) const {
 	map<int, Employee> results;
-	ISchOption* schOption = (ISchOption*)option;
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Career_level_) {
@@ -62,9 +59,8 @@ map<int, Employee> ClSearcher::search(Option* option) const {
 	return results;
 }
 
-map<int, Employee> PhoneNumSearcher::search(Option* option) const {
+map<int, Employee> PhoneNumSearcher::search(ISchOption* schOption) const {
 	map<int, Employee> results;
-	ISchOption* schOption = (ISchOption*)option;
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Phone_number_, schOption->getOption2())) {
@@ -97,9 +93,8 @@ string PhoneNumSearcher::getOption2String(const string& name, const Option::OPTI
 	}
 }
 
-map<int, Employee> BirthdaySearcher::search(Option* option) const {
+map<int, Employee> BirthdaySearcher::search(ISchOption* schOption) const {
 	map<int, Employee> results;
-	ISchOption* schOption = (ISchOption*)option;
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.BirthDay_, schOption->getOption2())) {
@@ -133,9 +128,8 @@ string BirthdaySearcher::getOption2String(const string& name, const Option::OPTI
 	}
 }
 
-map<int, Employee> CertiSearcher::search(Option* option) const {
+map<int, Employee> CertiSearcher::search(ISchOption* schOption) const {
 	map<int, Employee> results;
-	ISchOption* schOption = (ISchOption*)option;
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Certi_) {
@@ -175,9 +169,9 @@ FactorySearcher::~FactorySearcher() {
 	}
 }
 
-Searcher* FactorySearcher::getConcreteSearcher(Option* option) const {
+Searcher* FactorySearcher::getConcreteSearcher(ISchOption* schOption) const {
 	Searcher* pSearcher;
-	ISchOption* schOption = (ISchOption*)option;
+	
 	if (schOption->getCommand() == Option::COMMAND::ADD) {
 		return pEmployeeNumSearcher_;
 	} 
@@ -294,12 +288,12 @@ Executor* FactoryExecutor::getConcreteExecutor(Option* option) {
 	return pExecutor;
 };
 
-map<int, Employee> EmployeeManager::search(Option* option) {
-	Searcher* pSearcher = m_SearcherFactory->getConcreteSearcher(option);
+map<int, Employee> EmployeeManager::search(ISchOption* schOption) {
+	Searcher* pSearcher = m_SearcherFactory->getConcreteSearcher(schOption);
 	if (pSearcher == nullptr)
 		throw runtime_error("ERROR:: Proper Searcher not found!!");
 
-	return pSearcher->search(option);
+	return pSearcher->search(schOption);
 }
 
 map<int, Employee> EmployeeManager::execute(const std::map<int, Employee>* searchRecords, Option* option) {

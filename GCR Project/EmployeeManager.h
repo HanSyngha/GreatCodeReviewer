@@ -11,7 +11,7 @@ class Searcher {
 public:
 	Searcher(std::map<int, Employee>* pEmployees) : pEmployees_(pEmployees) {}
 	virtual ~Searcher() {}
-	virtual std::map<int, Employee> search(Option* option) const = 0;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const = 0;
 
 protected:
 	std::map<int, Employee>* pEmployees_;
@@ -22,7 +22,7 @@ public:
 	EmployeeNumSearcher(std::map<int, Employee>* pEmployees) : Searcher(pEmployees) {}
 
 private:
-	virtual std::map<int, Employee> search(Option* option) const override;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const override;
 };
 
 class NameSearcher : public Searcher {
@@ -30,7 +30,7 @@ public:
 	NameSearcher(std::map<int, Employee>* pEmployees) : Searcher(pEmployees) {}
 
 private:
-	virtual std::map<int, Employee> search(Option* option) const override;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const override;
 	std::string getOption2String(const std::string& name, const Option::OPTION2 option) const;
 };
 
@@ -39,7 +39,7 @@ public:
 	ClSearcher(std::map<int, Employee>* pEmployees) : Searcher(pEmployees) {}
 
 private:
-	virtual std::map<int, Employee> search(Option* option) const override;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const override;
 };
 
 class PhoneNumSearcher : public Searcher {
@@ -47,7 +47,7 @@ public:
 	PhoneNumSearcher(std::map<int, Employee>* pEmployees) : Searcher(pEmployees) {}
 
 private:
-	virtual std::map<int, Employee> search(Option* option) const override;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const override;
 	std::string getOption2String(const std::string& name, const Option::OPTION2 option) const;
 };
 
@@ -56,7 +56,7 @@ public:
 	BirthdaySearcher(std::map<int, Employee>* pEmployees) : Searcher(pEmployees) {}
 
 private:
-	virtual std::map<int, Employee> search(Option* option) const override;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const override;
 	std::string getOption2String(const std::string& name, const Option::OPTION2 option) const;
 };
 
@@ -65,13 +65,13 @@ public:
 	CertiSearcher(std::map<int, Employee>* pEmployees) : Searcher(pEmployees) {}
 
 private:
-	virtual std::map<int, Employee> search(Option* option) const override;
+	virtual std::map<int, Employee> search(ISchOption* schOption) const override;
 };
 
 class IFactorySearcher {
 public:
 	virtual ~IFactorySearcher() {}
-	virtual Searcher* getConcreteSearcher(Option* option) const = 0;
+	virtual Searcher* getConcreteSearcher(ISchOption* option) const = 0;
 };
 
 class FactorySearcher : public IFactorySearcher {
@@ -80,7 +80,7 @@ public:
 	~FactorySearcher();
 
 private:
-	virtual Searcher* getConcreteSearcher(Option* option) const override;
+	virtual Searcher* getConcreteSearcher(ISchOption* option) const override;
 
 private:
 	Searcher* pEmployeeNumSearcher_;
@@ -149,7 +149,7 @@ public:
 		if (m_SearcherFactory) delete m_SearcherFactory;
 		if (m_ExecutorFactory) delete m_ExecutorFactory;
 	}
-	std::map<int, Employee> search(Option* option);
+	std::map<int, Employee> search(ISchOption* schOption);
 	std::map<int, Employee> execute(const std::map<int, Employee>* searchRecords, Option* option);
 
 private:
