@@ -8,8 +8,46 @@
 
 using namespace std;
 
-void Parser::request_add(const vector<string> tokens) {
+void Parser::check_input_format(const Employee new_employee) {
+	//EmpNo
+	if (new_employee.EmpNo.length() != EmpNo_Length)
+		throw runtime_error("[Error] Input Format Error: Employee Number\n");
 
+	//Name
+	if (stringTokenize(new_employee.Name,' ').size() != Name_chunk)
+		throw runtime_error("[Error] Input Format Error: Name\n");
+
+	//Career_Level
+	if (new_employee.Career_level != "CL1" &&
+		new_employee.Career_level != "CL2" && 
+		new_employee.Career_level != "CL3" &&
+		new_employee.Career_level != "CL4")
+		throw runtime_error("[Error] Input Format Error: Career Level\n");
+
+	//Phone_number
+	vector<string> phone_chunk = stringTokenize(new_employee.Phone_number,'-');
+	if (phone_chunk.size() != Phonenumber_chunk)
+		throw runtime_error("[Error] Input Format Error: Phone Number\n");
+	for(auto chunk:phone_chunk)
+		for(auto num:chunk)
+			if (num > '9' || num < '0')
+				throw runtime_error("[Error] Input Format Error: Phone Number\n");
+
+	//BirthDay
+	if (new_employee.BirthDay.length() != Birthday_Length)
+		throw runtime_error("[Error] Input Format Error: BirthDay\n");
+
+	for(auto num : new_employee.BirthDay)
+		if(num > '9' || num < '0')
+			throw runtime_error("[Error] Input Format Error: BirthDay\n");
+	//Certi
+	if(new_employee.Certi != "ADV" &&
+		new_employee.Certi != "PRO" &&
+		new_employee.Certi != "EX")
+		throw runtime_error("[Error] Input Format Error: Certi\n");
+}
+
+void Parser::request_add(const vector<string> tokens) {
 	map<int, Employee> results;
 	employManager_.execute(&results, { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9] }, COLUMN::NONE, "", COLUMN::NONE, "" });
 }
