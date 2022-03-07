@@ -7,14 +7,14 @@ using namespace std;
 
 class Parser{
 public:
-	string request_management(const vector<string>& tokens);
-	string request_del(const vector<string>& tokens);
-	string request_search(const vector<string>& tokens);
-	string request_mod(const vector<string>& tokens);
-	string make_return_str(const map<int, Employee>* recived_value, Option* option);
-	string parse(const string input_txt);
+	void request_management(string& return_str, const vector<string>& tokens);
+	void request_del(string& return_str, const vector<string>& tokens);
+	void request_search(string& return_str, const vector<string>& tokens);
+	void request_mod(string& return_str, const vector<string>& tokens);
+	void make_return_str(string& return_str, const EmployeeResult* recived_value, Option* option);
+	void parse(string& return_str, const string input_txt);
 
-	void request_add(const vector<string>& tokens);
+	void request_add(string& return_str, const vector<string>& tokens);
 	void check_input_format(const Employee new_employee);
 
 private:

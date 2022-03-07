@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 	while (true) {
 		strLineForRead = file.ReadLine();
 		if (strLineForRead == "") break;
-		strLineForWrite = parser.parse(strLineForRead);
+		parser.parse(strLineForWrite, strLineForRead);
 		file.WriteLine(strLineForWrite);
 	}
 

@@ -41,6 +41,7 @@ public:
 		CERTI,
 	};
 
+	static const int LimitCount = 5;
 public:
 	Option() :
 		cmd_(COMMAND::NONE),
@@ -91,11 +92,19 @@ private:
 
 class ISchOption : public Option {
 public:
+	ISchOption(string search_column, string search_data, string token2 = " ") {
+		string token1 = " ";
+		fillOption1(token1);
+		fillColumn(search_column, true);
+		fillOption2(token2);
+		fillSearchData(search_data);
+	}
 	string getSearchData() { return searchData_; }
 	COLUMN getSearchColumn() { return searchColumn_; }
 	virtual void fillOption2(string token) override;
 	void fillSearchData(string token) { searchData_ = token; }
 	void fillColumn(string token, bool isSearch);
+	static bool isLimitOverCount(int count) { return count >= Option::LimitCount; }
 protected:
 	//For DEL,SCH,MOD
 	COLUMN searchColumn_;
@@ -106,25 +115,17 @@ protected:
 
 class SchOption : public ISchOption {
 public:
-	SchOption(string search_column, string search_data, string token2 = " ") {
+	SchOption(string search_column, string search_data, string token2 = " ")
+		: ISchOption(search_column, search_data, token2) {
 		cmd_ = COMMAND::SCH;
-		string token1 = " ";
-		fillOption1(token1);
-		fillColumn(search_column, true);
-		fillOption2(token2);
-		fillSearchData(search_data);
 	}
 };
 
 class ModOption : public ISchOption {
 public:
-	ModOption(string search_column, string search_data, string target_column, string target_data, string token2 = " ") {
+	ModOption(string search_column, string search_data, string target_column, string target_data, string token2 = " ")
+		: ISchOption(search_column, search_data, token2) {
 		cmd_ = COMMAND::MOD;
-		string token1 = " ";
-		fillOption1(token1);
-		fillColumn(search_column, true);
-		fillOption2(token2);
-		fillSearchData(search_data);
 		fillColumn(target_column, false);
 		fillChangeData(target_data);
 	}
@@ -139,12 +140,10 @@ private:
 
 class DelOption : public ISchOption {
 public:
-	DelOption(string search_column, string search_data, string token2 = " ") {
+	DelOption(string search_column, string search_data, string token2 = " ")
+		: ISchOption(search_column, search_data, token2) {
 		cmd_ = COMMAND::DEL;
-		string token1 = " ";
-		fillOption1(token1);
-		fillColumn(search_column, true);
-		fillOption2(token2);
-		fillSearchData(search_data);
 	}
 };
+
+#define DBG_ASSERT(x) if (!(x)) { std::cout << "DBG_ASSERT - func:" << __FUNCTION__ << ",line:" << __LINE__ << std::endl; std::abort(); }

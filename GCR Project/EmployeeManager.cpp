@@ -2,23 +2,26 @@
 
 using namespace std;
 
-map<int, Employee>* EmployeeNumSearcher::search(ISchOption* schOption) const {
+EmployeeResult* EmployeeNumSearcher::search(ISchOption* schOption) const {
 	pResults_->clear();
 
 	int keyVal = Employee::makeKeyValueFromString(schOption->getSearchData());
 	if ((*pEmployees_).count(keyVal)) {
-		(*pResults_)[keyVal] = (*pEmployees_)[keyVal];
+		(pResults_->entity)[keyVal] = (*pEmployees_)[keyVal];
+		pResults_->increase();
 	}
 
 	return pResults_;
 }
 
-map<int, Employee>* NameSearcher::search(ISchOption* schOption) const {
+EmployeeResult* NameSearcher::search(ISchOption* schOption) const {
 	pResults_->clear();
 	
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Name_, schOption->getOption2())) {
-			(*pResults_)[employee.first] = employee.second;
+			if (ISchOption::isLimitOverCount(pResults_->count) == false)
+				(pResults_->entity)[employee.first] = employee.second;
+			pResults_->increase();
 		}
 	}
 
@@ -47,24 +50,28 @@ string NameSearcher::getOption2String(const string& name, const Option::OPTION2 
 	}
 }
 
-map<int, Employee>* ClSearcher::search(ISchOption* schOption) const {
+EmployeeResult* ClSearcher::search(ISchOption* schOption) const {
 	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Career_level_) {
-			(*pResults_)[employee.first] = employee.second;
+			if (ISchOption::isLimitOverCount(pResults_->count) == false)
+				(pResults_->entity)[employee.first] = employee.second;
+			pResults_->increase();
 		}
 	}
 
 	return pResults_;
 }
 
-map<int, Employee>* PhoneNumSearcher::search(ISchOption* schOption) const {
+EmployeeResult* PhoneNumSearcher::search(ISchOption* schOption) const {
 	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Phone_number_, schOption->getOption2())) {
-			(*pResults_)[employee.first] = employee.second;
+			if (ISchOption::isLimitOverCount(pResults_->count) == false)
+				(pResults_->entity)[employee.first] = employee.second;
+			pResults_->increase();
 		}
 	}
 
@@ -93,12 +100,14 @@ string PhoneNumSearcher::getOption2String(const string& name, const Option::OPTI
 	}
 }
 
-map<int, Employee>* BirthdaySearcher::search(ISchOption* schOption) const {
+EmployeeResult* BirthdaySearcher::search(ISchOption* schOption) const {
 	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.BirthDay_, schOption->getOption2())) {
-			(*pResults_)[employee.first] = employee.second;
+			if (ISchOption::isLimitOverCount(pResults_->count) == false)
+				(pResults_->entity)[employee.first] = employee.second;
+			pResults_->increase();
 		}
 	}
 
@@ -128,19 +137,21 @@ string BirthdaySearcher::getOption2String(const string& name, const Option::OPTI
 	}
 }
 
-map<int, Employee>* CertiSearcher::search(ISchOption* schOption) const {
+EmployeeResult* CertiSearcher::search(ISchOption* schOption) const {
 	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Certi_) {
-			(*pResults_)[employee.first] = employee.second;
+			if (ISchOption::isLimitOverCount(pResults_->count) == false)
+				(pResults_->entity)[employee.first] = employee.second;
+			pResults_->increase();
 		}
 	}
 
 	return pResults_;
 }
 
-FactorySearcher::FactorySearcher(std::map<int, Employee>* pEmployees, std::map<int, Employee>* pResults) {
+FactorySearcher::FactorySearcher(std::map<int, Employee>* pEmployees, EmployeeResult* pResults) {
 	pEmployeeNumSearcher_ = new EmployeeNumSearcher(pEmployees, pResults);
 	pNameSearcher_ = new NameSearcher(pEmployees, pResults);
 	pClSearcher_ = new ClSearcher(pEmployees, pResults);
@@ -201,26 +212,26 @@ Searcher* FactorySearcher::getConcreteSearcher(ISchOption* schOption) const {
 	return pSearcher;
 }
 
-void AddExecutor::execute(const map<int, Employee>* pSearchResult, Option* option) {
+void AddExecutor::execute(const EmployeeResult* pSearchResult, Option* option) {
 	AddOption* addOption = (AddOption*)option;
 	int key = Employee::makeKeyValueFromString(addOption->getEmployee()->EmpNo_);
 
-	if (pSearchResult->size() != 0) {
+	if (pSearchResult->count != 0) {
 		throw runtime_error("ERROR:: Data already exists!");
 		return;
 	}	
 	(*pEmployees_)[key] = *addOption->getEmployee();
 }
 
-void DeleteExecutor::execute(const map<int, Employee>* pSearchResult, Option* option) {
-	for (const auto& employee : (*pSearchResult)) {
+void DeleteExecutor::execute(const EmployeeResult* pSearchResult, Option* option) {
+	for (const auto& employee : (pSearchResult->entity)) {
 		(*pEmployees_).erase(employee.first);
 	}
 }
 
-void ModifyExecutor::execute(const std::map<int, Employee>* pSearchResult, Option* option) {
+void ModifyExecutor::execute(const EmployeeResult* pSearchResult, Option* option) {
 	ModOption* modOption = (ModOption*)option;
-	for (const auto& employee : (*pSearchResult)) {
+	for (const auto& employee : (pSearchResult->entity)) {
 		switch (modOption->getChangeColumn()) {
 		case Option::COLUMN::NAME:
 			(*pEmployees_)[employee.first].Name_ = modOption->getChangeData();
@@ -276,7 +287,7 @@ Executor* FactoryExecutor::getConcreteExecutor(Option* option) {
 	return pExecutor;
 };
 
-map<int, Employee>* EmployeeManager::search(ISchOption* schOption) {
+EmployeeResult* EmployeeManager::search(ISchOption* schOption) {
 	Searcher* pSearcher = m_SearcherFactory->getConcreteSearcher(schOption);
 	if (pSearcher == nullptr)
 		throw runtime_error("ERROR:: Proper Searcher not found!!");
@@ -284,10 +295,10 @@ map<int, Employee>* EmployeeManager::search(ISchOption* schOption) {
 	return pSearcher->search(schOption);
 }
 
-void EmployeeManager::execute(const std::map<int, Employee>* searchRecords, Option* option) {
+void EmployeeManager::execute(const EmployeeResult* searchRecords, Option* option) {
 	Executor* pExecutor = m_ExecutorFactory->getConcreteExecutor(option);
 	if (pExecutor == nullptr)
 		throw runtime_error("ERROR:: Proper Executor not found!!");
 
-	return pExecutor->execute(searchRecords, option);
+	pExecutor->execute(searchRecords, option);
 }
