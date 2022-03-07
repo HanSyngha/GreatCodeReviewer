@@ -113,389 +113,403 @@ TEST(EmployeeManagerTest2, SearchFirstNameTest) {
 	results.clear();
 }
 
-//TEST(EmployeeManagerTest2, SearchLastNameTest) {
-//	EmployeeManager em;
-//	map<int, Employee> results;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::LAST_NAME, Employee(), COLUMN::NAME, "MPOSXU", COLUMN::NONE, string() };
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Add
-//	Option option2 = { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { "20091154", "QKAHCEX MPOSXU", "CL4", "010-1978-6651", "20100111", "PRO" }, COLUMN::NONE, string(), COLUMN::NONE, string() };
-//	em.execute(&results, option2);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Modify
-//	Option option3 = { COMMAND::MOD, OPTION1::NONE, OPTION2::LAST_NAME, Employee(), COLUMN::NAME, "MPOSXU", COLUMN::CL, "CL4" };
-//	results = em.execute(&em.search(option3), option3);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	option.searchData = "RTIJ";
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Delete
-//	Option option4 = { COMMAND::DEL, OPTION1::NONE, OPTION2::LAST_NAME, Employee(), COLUMN::NAME, "RTIJ", COLUMN::NONE, string() };
-//	em.execute(&em.search(option4), option4);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(0, results.size());
-//	results.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, SearchPhoneMiddleNumberTest) {
-//	EmployeeManager em;
-//	map<int, Employee> results;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::MID_NUMBER, Employee(), COLUMN::PHONENUM, "7914", COLUMN::NONE, string() };
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Add
-//	Option option2 = { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { "20091154", "LFIS AEDLW", "CL2", "010-7914-2808", "20110925", "PRO" }, COLUMN::NONE, string(), COLUMN::NONE, string() };
-//	em.execute(&results, option2);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Modify
-//	Option option3 = { COMMAND::MOD, OPTION1::NONE, OPTION2::MID_NUMBER, Employee(), COLUMN::PHONENUM, "7914", COLUMN::CERTI, "ADV" };
-//	results = em.execute(&em.search(option3), option3);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Delete
-//	Option option4 = { COMMAND::DEL, OPTION1::NONE, OPTION2::MID_NUMBER, Employee(), COLUMN::PHONENUM, "7914", COLUMN::NONE, string() };
-//	em.execute(&em.search(option4), option4);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(0, results.size());
-//	results.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, SearchPhoneLastNumberTest) {
-//	EmployeeManager em;
-//	map<int, Employee> results;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::LAST_NUMBER, Employee(), COLUMN::PHONENUM, "8566", COLUMN::NONE, string() };
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Add
-//	Option option2 = { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20110925", "PRO" }, COLUMN::NONE, string(), COLUMN::NONE, string() };
-//	em.execute(&results, option2);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Modify
-//	Option option3 = { COMMAND::MOD, OPTION1::NONE, OPTION2::LAST_NUMBER, Employee(), COLUMN::PHONENUM, "8566", COLUMN::CERTI, "ADV" };
-//	results = em.execute(&em.search(option3), option3);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Delete
-//	Option option4 = { COMMAND::DEL, OPTION1::NONE, OPTION2::LAST_NUMBER, Employee(), COLUMN::PHONENUM, "8566", COLUMN::NONE, string() };
-//	em.execute(&em.search(option4), option4);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(0, results.size());
-//	results.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, SearchBirthYearTest) {
-//	EmployeeManager em;
-//	map<int, Employee> results;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::YEAR, Employee(), COLUMN::BIRTHDAY, "2012", COLUMN::NONE, string() };
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Add
-//	Option option2 = { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120925", "PRO" }, COLUMN::NONE, string(), COLUMN::NONE, string() };
-//	em.execute(&results, option2);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Modify
-//	Option option3 = { COMMAND::MOD, OPTION1::NONE, OPTION2::YEAR, Employee(), COLUMN::BIRTHDAY, "2012", COLUMN::NAME, "ERGY DFEH" };
-//	results = em.execute(&em.search(option3), option3);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Delete
-//	Option option4 = { COMMAND::DEL, OPTION1::NONE, OPTION2::YEAR, Employee(), COLUMN::BIRTHDAY, "2012", COLUMN::NONE, string() };
-//	em.execute(&em.search(option4), option4);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(0, results.size());
-//	results.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, SearchBirthMonthTest) {
-//	EmployeeManager em;
-//	map<int, Employee> results;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::MONTH, Employee(), COLUMN::BIRTHDAY, "02", COLUMN::NONE, string() };
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Add
-//	Option option2 = { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120225", "PRO" }, COLUMN::NONE, string(), COLUMN::NONE, string() };
-//	em.execute(&results, option2);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(3, results.size());
-//	results.clear();
-//
-//	//Modify
-//	Option option3 = { COMMAND::MOD, OPTION1::NONE, OPTION2::MONTH, Employee(), COLUMN::BIRTHDAY, "02", COLUMN::NAME, "QWRY DHUJ" };
-//	results = em.execute(&em.search(option3), option3);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(3, results.size());
-//	results.clear();
-//
-//	option.searchData = "08";
-//	results = em.search(option);
-//	EXPECT_EQ(3, results.size());
-//	results.clear();
-//
-//	//Delete
-//	Option option4 = { COMMAND::DEL, OPTION1::NONE, OPTION2::MONTH, Employee(), COLUMN::BIRTHDAY, "08", COLUMN::NONE, string() };
-//	em.execute(&em.search(option4), option4);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(0, results.size());
-//	results.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, SearchBirthDayTest) {
-//	EmployeeManager em;
-//	map<int, Employee> results;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "15", COLUMN::NONE, string() };
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Add
-//	Option option2 = { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { "20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120215", "PRO" }, COLUMN::NONE, string(), COLUMN::NONE, string() };
-//	em.execute(&results, option2);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	//Modify
-//	Option option3 = { COMMAND::MOD, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "15", COLUMN::CL, "CL2" };
-//	results = em.execute(&em.search(option3), option3);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(2, results.size());
-//	results.clear();
-//
-//	option.searchData = "12";
-//	results = em.search(option);
-//	EXPECT_EQ(1, results.size());
-//	results.clear();
-//
-//	//Delete
-//	Option option4 = { COMMAND::DEL, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "12", COLUMN::NONE, string() };
-//	em.execute(&em.search(option4), option4);
-//
-//	results = em.search(option);
-//	EXPECT_EQ(0, results.size());
-//	results.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeleteNoOptionTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	//EmployeeNum delete
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::NONE, Employee(), COLUMN::EMPLOYEENUM, "10127115", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//
-//	//CL delete
-//	option.cmd = COMMAND::SCH;
-//	option.searchColumn = COLUMN::CL;
-//	option.searchData = "CL3";
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//
-//	//Certi delete
-//	option.cmd = COMMAND::SCH;
-//	option.searchColumn = COLUMN::CERTI;
-//	option.searchData = "PRO";
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeleteFirstNameTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::FIRST_NAME, Employee(), COLUMN::NAME, "LFIS", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();	
-//}
-//
-//TEST(EmployeeManagerTest2, DeleteLastNameTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::LAST_NAME, Employee(), COLUMN::NAME, "LTODDO", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeletePhoneMidNumberTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::MID_NUMBER, Employee(), COLUMN::PHONENUM, "7914", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeletePhoneLastNumberTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::LAST_NUMBER, Employee(), COLUMN::PHONENUM, "4054", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeleteBirthYearTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::YEAR, Employee(), COLUMN::BIRTHDAY, "1966", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeleteBirthMonthTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::MONTH, Employee(), COLUMN::BIRTHDAY, "02", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
-//
-//TEST(EmployeeManagerTest2, DeleteBirthDayTest) {
-//	EmployeeManager em;
-//	map<int, Employee> searchResults;
-//	map<int, Employee> deleteResults;
-//
-//	initEmployeeData(em);
-//
-//	Option option = { COMMAND::SCH, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "30", COLUMN::NONE, string() };
-//	searchResults = em.search(option);
-//	option.cmd = COMMAND::DEL;
-//	deleteResults = em.execute(&searchResults, option);
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	EXPECT_EQ(deleteResults.size(), searchResults.size());
-//	searchResults.clear();
-//	deleteResults.clear();
-//}
+TEST(EmployeeManagerTest2, SearchLastNameTest) {
+	EmployeeManager em;
+	map<int, Employee> results;
+
+	initEmployeeData(em);
+
+	SchOption schop1 = SchOption("name", "MPOSXU", "-l");
+	results = em.search(&schop1);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Add
+	Employee employee;
+	employee.init("20091154", "QKAHCEX MPOSXU", "CL4", "010-1978-6651", "20100111", "PRO");
+	AddOption addop1 = AddOption(employee);
+	em.execute(&results, &addop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Modify
+	ModOption modop1 = ModOption("name", "MPOSXU", "cl", "CL4", "-l");
+	results = em.execute(&em.search(&modop1), &modop1);
+
+	//Search again
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	SchOption schop2 = SchOption("name", "RTIJ", "-l");
+	results = em.search(&schop2);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Delete
+	DelOption delop1 = DelOption("name", "RTIJ", "-l");
+	em.execute(&em.search(&delop1), &delop1);
+
+	results = em.search(&schop2);
+	EXPECT_EQ(0, results.size());
+	results.clear();
+}
+
+TEST(EmployeeManagerTest2, SearchPhoneMiddleNumberTest) {
+	EmployeeManager em;
+	map<int, Employee> results;
+
+	initEmployeeData(em);
+
+	SchOption schop1 = SchOption("phoneNum", "7914", "-m");
+	results = em.search(&schop1);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Add
+	Employee employee;
+	employee.init("20091154", "LFIS AEDLW", "CL2", "010-7914-2808", "20110925", "PRO");
+	AddOption addop1 = AddOption(employee);
+	em.execute(&results, &addop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Modify
+	ModOption modop1 = ModOption("phoneNum", "7914", "cl", "CL4", "-m");
+	results = em.execute(&em.search(&modop1), &modop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Delete
+	DelOption delop1 = DelOption("phoneNum", "7914", "-m");
+	em.execute(&em.search(&delop1), &delop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(0, results.size());
+	results.clear();
+}
+
+TEST(EmployeeManagerTest2, SearchPhoneLastNumberTest) {
+	EmployeeManager em;
+	map<int, Employee> results;
+
+	initEmployeeData(em);
+
+	SchOption schop1 = SchOption("phoneNum", "8566", "-l");
+	results = em.search(&schop1);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Add
+	Employee employee;
+	employee.init("20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20110925", "PRO");
+	AddOption addop1 = AddOption(employee);
+	em.execute(&results, &addop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Modify
+	ModOption modop1 = ModOption("phoneNum", "8566", "certi", "ADV", "-l");
+	results = em.execute(&em.search(&modop1), &modop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Delete
+	DelOption delop1 = DelOption("phoneNum", "8566", "-l");
+	em.execute(&em.search(&delop1), &delop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(0, results.size());
+	results.clear();
+}
+
+TEST(EmployeeManagerTest2, SearchBirthYearTest) {
+	EmployeeManager em;
+	map<int, Employee> results;
+
+	initEmployeeData(em);
+
+	SchOption schop1 = SchOption("birthday", "2012", "-y");
+	results = em.search(&schop1);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Add
+	Employee employee;
+	employee.init("20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120925", "PRO");
+	AddOption addop1 = AddOption(employee);
+	em.execute(&results, &addop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Modify
+	ModOption modop1 = ModOption("birthday", "2012", "name", "ERGY DFEH", "-y");
+	results = em.execute(&em.search(&modop1), &modop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Delete
+	DelOption delop1 = DelOption("birthday", "2012", "-y");
+	em.execute(&em.search(&delop1), &delop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(0, results.size());
+	results.clear();
+}
+
+TEST(EmployeeManagerTest2, SearchBirthMonthTest) {
+	EmployeeManager em;
+	map<int, Employee> results;
+
+	initEmployeeData(em);
+
+	SchOption schop1 = SchOption("birthday", "02", "-m");
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Add
+	Employee employee;
+	employee.init("20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120225", "PRO");
+	AddOption addop1 = AddOption(employee);
+	em.execute(&results, &addop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(3, results.size());
+	results.clear();
+
+	//Modify
+	ModOption modop1 = ModOption("birthday", "02", "name", "QWRY DHUJ", "-m");
+	results = em.execute(&em.search(&modop1), &modop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(3, results.size());
+	results.clear();
+
+	SchOption schop2 = SchOption("birthday", "08", "-m");
+	results = em.search(&schop2);
+	EXPECT_EQ(3, results.size());
+	results.clear();
+
+	//Delete
+	DelOption delop1 = DelOption("birthday", "08", "-m");
+	em.execute(&em.search(&delop1), &delop1);
+
+	results = em.search(&schop2);
+	EXPECT_EQ(0, results.size());
+	results.clear();
+}
+
+TEST(EmployeeManagerTest2, SearchBirthDayTest) {
+	EmployeeManager em;
+	map<int, Employee> results;
+
+	initEmployeeData(em);
+
+	SchOption schop1 = SchOption("birthday", "15", "-d");
+	results = em.search(&schop1);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Add
+	Employee employee;
+	employee.init("20091154", "LFIS AEDLW", "CL2", "010-7914-8566", "20120215", "PRO");
+	AddOption addop1 = AddOption(employee);
+	em.execute(&results, &addop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	//Modify
+	ModOption modop1 = ModOption("birthday", "15", "cl", "CL2", "-d");
+	results = em.execute(&em.search(&modop1), &modop1);
+
+	results = em.search(&schop1);
+	EXPECT_EQ(2, results.size());
+	results.clear();
+
+	SchOption schop2 = SchOption("birthday", "12", "-d");
+	results = em.search(&schop2);
+	EXPECT_EQ(1, results.size());
+	results.clear();
+
+	//Delete
+	DelOption delop1 = DelOption("birthday", "12", "-d");
+	em.execute(&em.search(&delop1), &delop1);
+
+	results = em.search(&schop2);
+	EXPECT_EQ(0, results.size());
+	results.clear();
+}
+
+TEST(EmployeeManagerTest2, DeleteNoOptionTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	//EmployeeNum delete
+	SchOption schop1 = SchOption("employeeNum", "10127115");
+	searchResults = em.search(&schop1);
+
+	DelOption delop1 = DelOption("employeeNum", "10127115");
+	deleteResults = em.execute(&searchResults, &delop1);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+	searchResults.clear();
+	deleteResults.clear();
+
+	//CL delete
+	SchOption schop2 = SchOption("cl", "CL3");
+	searchResults = em.search(&schop1);
+
+	DelOption delop2 = DelOption("cl", "CL3");
+	deleteResults = em.execute(&searchResults, &delop1);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+	searchResults.clear();
+	deleteResults.clear();
+
+	//Certi delete
+	SchOption schop3 = SchOption("certi", "PRO");
+	searchResults = em.search(&schop3);
+	
+	DelOption delop3 = DelOption("cl", "CL3");
+	deleteResults = em.execute(&searchResults, &delop3);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+	searchResults.clear();
+	deleteResults.clear();
+}
+
+TEST(EmployeeManagerTest2, DeleteFirstNameTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("name", "LFIS", "-f");
+	searchResults = em.search(&schop);
+	
+	DelOption delop = DelOption("name", "LFIS", "-f");
+	deleteResults = em.execute(&searchResults, &delop);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+	searchResults.clear();
+	deleteResults.clear();	
+}
+
+TEST(EmployeeManagerTest2, DeleteLastNameTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("name", "LTODDO", "-l");
+	searchResults = em.search(&schop);
+	
+	DelOption delop = DelOption("name", "LTODDO", "-l");
+	deleteResults = em.execute(&searchResults, &delop);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+	searchResults.clear();
+	deleteResults.clear();
+}
+
+TEST(EmployeeManagerTest2, DeletePhoneMidNumberTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("phoneNum", "7914", "-m");
+	searchResults = em.search(&schop);
+
+	DelOption delop = DelOption("phoneNum", "7914", "-m");
+	deleteResults = em.execute(&searchResults, &delop);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+}
+
+TEST(EmployeeManagerTest2, DeletePhoneLastNumberTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("phoneNum", "4054", "-l");
+	searchResults = em.search(&schop);
+	
+	DelOption delop = DelOption("phoneNum", "4054", "-l");
+	deleteResults = em.execute(&searchResults, &delop);
+	
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+}
+
+TEST(EmployeeManagerTest2, DeleteBirthYearTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("birthday", "1966", "-y");
+	searchResults = em.search(&schop);
+
+	DelOption delop = DelOption("birthday", "1966", "-y");
+	deleteResults = em.execute(&searchResults, &delop);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+}
+
+TEST(EmployeeManagerTest2, DeleteBirthMonthTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("birthday", "02", "-m");
+	searchResults = em.search(&schop);
+
+	DelOption delop = DelOption("birthday", "02", "-m");
+	deleteResults = em.execute(&searchResults, &delop);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+}
+
+TEST(EmployeeManagerTest2, DeleteBirthDayTest) {
+	EmployeeManager em;
+	map<int, Employee> searchResults;
+	map<int, Employee> deleteResults;
+
+	initEmployeeData(em);
+
+	SchOption schop = SchOption("birthday", "30", "-d");
+	searchResults = em.search(&schop);
+
+	DelOption delop = DelOption("birthday", "30", "-d");
+	deleteResults = em.execute(&searchResults, &delop);
+
+	EXPECT_EQ(deleteResults.size(), searchResults.size());
+}
