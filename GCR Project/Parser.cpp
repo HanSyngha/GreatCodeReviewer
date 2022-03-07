@@ -47,12 +47,12 @@ void Parser::check_input_format(const Employee new_employee) {
 		throw runtime_error("[Error] Input Format Error: Certi\n");
 }
 
-void Parser::request_add(const vector<string> tokens) {
+void Parser::request_add(const vector<string>& tokens) {
 	map<int, Employee> results;
 	employManager_.execute(&results, { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9] }, COLUMN::NONE, "", COLUMN::NONE, "" });
 }
 
-string Parser::request_del(const vector<string> tokens) {
+string Parser::request_del(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
 	Option option;
@@ -73,7 +73,7 @@ string Parser::request_del(const vector<string> tokens) {
 	return return_str;
 }
 
-string Parser::request_search(const vector<string> tokens) {
+string Parser::request_search(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
 	Option option;
@@ -91,7 +91,7 @@ string Parser::request_search(const vector<string> tokens) {
 	return return_str;
 }
 
-string Parser::request_mod(const vector<string> tokens) {
+string Parser::request_mod(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
 
@@ -114,7 +114,7 @@ string Parser::request_mod(const vector<string> tokens) {
 	return return_str;
 }
 
-string Parser::request_management(const vector<string> tokens) {
+string Parser::request_management(const vector<string>& tokens) {
 	if (!tokens[0].compare("ADD"))
 		request_add(tokens);
 	else if (!tokens[0].compare("DEL"))
@@ -154,7 +154,8 @@ string Parser::parse(const string input_txt)
 {
 	string return_str, recived_str;
 	
-	vector<string> tokens = stringTokenize(input_txt, ',');
+	vector<string> tokens;
+	stringTokenize(tokens, input_txt, ',');
 
 	recived_str = request_management(tokens);
 	
