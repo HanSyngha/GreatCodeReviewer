@@ -56,7 +56,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 	EXPECT_EQ(3, results.size());
 	results.clear();
 
-	//Certi search
+	//certi search
 	option.searchColumn = COLUMN::CERTI;
 	option.searchData = "PRO";
 	results = em.search(option);
@@ -360,7 +360,7 @@ TEST(EmployeeManagerTest2, DeleteNoOptionTest) {
 	searchResults.clear();
 	deleteResults.clear();
 
-	//Certi delete
+	//certi delete
 	option.cmd = COMMAND::SCH;
 	option.searchColumn = COLUMN::CERTI;
 	option.searchData = "PRO";

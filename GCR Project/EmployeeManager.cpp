@@ -17,7 +17,7 @@ map<int, Employee> NameSearcher::search(const Option& option) const {
 	map<int, Employee> results;
 
 	for (auto& employee : (*pEmployees_)) {
-		if (option.searchData == getOption2String(employee.second.Name, option.op2)) {
+		if (option.searchData == getOption2String(employee.second.name, option.op2)) {
 			results[employee.first] = employee.second;
 		}
 	}
@@ -51,7 +51,7 @@ map<int, Employee> ClSearcher::search(const Option& option) const {
 	map<int, Employee> results;
 
 	for (auto& employee : (*pEmployees_)) {
-		if (option.searchData == employee.second.Career_level) {
+		if (option.searchData == employee.second.cl) {
 			results[employee.first] = employee.second;
 		}
 	}
@@ -63,7 +63,7 @@ map<int, Employee> PhoneNumSearcher::search(const Option& option) const {
 	map<int, Employee> results;
 
 	for (auto& employee : (*pEmployees_)) {
-		if (option.searchData == getOption2String(employee.second.Phone_number, option.op2)) {
+		if (option.searchData == getOption2String(employee.second.phoneNum, option.op2)) {
 			results[employee.first] = employee.second;
 		}
 	}
@@ -97,7 +97,7 @@ map<int, Employee> BirthdaySearcher::search(const Option& option) const {
 	map<int, Employee> results;
 
 	for (auto& employee : (*pEmployees_)) {
-		if (option.searchData == getOption2String(employee.second.BirthDay, option.op2)) {
+		if (option.searchData == getOption2String(employee.second.birthday, option.op2)) {
 			results[employee.first] = employee.second;
 		}
 	}
@@ -132,7 +132,7 @@ map<int, Employee> CertiSearcher::search(const Option& option) const {
 	map<int, Employee> results;
 
 	for (auto& employee : (*pEmployees_)) {
-		if (option.searchData == employee.second.Certi) {
+		if (option.searchData == employee.second.certi) {
 			results[employee.first] = employee.second;
 		}
 	}
@@ -203,7 +203,7 @@ Searcher* FactorySearcher::getConcreteSearcher(const Option& option) const {
 
 map<int, Employee> AddExecutor::execute(const map<int, Employee>* pSearchResult, const Option& option) {
 	map<int, Employee> results;
-	int key = Employee::makeKeyValueFromString(option.employee.EmpNo);
+	int key = Employee::makeKeyValueFromString(option.employee.employeeNum);
 
 	if (pSearchResult->size() != 0) {
 		throw runtime_error("ERROR:: Data already exists!");
@@ -232,19 +232,19 @@ map<int, Employee> ModifyExecutor::execute(const std::map<int, Employee>* pSearc
 
 		switch (option.changeColumn) {
 		case COLUMN::NAME:
-			(*pEmployees_)[employee.first].Name = option.changeData;
+			(*pEmployees_)[employee.first].name = option.changeData;
 			break;
 		case COLUMN::CL:
-			(*pEmployees_)[employee.first].Career_level = option.changeData;
+			(*pEmployees_)[employee.first].cl = option.changeData;
 			break;
 		case COLUMN::PHONENUM:
-			(*pEmployees_)[employee.first].Phone_number = option.changeData;
+			(*pEmployees_)[employee.first].phoneNum = option.changeData;
 			break;
 		case COLUMN::BIRTHDAY:
-			(*pEmployees_)[employee.first].BirthDay = option.changeData;
+			(*pEmployees_)[employee.first].birthday = option.changeData;
 			break;
 		case COLUMN::CERTI:
-			(*pEmployees_)[employee.first].Certi = option.changeData;
+			(*pEmployees_)[employee.first].certi = option.changeData;
 			break;
 		default:
 			throw runtime_error("ERROR:: change column type is invalid!!");

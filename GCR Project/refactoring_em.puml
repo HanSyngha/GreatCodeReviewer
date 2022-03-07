@@ -2,19 +2,19 @@
 circle main
 
 class File {
--inFile_ : fstream;
--outFile_ : fstream;
--inFileName_ : string;
--outFileName_ : string;
-+OpenFile(string, string) : bool;
-+ReadLine(void) : string ;
-+WriteLine(string) : void ; 
-+CloseFile(void) : void ;
-+IsValidFiles(void) : bool ;
+-inFile_ : fstream
+-outFile_ : fstream
+-inFileName_ : string
+-outFileName_ : string
++OpenFile(string, string) : bool
++ReadLine(void) : string
++WriteLine(string) : void 
++CloseFile(void) : void
++IsValidFiles(void) : bool
 }
 
 class Parser {
--employeemanager : EmployeeManager;
+-employeemanager : EmployeeManager
 +request_management(const vector<string>) : string
 +request_del(const vector<string>) : string
 +request_search(const vector<string>) : string
@@ -43,12 +43,12 @@ entity Employee {
 }
 
 enum OPTION1 {
-NONE = 0
+NONE
 P
 }
 
 enum OPTION2 {
-NONE = 0,
+NONE,
 FIRST_NAME,
 LAST_NAME,
 MID_NUMBER,
@@ -59,14 +59,14 @@ DAY,
 }
 
 enum COMMAND {
-ADD = 0,
+ADD,
 DEL,
 SCH,
 MOD,
 }
 
 enum COLUMN {
-NONE = 0,
+NONE,
 EMPLOYEENUM,
 NAME,
 CL,

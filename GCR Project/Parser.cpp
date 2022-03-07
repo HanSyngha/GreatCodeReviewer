@@ -10,22 +10,22 @@ using namespace std;
 
 void Parser::check_input_format(const Employee new_employee) {
 	//EmpNo
-	if (new_employee.EmpNo.length() != EmpNo_Length)
+	if (new_employee.employeeNum.length() != EmpNo_Length)
 		throw runtime_error("[Error] Input Format Error: Employee Number\n");
 
 	//Name
-	if (stringTokenize(new_employee.Name,' ').size() != Name_chunk)
+	if (stringTokenize(new_employee.name,' ').size() != Name_chunk)
 		throw runtime_error("[Error] Input Format Error: Name\n");
 
 	//Career_Level
-	if (new_employee.Career_level != "CL1" &&
-		new_employee.Career_level != "CL2" && 
-		new_employee.Career_level != "CL3" &&
-		new_employee.Career_level != "CL4")
+	if (new_employee.cl != "CL1" &&
+		new_employee.cl != "CL2" && 
+		new_employee.cl != "CL3" &&
+		new_employee.cl != "CL4")
 		throw runtime_error("[Error] Input Format Error: Career Level\n");
 
 	//Phone_number
-	vector<string> phone_chunk = stringTokenize(new_employee.Phone_number,'-');
+	vector<string> phone_chunk = stringTokenize(new_employee.phoneNum,'-');
 	if (phone_chunk.size() != Phonenumber_chunk)
 		throw runtime_error("[Error] Input Format Error: Phone Number\n");
 	for(auto chunk:phone_chunk)
@@ -33,18 +33,18 @@ void Parser::check_input_format(const Employee new_employee) {
 			if (num > '9' || num < '0')
 				throw runtime_error("[Error] Input Format Error: Phone Number\n");
 
-	//BirthDay
-	if (new_employee.BirthDay.length() != Birthday_Length)
-		throw runtime_error("[Error] Input Format Error: BirthDay\n");
+	//birthday
+	if (new_employee.birthday.length() != Birthday_Length)
+		throw runtime_error("[Error] Input Format Error: birthday\n");
 
-	for(auto num : new_employee.BirthDay)
+	for(auto num : new_employee.birthday)
 		if(num > '9' || num < '0')
-			throw runtime_error("[Error] Input Format Error: BirthDay\n");
-	//Certi
-	if(new_employee.Certi != "ADV" &&
-		new_employee.Certi != "PRO" &&
-		new_employee.Certi != "EX")
-		throw runtime_error("[Error] Input Format Error: Certi\n");
+			throw runtime_error("[Error] Input Format Error: birthday\n");
+	//certi
+	if(new_employee.certi != "ADV" &&
+		new_employee.certi != "PRO" &&
+		new_employee.certi != "EX")
+		throw runtime_error("[Error] Input Format Error: certi\n");
 }
 
 void Parser::request_add(const vector<string>& tokens) {
@@ -143,7 +143,7 @@ string Parser::make_return_str(const map<int, Employee> recived_value, const Opt
 	for (auto iter = recived_value.begin(); iter != recived_value.end() && count < 5; iter++) {
 		if(iter != recived_value.begin())
 			return_str += "\n";
-		return_str += cmdString + "," + (iter)->second.EmpNo + "," + (iter)->second.Name + "," + (iter)->second.Career_level + "," + (iter)->second.Phone_number + "," + (iter)->second.BirthDay + "," + (iter)->second.Certi;
+		return_str += cmdString + "," + (iter)->second.employeeNum + "," + (iter)->second.name + "," + (iter)->second.cl + "," + (iter)->second.phoneNum + "," + (iter)->second.birthday + "," + (iter)->second.certi;
 		count++;
 	}
 
