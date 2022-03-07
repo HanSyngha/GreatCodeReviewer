@@ -10,27 +10,27 @@ void initEmployManager(EmployeeManager& employeeManager) {
 	map<int, Employee> emptyResult;
 	Employee employee;
 	employee.init("85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV");
-	AddOption option = AddOption(" ", " ", employee);
+	AddOption option = AddOption(employee);
 	employeeManager.execute(&emptyResult, &option);
 
 	employee.init("13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "19870319", "PRO");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	employeeManager.execute(&emptyResult, &option);
 
 	employee.init("13009500", "Hyeonmia Seo", "CL1", "010-8463-5516", "19881129", "ADV");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	employeeManager.execute(&emptyResult, &option);
 
 	employee.init("13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "19890130", "EXP");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	employeeManager.execute(&emptyResult, &option);
 
 	employee.init("13009522", "Hyeonmic Leo", "CL3", "010-8443-5536", "19810719", "PRO");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	employeeManager.execute(&emptyResult, &option);
 
 	employee.init("13009523", "Hyeonmid Aeo", "CL4", "010-8453-5536", "19820911", "ADV");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	employeeManager.execute(&emptyResult, &option);
 }
 
@@ -39,7 +39,7 @@ TEST(EmployeeManagerHMTest, AddTest) {
 	map<int, Employee> results;
 	Employee employee;
 	employee.init("13009524", "Hyeonmin Seo", "CL3", "010-8463-5536", "19870319", "PRO");
-	AddOption option = AddOption(" ", " ", employee);
+	AddOption option = AddOption(employee);
 	employeeManager.execute(&results, &option);
 
 	SchOption option2 = SchOption(" ", " ", "employeeNum", "13009524");
@@ -48,7 +48,7 @@ TEST(EmployeeManagerHMTest, AddTest) {
 	results.clear();
 	
 	employee.init("13009521", "Hyeonmib Eeo", "CL2", "010-8463-5526", "19890130", "EXP");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	employeeManager.execute(&results, &option);
 	
 	option2.fillSearchData("13009521");

@@ -10,31 +10,31 @@ void initEmployeeData(EmployeeManager& em) {
 	map<int, Employee> emptyResult;
 	Employee employee;
 	employee.init("85125741", "FBAH RTIJ", "CL1", "010-8900-1478", "19780228", "ADV");
-	AddOption option = AddOption(" ", " ", employee);
+	AddOption option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 
 	employee.init("08117441", "BMU MPOSXU", "CL3", "010-2703-3153", "20010215", "ADV");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 
 	employee.init("10127115", "KBU MHU", "CL3", "010-3284-4054", "19660814", "ADV");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 
 	employee.init("12117017", "LFIS JJIVL", "CL1", "010-7914-4067", "20120812", "PRO");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 
 	employee.init("11125777", "TKOQKIS HC", "CL1", "010-6734-2289", "19991001", "PRO");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 
 	employee.init("11109136", "QKAHCEX LTODDO", "CL4", "010-2627-8566", "19640130", "PRO");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 
 	employee.init("05101762", "VCUHLE HMU", "CL4", "010-3988-9289", "20030819", "PRO");
-	option = AddOption(" ", " ", employee);
+	option = AddOption(employee);
 	em.execute(&emptyResult, &option);
 }
 
@@ -60,7 +60,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 	//Add CL4
 	Employee employee;
 	employee.init("20091154", "LFIS AEDLW", "CL4", "010-6681-1104", "20081113", "ADV");
-	AddOption option2 = AddOption(" ", " ", employee);
+	AddOption option2 = AddOption(employee);
 	em.execute(&results, &option2);
 	results = em.search(&option);
 	EXPECT_EQ(3, results.size());
@@ -87,7 +87,7 @@ TEST(EmployeeManagerTest2, SearchFirstNameTest) {
 	//ADD 1 more first name with LFIS
 	Employee employee;
 	employee.init("20091154", "LFIS AEDLW", "CL2", "010-6681-1104", "20081113", "ADV");
-	AddOption option2 = AddOption(" ", " ", employee);
+	AddOption option2 = AddOption(employee);
 	em.execute(&results, &option2);
 
 	results = em.search(&option);

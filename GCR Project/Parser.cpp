@@ -54,7 +54,7 @@ void Parser::request_add(const vector<string>& tokens) {
 	map<int, Employee> results;
 	Employee employee;
 	employee.init(tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9]);
-	AddOption option = AddOption(tokens[1], tokens[2], employee);
+	AddOption option = AddOption(employee);
 
 	//add
 	employManager_.execute(&results, &option);

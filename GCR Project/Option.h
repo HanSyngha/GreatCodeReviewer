@@ -76,10 +76,10 @@ protected:
 
 class AddOption : public Option {
 public:
-	AddOption(string token1, string token2, Employee& employee) {
+	AddOption(Employee& employee) {
 		cmd_ = COMMAND::ADD;
-		fillOption1(token1);
-		fillOption2(token2);
+		fillOption1(" ");
+		fillOption2(" ");
 		employee_ = employee;
 	}
 	virtual void fillOption2(string token) { op2_ = OPTION2::NONE; }
