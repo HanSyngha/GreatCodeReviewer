@@ -11,7 +11,7 @@ public:
 	string request_del(const vector<string>& tokens);
 	string request_search(const vector<string>& tokens);
 	string request_mod(const vector<string>& tokens);
-	string make_return_str(const map<int, Employee> recived_value, const Option& option);
+	string make_return_str(const map<int, Employee> recived_value, Option* option);
 	string parse(const string input_txt);
 
 	void request_add(const vector<string>& tokens);
