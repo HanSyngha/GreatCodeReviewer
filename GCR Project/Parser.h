@@ -23,6 +23,6 @@ enum Format
 {
 	EmpNo_Length = 8,
 	Name_chunk = 2,
-	Phonenumber_Length = 13,
+	Phonenumber_chunk = 3,
 	Birthday_Length = 8
 };
