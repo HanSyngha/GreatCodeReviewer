@@ -4,20 +4,19 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <string>
-using namespace std;
 
 class File {
 public:
-	bool OpenFile(string inFileName, string outFileName);
-	string ReadLine(void);
-	void WriteLine(string strLine);
+	bool OpenFile(const std::string& inFileName, const std::string& outFileName);
+	std::string ReadLine(void);
+	void WriteLine(const std::string& strLine);
 	void CloseFile(void);
 	bool IsValidFiles(void);
-	bool IsExistedFile(string& filename);
+	bool IsExistedFile(const std::string& filename);
 
 private:
-	fstream inFile_;
-	fstream outFile_;
-	string inFileName_;
-	string outFileName_;
+	std::fstream inFile_;
+	std::fstream outFile_;
+	std::string inFileName_;
+	std::string outFileName_;
 };

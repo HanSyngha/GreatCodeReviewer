@@ -1,7 +1,9 @@
 
 #include "File.h"
 
-bool File::OpenFile(string inFileName, string outFileName) {
+using namespace std;
+
+bool File::OpenFile(const string& inFileName, const string& outFileName) {
 	inFileName_ = inFileName;
 	outFileName_ = outFileName;
 
@@ -27,7 +29,7 @@ string File::ReadLine(void) {
 	return strLine;
 }
 
-void File::WriteLine(string strLine) {
+void File::WriteLine(const string& strLine) {
 	if(strLine.length() > 0) 
 		outFile_ << strLine << endl;
 }
@@ -41,7 +43,7 @@ bool File::IsValidFiles(void) {
 	return inFile_.is_open() && outFile_.is_open();
 }
 
-bool File::IsExistedFile(string& filename) {
+bool File::IsExistedFile(const string& filename) {
 	struct stat buf;
 	if (stat(filename.c_str(), &buf) != -1) return true;
 	return false;

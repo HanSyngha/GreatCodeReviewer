@@ -54,10 +54,10 @@ struct Option {
 };
 
 std::vector<std::string> stringTokenize(const std::string & orgString, const char delimiter);
-void fillOptionCommand(Option& option, string token);
-void fillOption1(Option& option, string token);
-void fillOption2(Option& option, string token);
-void fillColumn(Option& option, string token, bool isSearch);
-void fillSearchData(Option& option, string token);
-void fillChangeData(Option& option, string token);
-string getStringFromOptionCommand(const Option& option);
+void fillOptionCommand(Option& option, std::string token);
+void fillOption1(Option& option, std::string token);
+void fillOption2(Option& option, std::string token);
+void fillColumn(Option& option, std::string token, bool isSearch);
+void fillSearchData(Option& option, std::string token);
+void fillChangeData(Option& option, std::string token);
+std::string getStringFromOptionCommand(const Option& option);
