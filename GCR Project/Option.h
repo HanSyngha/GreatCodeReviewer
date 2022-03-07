@@ -76,7 +76,7 @@ protected:
 
 class AddOption : public Option {
 public:
-	AddOption(string token1, string token2, Employee& employee) {
+	AddOption(string token1, string token2, Employee &employee) {
 		cmd_ = COMMAND::ADD;
 		fillOption1(token1);
 		fillOption2(token2);

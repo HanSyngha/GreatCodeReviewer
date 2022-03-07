@@ -1,17 +1,23 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
-struct Employee {
-	void init(string EmpNo, string Name, string Career_level, string Phone_number, string Birthday, string Certi) {
-		EmpNo_ = EmpNo;
-		Name_ = Name;
-		Career_level_ = Career_level;
-		Phone_number_ = Phone_number;
-		BirthDay_ = Birthday;
-		Certi_ = Certi;
-	}
+class Employee {
+public:
+	Employee() {
+
+	};
+
+	Employee(const vector<string> &tokens) {
+		EmpNo_ = tokens[4];
+		Name_ = tokens[5];
+		Career_level_ = tokens[6];
+		Phone_number_ = tokens[7];
+		BirthDay_ = tokens[8];
+		Certi_ = tokens[9];
+	};
 
 	std::string EmpNo_;
 	std::string Name_;
@@ -27,5 +33,14 @@ struct Employee {
 		}
 
 		return std::stoi("20" + employeeNum);
+	};
+
+	void init(string EmpNo, string Name, string Career_level, string Phone_number, string Birthday, string Certi) {
+		EmpNo_ = EmpNo;
+		Name_ = Name;
+		Career_level_ = Career_level;
+		Phone_number_ = Phone_number;
+		BirthDay_ = Birthday;
+		Certi_ = Certi;
 	}
 };
