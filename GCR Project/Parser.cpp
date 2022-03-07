@@ -48,19 +48,8 @@ void Parser::check_input_format(const Employee new_employee) {
 }
 
 void Parser::request_add(const vector<string> tokens) {
-
-	Employee new_employee;
-	new_employee.EmpNo = tokens[4];
-	new_employee.Name = tokens[5];
-	new_employee.Career_level = tokens[6];
-	new_employee.Phone_number = tokens[7];
-	new_employee.BirthDay = tokens[8];
-	new_employee.Certi = tokens[9];
-
-	check_input_format(new_employee);
-
-	map<int, Employee> emptyResult;
-	employManager_.execute(&emptyResult, { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, new_employee, COLUMN::NONE, "", COLUMN::NONE, "" });
+	map<int, Employee> results;
+	employManager_.execute(&results, { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, { tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9] }, COLUMN::NONE, "", COLUMN::NONE, "" });
 }
 
 string Parser::request_del(const vector<string> tokens) {
@@ -72,7 +61,7 @@ string Parser::request_del(const vector<string> tokens) {
 	fillOption1(option, tokens[1]);
 	fillColumn(option, tokens[4], true);
 	fillOption2(option, tokens[2]);
-	fillSearchData(option, tokens[5]);
+	fillData(option, tokens[5], true);
 
 	//search
 	recived_value = employManager_.search(option);
@@ -93,7 +82,7 @@ string Parser::request_search(const vector<string> tokens) {
 	fillOption1(option, tokens[1]);
 	fillColumn(option, tokens[4], true);
 	fillOption2(option, tokens[2]);
-	fillSearchData(option, tokens[5]);
+	fillData(option, tokens[5], true);
 
 	//search
 	recived_value = employManager_.search(option);
@@ -112,9 +101,9 @@ string Parser::request_mod(const vector<string> tokens) {
 	fillOption1(option, tokens[1]);
 	fillColumn(option, tokens[4], true);
 	fillOption2(option, tokens[2]);
-	fillSearchData(option, tokens[5]);
+	fillData(option, tokens[5], true);
 	fillColumn(option, tokens[6], false);
-	fillChangeData(option, tokens[7]);
+	fillData(option, tokens[7], false);
 
 	//search
 	recived_value = employManager_.search(option);
