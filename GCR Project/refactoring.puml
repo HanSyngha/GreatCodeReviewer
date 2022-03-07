@@ -27,10 +27,11 @@ class Parser {
 
 class EmployeeManager {
 -m_Employees : map<int, Employee>
+-m_Results : map<int, Employee>
 -m_SearcherFactory : IFactorySearcher*
 -m_ExecutorFactory : IFactoryExecutor*
-+search(Option*) : map<int, Employee>
-+execute(const map<int, Employee>*, Option*) : map<int, Employee>
++search(Option*) : map<int, Employee>*
++execute(const map<int, Employee>*, Option*) : void
 }
 
 entity Employee {
@@ -139,33 +140,34 @@ IFactorySearcher <|-- FactorySearcher
 
 abstract class Searcher {
 #pEmployees_ : map<int, Employee>*
-+Searcher(map<int, Employee>*)
+#pResults : map<int, Employee>*
++Searcher(map<int, Employee>*, map<int, Employee>*)
 +{abstract}~Searcher()
-+{abstract}search(const Option& option) const : map<int, Employee>
++{abstract}search(const Option& option) const : map<int, Employee>*
 }
 
 class EmployeeNumSearcher {
-+search(Option* option) const : map<int, Employee>
++search(Option* option) const : map<int, Employee>*
 }
 
 class NameSearcher {
-+search(Option* option) const : map<int, Employee>
++search(Option* option) const : map<int, Employee>*
 }
 
 class ClSearcher {
-+search(Option* option) const : map<int, Employee>
++search(Option* option) const : map<int, Employee>*
 }
 
 class PhoneNumberSearcher {
-+search(Option* option) const : map<int, Employee>
++search(Option* option) const : map<int, Employee>*
 }
 
 class BirthdaySearcher {
-+search(Option* option) const : map<int, Employee>
++search(Option* option) const : map<int, Employee>*
 }
 
 class CertiSearcher {
-+search(Option* option) const : map<int, Employee>
++search(Option* option) const : map<int, Employee>*
 }
 
 EmployeeNumSearcher --|> Searcher
@@ -200,22 +202,22 @@ abstract class Executor {
 #pEmployees_ : map<int, Employee>*
 +{abstract}Executor(map<int, Employee>*) 
 +{abstract}~Executor()
-+{abstract}execute(const map<int, Employee>*, Option*) : map<int, Employee>
++{abstract}execute(const map<int, Employee>*, Option*) : void
 }
 
 class AddExecutor {
 +AddExecutor(map<int, Employee>*)
-+execute(const map<int, Employee>*, Option*) : map<int, Employee>
++execute(const map<int, Employee>*, Option*) : void
 }
 
 class DeleteExecutor {
 +DeleteExecutor(map<int, Employee>*)
-+execute(const map<int, Employee>*, Option*) : map<int, Employee>
++execute(const map<int, Employee>*, Option*) : void
 }
 
 class ModifyExecutor {
 +ModifyExecutor(map<int, Employee>*)
-+execute(const map<int, Employee>*, Option*) : map<int, Employee>
++execute(const map<int, Employee>*, Option*) : void
 }
 
 AddExecutor --|> Executor
@@ -229,13 +231,14 @@ FactoryExecutor .down.> ModifyExecutor: <<use>>
 main ..> File : <<use>>
 main ..> Parser : <<use>>
 
-Option "1"-->"1" OPTION1
-Option "1"-->"1" OPTION2 
-Option "1"-->"1" COMMAND 
-AddOption "1"-->"0..1" Employee
-Option "1"-->"2" COLUMN
+Option "1"..>"1" OPTION1
+Option "1"..>"1" OPTION2 
+Option "1"..>"1" COMMAND 
+AddOption "1"..>"0..1" Employee
+Option "1"..>"2" COLUMN
 
 Parser ..> EmployeeManager : <<use>>
+Parser ..> Employee : <<use>>
 Option <.. Parser : <<use>>
 Option <.. EmployeeManager : <<use>>
 EmployeeManager ..> IFactorySearcher : <<use>>
