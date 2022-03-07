@@ -4,16 +4,13 @@
 
 using namespace std;
 
-vector<string> stringTokenize(const std::string& orgString, const char delimiter) {
-	vector<string> tokens;
+void stringTokenize(vector<string>& tokens, const std::string& orgString, const char delimiter) {
 	istringstream sstring(orgString);
 	string token;
 
 	while (getline(sstring, token, delimiter)) {
 		tokens.push_back(token);
 	}
-
-	return tokens;
 }
 
 void fillOptionCommand(Option& option, string token) {

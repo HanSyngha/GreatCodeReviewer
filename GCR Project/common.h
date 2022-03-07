@@ -53,7 +53,7 @@ struct Option {
 	std::string changeData;	
 };
 
-std::vector<std::string> stringTokenize(const std::string & orgString, const char delimiter);
+void stringTokenize(std::vector<string>& tokens, const std::string & orgString, const char delimiter);
 void fillOptionCommand(Option& option, string token);
 void fillOption1(Option& option, string token);
 void fillOption2(Option& option, string token);

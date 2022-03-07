@@ -30,7 +30,8 @@ string NameSearcher::getOption2String(const string& name, const OPTION2 option) 
 		return name;
 	}
 
-	vector<string> tokens = stringTokenize(name, ' ');
+	vector<string> tokens;
+	stringTokenize(tokens, name, ' ');
 	if (tokens.size() != 2) {
 		throw std::runtime_error("ERROR:: invalid name format!");
 	}
@@ -75,7 +76,8 @@ string PhoneNumSearcher::getOption2String(const string& name, const OPTION2 opti
 		return name;
 	}
 
-	vector<std::string> tokens = stringTokenize(name, '-');
+	vector<std::string> tokens;
+	stringTokenize(tokens, name, '-');
 	if (tokens.size() != 3) {
 		throw std::runtime_error("ERROR:: invalid phone number format!");
 	}

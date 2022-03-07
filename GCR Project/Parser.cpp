@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void Parser::request_add(const vector<string> tokens) {
+void Parser::request_add(const vector<string>& tokens) {
 
 	Employee new_employee;
 	new_employee.EmpNo = tokens[4];
@@ -22,7 +22,7 @@ void Parser::request_add(const vector<string> tokens) {
 	employManager_.execute(&emptyResult, { COMMAND::ADD, OPTION1::NONE, OPTION2::NONE, new_employee, COLUMN::NONE, "", COLUMN::NONE, "" });
 }
 
-string Parser::request_del(const vector<string> tokens) {
+string Parser::request_del(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
 	Option option;
@@ -43,7 +43,7 @@ string Parser::request_del(const vector<string> tokens) {
 	return return_str;
 }
 
-string Parser::request_search(const vector<string> tokens) {
+string Parser::request_search(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
 	Option option;
@@ -61,7 +61,7 @@ string Parser::request_search(const vector<string> tokens) {
 	return return_str;
 }
 
-string Parser::request_mod(const vector<string> tokens) {
+string Parser::request_mod(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
 
@@ -84,7 +84,7 @@ string Parser::request_mod(const vector<string> tokens) {
 	return return_str;
 }
 
-string Parser::request_management(const vector<string> tokens) {
+string Parser::request_management(const vector<string>& tokens) {
 	if (!tokens[0].compare("ADD"))
 		request_add(tokens);
 	else if (!tokens[0].compare("DEL"))
@@ -124,7 +124,8 @@ string Parser::parse(const string input_txt)
 {
 	string return_str, recived_str;
 	
-	vector<string> tokens = stringTokenize(input_txt, ',');
+	vector<string> tokens;
+	stringTokenize(tokens, input_txt, ',');
 
 	recived_str = request_management(tokens);
 	
