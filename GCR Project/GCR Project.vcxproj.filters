@@ -30,6 +30,9 @@
     <ClInclude Include="Parser.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Option.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EmployeeManager.cpp">
@@ -45,6 +48,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="common.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Option.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
