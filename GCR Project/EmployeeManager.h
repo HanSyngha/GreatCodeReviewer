@@ -145,13 +145,12 @@ protected:
 
 class EmployeeManager {
 public:
-	EmployeeManager() : m_Employees(), m_Results() {
+	EmployeeManager() : m_Employees() {
 		m_SearcherFactory = new FactorySearcher(&m_Employees);
 		m_ExecutorFactory = new FactoryExecutor(&m_Employees);
 	}
 	~EmployeeManager() {
 		m_Employees.clear();
-		m_Results.clear();
 
 		if (m_SearcherFactory) delete m_SearcherFactory;
 		if (m_ExecutorFactory) delete m_ExecutorFactory;
@@ -160,10 +159,7 @@ public:
 	std::map<int, Employee> execute(const std::map<int, Employee>* searchRecords, const Option& option);
 
 private:
-	void clearResults() { m_Results.clear(); };
-
 	std::map<int, Employee> m_Employees;
-	std::map<int, Employee> m_Results;
 
 	IFactorySearcher* m_SearcherFactory;
 	IFactoryExecutor* m_ExecutorFactory;
