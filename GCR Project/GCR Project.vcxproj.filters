@@ -44,6 +44,9 @@
     <ClCompile Include="Parser.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="common.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="input_20_20.txt">
@@ -52,5 +55,13 @@
     <Text Include="output_20_20.txt">
       <Filter>리소스 파일</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="legacy.puml">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="refactoring_em.puml">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

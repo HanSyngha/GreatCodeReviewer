@@ -2,6 +2,7 @@
 #include "../GCR Project/Employee.h"
 #include "../GCR Project/EmployeeManager.h"
 #include "../GCR Project/Parser.cpp"
+#include "../GCR Project/common.cpp"
 
 
 TEST(ParserTest, ParserAdd) {

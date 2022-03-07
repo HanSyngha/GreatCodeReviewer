@@ -1,408 +1,307 @@
 #include "EmployeeManager.h"
 
-#include <iostream>
-#include <sstream>
-#include <vector>
+using namespace std;
 
-std::vector<std::string> splitString(const std::string& orgString, const char delimiter) {
-	std::vector<std::string> tokens;
-	std::istringstream strStream(orgString);
-	std::string token;
+map<int, Employee> EmployeeNumSearcher::search(const Option& option) const {
+	std::map<int, Employee> results;
 
-	while (getline(strStream, token, delimiter)) {
-		tokens.push_back(token);
+	int keyVal = Employee::makeKeyValueFromString(option.searchData);
+	if ((*pEmployees_).count(keyVal)) {
+		results[keyVal] = (*pEmployees_)[keyVal];
 	}
 
-	return tokens;
+	return results;
 }
 
-//[Add]
-void EmployeeManager::Add(const Employee& employee) {
-	m_Employees[Employee::makeKeyValueFromString(employee.EmpNo)] = employee;
+map<int, Employee> NameSearcher::search(const Option& option) const {
+	map<int, Employee> results;
+
+	for (auto& employee : (*pEmployees_)) {
+		if (option.searchData == getOption2String(employee.second.Name, option.op2)) {
+			results[employee.first] = employee.second;
+		}
+	}
+
+	return results;
 }
 
-int EmployeeManager::GetEmployeeSize() {
-	return (int)m_Employees.size();
+string NameSearcher::getOption2String(const string& name, const OPTION2 option) const {
+	if (option == OPTION2::NONE) {
+		return name;
+	}
+
+	vector<string> tokens = stringTokenize(name, ' ');
+	if (tokens.size() != 2) {
+		throw std::runtime_error("ERROR:: invalid name format!");
+	}
+
+	if (option == OPTION2::FIRST_NAME) {
+		return tokens[0];
+	}
+	else if (option == OPTION2::LAST_NAME) {
+		return tokens[1];
+	}
+	else {
+		throw std::runtime_error("ERROR:: invalid option!!");
+	}
 }
 
-//[Modify]
-std::map<int, Employee> EmployeeManager::ModifyWithNoOption(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue)
-{
+map<int, Employee> ClSearcher::search(const Option& option) const {
+	map<int, Employee> results;
+
+	for (auto& employee : (*pEmployees_)) {
+		if (option.searchData == employee.second.Career_level) {
+			results[employee.first] = employee.second;
+		}
+	}
+
+	return results;
+}
+
+map<int, Employee> PhoneNumSearcher::search(const Option& option) const {
+	map<int, Employee> results;
+
+	for (auto& employee : (*pEmployees_)) {
+		if (option.searchData == getOption2String(employee.second.Phone_number, option.op2)) {
+			results[employee.first] = employee.second;
+		}
+	}
+
+	return results;
+}
+
+string PhoneNumSearcher::getOption2String(const string& name, const OPTION2 option) const {
+	if (option == OPTION2::NONE) {
+		return name;
+	}
+
+	vector<std::string> tokens = stringTokenize(name, '-');
+	if (tokens.size() != 3) {
+		throw std::runtime_error("ERROR:: invalid phone number format!");
+	}
+
+	if (option == OPTION2::MID_NUMBER) {
+		return tokens[1];
+	}
+	else if (option == OPTION2::LAST_NUMBER) {
+		return tokens[2];
+	}
+	else {
+		throw std::runtime_error("ERROR:: invalid option!!");
+	}
+}
+
+map<int, Employee> BirthdaySearcher::search(const Option& option) const {
+	map<int, Employee> results;
+
+	for (auto& employee : (*pEmployees_)) {
+		if (option.searchData == getOption2String(employee.second.BirthDay, option.op2)) {
+			results[employee.first] = employee.second;
+		}
+	}
+
+	return results;
+}
+
+string BirthdaySearcher::getOption2String(const string& name, const OPTION2 option) const {
+	if (option == OPTION2::NONE) {
+		return name;
+	}
+
+	if (name.length() != 8) {
+		throw std::runtime_error("ERROR:: invalid birthday format!");
+	}
+
+	if (option == OPTION2::YEAR) {
+		return name.substr(0, 4);
+	}
+	else if (option == OPTION2::MONTH) {
+		return name.substr(4, 2);
+	}
+	else if (option == OPTION2::DAY) {
+		return name.substr(6, 2);
+	}
+	else {
+		throw std::runtime_error("ERROR:: invalid option!!");
+	}
+}
+
+map<int, Employee> CertiSearcher::search(const Option& option) const {
+	map<int, Employee> results;
+
+	for (auto& employee : (*pEmployees_)) {
+		if (option.searchData == employee.second.Certi) {
+			results[employee.first] = employee.second;
+		}
+	}
+
+	return results;
+}
+
+FactorySearcher::FactorySearcher(std::map<int, Employee>* pEmployees) {
+	pEmployeeNumSearcher_ = new EmployeeNumSearcher(pEmployees);
+	pNameSearcher_ = new NameSearcher(pEmployees);
+	pClSearcher_ = new ClSearcher(pEmployees);
+	pPhoneNumSearcher_ = new PhoneNumSearcher(pEmployees);
+	pBirthdaySearcher_ = new BirthdaySearcher(pEmployees);
+	pCertiSearcher_ = new CertiSearcher(pEmployees);
+}
+FactorySearcher::~FactorySearcher() {
+	if (pEmployeeNumSearcher_) {
+		delete pEmployeeNumSearcher_;
+	}
+	if (pNameSearcher_) {
+		delete pNameSearcher_;
+	}
+	if (pClSearcher_) {
+		delete pClSearcher_;
+	}
+	if (pPhoneNumSearcher_) {
+		delete pPhoneNumSearcher_;
+	}
+	if (pBirthdaySearcher_) {
+		delete pBirthdaySearcher_;
+	}
+	if (pCertiSearcher_) {
+		delete pCertiSearcher_;
+	}
+}
+
+Searcher* FactorySearcher::getConcreteSearcher(const Option& option) const {
+	Searcher* pSearcher;
+
+	if (option.cmd == COMMAND::ADD) {
+		return pEmployeeNumSearcher_;
+	} 
+	switch (option.searchColumn) {
+	case COLUMN::EMPLOYEENUM:
+		pSearcher = pEmployeeNumSearcher_;
+		break;
+	case COLUMN::NAME:
+		pSearcher = pNameSearcher_;
+		break;
+	case COLUMN::CL:
+		pSearcher = pClSearcher_;
+		break;
+	case COLUMN::PHONENUM:
+		pSearcher = pPhoneNumSearcher_;
+		break;
+	case COLUMN::BIRTHDAY:
+		pSearcher = pBirthdaySearcher_;
+		break;
+	case COLUMN::CERTI:
+		pSearcher = pCertiSearcher_;
+		break;
+	default:
+		throw std::runtime_error("ERROR:: Invalid column name?");
+	}
+
+	return pSearcher;
+}
+
+map<int, Employee> AddExecutor::execute(const map<int, Employee>* pSearchResult, const Option& option) {
+	map<int, Employee> results;
+	int key = Employee::makeKeyValueFromString(option.employee.EmpNo);
+
+	if (pSearchResult->size() != 0) {
+		throw runtime_error("ERROR:: Data already exists!");
+		return results;
+	}	
+	(*pEmployees_)[key] = option.employee;
+	results[key] = option.employee;
+
+	return results;
+}
+
+map<int, Employee> DeleteExecutor::execute(const map<int, Employee>* pSearchResult, const Option& option) {
+	map<int, Employee> results;
+
+	for (const auto& employee : (*pSearchResult)) {
+		results[employee.first] = employee.second;
+		(*pEmployees_).erase(employee.first);
+	}
+	return results;
+}
+
+map<int, Employee> ModifyExecutor::execute(const std::map<int, Employee>* pSearchResult, const Option& option) {
+	map<int, Employee> results;
+	for (const auto& employee : (*pSearchResult)) {
+		results[employee.first] = employee.second;
+
+		switch (option.changeColumn) {
+		case COLUMN::NAME:
+			(*pEmployees_)[employee.first].Name = option.changeData;
+			break;
+		case COLUMN::CL:
+			(*pEmployees_)[employee.first].Career_level = option.changeData;
+			break;
+		case COLUMN::PHONENUM:
+			(*pEmployees_)[employee.first].Phone_number = option.changeData;
+			break;
+		case COLUMN::BIRTHDAY:
+			(*pEmployees_)[employee.first].BirthDay = option.changeData;
+			break;
+		case COLUMN::CERTI:
+			(*pEmployees_)[employee.first].Certi = option.changeData;
+			break;
+		default:
+			throw runtime_error("ERROR:: change column type is invalid!!");
+		}
+	}
+	return results;
+}
+
+FactoryExecutor::FactoryExecutor(std::map<int, Employee>* pEmployees) {
+	m_pAddExecutor_ = new AddExecutor(pEmployees);
+	m_pDelExecutor_ = new DeleteExecutor(pEmployees);
+	m_pModExecutor_ = new ModifyExecutor(pEmployees);
+};
+FactoryExecutor::~FactoryExecutor() {
+	if (m_pAddExecutor_) {
+		delete m_pAddExecutor_;
+	}
+	if (m_pDelExecutor_) {
+		delete m_pDelExecutor_;
+	}
+	if (m_pModExecutor_) {
+		delete m_pModExecutor_;
+	}
+}
+Executor* FactoryExecutor::getConcreteExecutor(const Option& option) {
+	Executor* pExecutor = nullptr;
+	switch (option.cmd)
+	{
+	case COMMAND::ADD:
+		pExecutor = m_pAddExecutor_;
+		break;
+	case COMMAND::DEL:
+		pExecutor = m_pDelExecutor_;
+		break;
+	case COMMAND::MOD:
+		pExecutor = m_pModExecutor_;
+		break;
+	}
+	return pExecutor;
+};
+
+map<int, Employee> EmployeeManager::search(const Option& option) {
 	clearResults();
+	Searcher* pSearcher = m_SearcherFactory->getConcreteSearcher(option);
+	if (pSearcher == nullptr)
+		throw runtime_error("ERROR:: Proper Searcher not found!!");
 
-	for (auto& dbInfo : m_Employees) {
-		if ((targetColumn == "employeeNum" && dbInfo.second.EmpNo == targetValue) ||
-			(targetColumn == "cl" && dbInfo.second.Career_level == targetValue) ||
-			(targetColumn == "certi" && dbInfo.second.Certi == targetValue) ||
-			(targetColumn == "name" && dbInfo.second.Name == targetValue) ||
-			(targetColumn == "phoneNum" && dbInfo.second.Phone_number == targetValue) ||
-			(targetColumn == "birthday" && dbInfo.second.BirthDay == targetValue)			
-			) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results; //copy values
-}
+	m_Results = pSearcher->search(option);
 
-void EmployeeManager::Modify(Employee& employee, std::string column, std::string value) {
-	if (column == "employeeNum")
-		employee.EmpNo = value;
-	else if (column == "name")
-		employee.Name = value;
-	else if (column == "cl")
-		employee.Career_level = value;
-	else if (column == "phoneNum")
-		employee.Phone_number = value;
-	else if (column == "birthday")
-		employee.BirthDay = value;
-	else if (column == "certi")
-		employee.Certi = value;
-}
-
-std::map<int, Employee> EmployeeManager::ModifyByFirstName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Name, ' ');
-		if (tokens[0] == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;	
-}
-
-std::map<int, Employee> EmployeeManager::ModifyByLastName(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Name, ' ');
-		if (tokens[1] == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
 	return m_Results;
 }
-std::map<int, Employee> EmployeeManager::ModifyByPhoneMidNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
+
+map<int, Employee> EmployeeManager::execute(const std::map<int, Employee>* searchRecords, const Option& option) {
 	clearResults();
+	Executor* pExecutor = m_ExecutorFactory->getConcreteExecutor(option);
+	if (pExecutor == nullptr)
+		throw runtime_error("ERROR:: Proper Executor not found!!");
 
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');
-		if (tokens[1] == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::ModifyByPhoneLastNumber(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	clearResults();
+	m_Results = pExecutor->execute(searchRecords, option);
 
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');
-		if (tokens[2] == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::ModifyByBirthYear(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(0, 4) == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::ModifyByBirthMonth(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(4, 2) == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::ModifyByBirthDay(std::string targetColumn, std::string targetValue, std::string changeColumn, std::string changeValue) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(6, 2) == targetValue) {
-			m_Results[dbInfo.first] = dbInfo.second;
-			Modify(dbInfo.second, changeColumn, changeValue);
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-
-//[Delelte]
-std::map<int, Employee> EmployeeManager::DeleteWithNoOption(std::string column, std::string value)
-{
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		if ((column == "employeeNum" && (*iter).second.EmpNo == value) ||
-			(column == "cl" && (*iter).second.Career_level == value) ||
-			(column == "certi" && (*iter).second.Certi == value) ||
-			(column == "name" && (*iter).second.Name == value) ||
-			(column == "phoneNum" && (*iter).second.Phone_number == value) ||
-			(column == "birthday" && (*iter).second.BirthDay == value)) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results; //copy values
-}
-std::map<int, Employee> EmployeeManager::DeleteByFirstName(std::string column, std::string value) {
-	clearResults();
-	
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		std::vector<std::string> tokens = splitString((*iter).second.Name, ' ');
-		if (tokens[0] == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;		
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::DeleteByLastName(std::string column, std::string value) {
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		std::vector<std::string> tokens = splitString((*iter).second.Name, ' ');
-		if (tokens[1] == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::DeleteByPhoneMidNumber(std::string column, std::string value) {
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		std::vector<std::string> tokens = splitString((*iter).second.Phone_number, '-');
-		if (tokens[1] == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::DeleteByPhoneLastNumber(std::string column, std::string value) {
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		std::vector<std::string> tokens = splitString((*iter).second.Phone_number, '-');
-		if (tokens[2] == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::DeleteByBirthYear(std::string column, std::string value) {
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		if ((*iter).second.BirthDay.substr(0, 4) == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::DeleteByBirthMonth(std::string column, std::string value) {
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		if ((*iter).second.BirthDay.substr(4, 2) == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::DeleteByBirthDay(std::string column, std::string value) {
-	clearResults();
-
-	auto iter = m_Employees.begin();
-	while (iter != m_Employees.end()) {
-		if ((*iter).second.BirthDay.substr(6, 2) == value) {
-			m_Results[(*iter).first] = (*iter).second;
-			m_Employees.erase((*iter++).first);
-			continue;
-		}
-		iter++;
-	}
-	return m_Results;
-}
-
-//[Search]
-std::map<int, Employee> EmployeeManager::SearchWithNoOption(std::string column, std::string value)
-{
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if ((column == "employeeNum" && dbInfo.second.EmpNo == value) ||
-			(column == "cl" && dbInfo.second.Career_level == value) ||
-			(column == "certi" && dbInfo.second.Certi == value) ||
-			(column == "name" && dbInfo.second.Name == value) ||
-			(column == "phoneNum" && dbInfo.second.Phone_number == value) ||
-			(column == "birthday" && dbInfo.second.BirthDay == value)) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results; //copy values
-}
-std::map<int, Employee> EmployeeManager::SearchByFirstName(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Name, ' ');
-		if (tokens[0] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::SearchByLastName(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Name, ' ');
-		if (tokens[1] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::SearchByPhoneMidNumber(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');	
-		if (tokens[1] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::SearchByPhoneLastNumber(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		std::vector<std::string> tokens = splitString(dbInfo.second.Phone_number, '-');
-		if (tokens[2] == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::SearchByBirthYear(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(0, 4) == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::SearchByBirthMonth(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(4, 2) == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
-	return m_Results;
-}
-std::map<int, Employee> EmployeeManager::SearchByBirthDay(std::string column, std::string value) {
-	clearResults();
-
-	for (auto& dbInfo : m_Employees) {
-		if (dbInfo.second.BirthDay.substr(6, 2) == value) {
-			m_Results[dbInfo.first] = dbInfo.second;
-		}
-		else {
-			//TODO: throw invalid operation
-		}
-	}
 	return m_Results;
 }
