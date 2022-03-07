@@ -57,12 +57,8 @@ public:
 		}
 	}
 
-	void fillOptionCommand(string token);
 	void fillOption1(string token);
-	//void fillColumn(string token, bool isSearch);
 	virtual	void fillOption2(string token) = 0;
-	//void fillSearchData(string token);
-	//void fillChangeData(string token);
 	string getStringFromOptionCommand(void);
 
 	bool isAddCommand() { return cmd_ == COMMAND::ADD; }
@@ -80,10 +76,10 @@ protected:
 
 class AddOption : public Option {
 public:
-	AddOption(string token1, string token2, Employee& employee) {
+	AddOption(Employee& employee) {
 		cmd_ = COMMAND::ADD;
-		fillOption1(token1);
-		fillOption2(token2);
+		fillOption1(" ");
+		fillOption2(" ");
 		employee_ = employee;
 	}
 	virtual void fillOption2(string token) { op2_ = OPTION2::NONE; }
@@ -110,8 +106,9 @@ protected:
 
 class SchOption : public ISchOption {
 public:
-	SchOption(string token1, string token2, string search_column, string search_data) {
+	SchOption(string search_column, string search_data, string token2 = " ") {
 		cmd_ = COMMAND::SCH;
+		string token1 = " ";
 		fillOption1(token1);
 		fillColumn(search_column, true);
 		fillOption2(token2);
@@ -121,8 +118,9 @@ public:
 
 class ModOption : public ISchOption {
 public:
-	ModOption(string token1, string token2, string search_column, string search_data, string target_column, string target_data) {
+	ModOption(string search_column, string search_data, string target_column, string target_data, string token2 = " ") {
 		cmd_ = COMMAND::MOD;
+		string token1 = " ";
 		fillOption1(token1);
 		fillColumn(search_column, true);
 		fillOption2(token2);
@@ -141,8 +139,9 @@ private:
 
 class DelOption : public ISchOption {
 public:
-	DelOption(string token1, string token2, string search_column, string search_data) {
+	DelOption(string search_column, string search_data, string token2 = " ") {
 		cmd_ = COMMAND::DEL;
+		string token1 = " ";
 		fillOption1(token1);
 		fillColumn(search_column, true);
 		fillOption2(token2);
