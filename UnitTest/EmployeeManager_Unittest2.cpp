@@ -44,7 +44,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 
 	initEmployeeData(em);
 
-	SchOption option = SchOption(" ", " ", "employeeNum", "11125777");
+	SchOption option = SchOption("employeeNum", "11125777");
 
 	//EmployeeNum search
 	results = em.search(&option);
@@ -52,7 +52,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 	results.clear();
 
 	//CL search
-	option = SchOption(" ", " ", "cl", "CL4");
+	option = SchOption("cl", "CL4");
 	results = em.search(&option);
 	EXPECT_EQ(2, results.size());
 	results.clear();
@@ -67,7 +67,7 @@ TEST(EmployeeManagerTest2, SearchNoOptionTest) {
 	results.clear();
 
 	//Certi search
-	option = SchOption(" ", " ", "certi", "PRO");
+	option = SchOption("certi", "PRO");
 	results = em.search(&option);
 	EXPECT_EQ(4, results.size());
 	results.clear();
@@ -79,7 +79,7 @@ TEST(EmployeeManagerTest2, SearchFirstNameTest) {
 
 	initEmployeeData(em);
 
-	SchOption option = SchOption(" ", "-f", "name", "LFIS");
+	SchOption option = SchOption("name", "LFIS", "-f");
 	results = em.search(&option);
 	EXPECT_EQ(1, results.size());
 	results.clear();
@@ -95,18 +95,18 @@ TEST(EmployeeManagerTest2, SearchFirstNameTest) {
 	results.clear();
 
 	//Modify
-	ModOption option3 = ModOption(" ", "-f", "name", "LFIS", "cl", "CL3");
+	ModOption option3 = ModOption("name", "LFIS", "cl", "CL3", "-f");
 	results = em.execute(&em.search(&option3), &option3);
 	EXPECT_EQ(2, results.size());
 	results.clear();
 
-	option = SchOption(" ", "-f", "name", "TKOQKIS");
+	option = SchOption("name", "TKOQKIS", "-f");
 	results = em.search(&option);
 	EXPECT_EQ(1, results.size());
 	results.clear();
 
 	//Delete
-	DelOption option4 = DelOption(" ", "-f", "name", "TKOQKIS");
+	DelOption option4 = DelOption("name", "TKOQKIS", "-f");
 	em.execute(&em.search(&option4), &option4);
 	results = em.search(&option);
 	EXPECT_EQ(0, results.size());

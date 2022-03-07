@@ -106,8 +106,9 @@ protected:
 
 class SchOption : public ISchOption {
 public:
-	SchOption(string token1, string token2, string search_column, string search_data) {
+	SchOption(string search_column, string search_data, string token2 = " ") {
 		cmd_ = COMMAND::SCH;
+		string token1 = " ";
 		fillOption1(token1);
 		fillColumn(search_column, true);
 		fillOption2(token2);
@@ -117,8 +118,9 @@ public:
 
 class ModOption : public ISchOption {
 public:
-	ModOption(string token1, string token2, string search_column, string search_data, string target_column, string target_data) {
+	ModOption(string search_column, string search_data, string target_column, string target_data, string token2 = " ") {
 		cmd_ = COMMAND::MOD;
+		string token1 = " ";
 		fillOption1(token1);
 		fillColumn(search_column, true);
 		fillOption2(token2);
@@ -137,8 +139,9 @@ private:
 
 class DelOption : public ISchOption {
 public:
-	DelOption(string token1, string token2, string search_column, string search_data) {
+	DelOption(string search_column, string search_data, string token2 = " ") {
 		cmd_ = COMMAND::DEL;
+		string token1 = " ";
 		fillOption1(token1);
 		fillColumn(search_column, true);
 		fillOption2(token2);

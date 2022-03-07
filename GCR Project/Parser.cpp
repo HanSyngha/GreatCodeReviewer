@@ -63,7 +63,8 @@ void Parser::request_add(const vector<string>& tokens) {
 string Parser::request_del(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
-	DelOption option = DelOption(tokens[1], tokens[2], tokens[4], tokens[5]);
+	DelOption option = DelOption(tokens[4], tokens[5], tokens[2]);
+	option.fillOption1(tokens[1]);
 
 	//search
 	recived_value = employManager_.search(&option);
@@ -78,7 +79,8 @@ string Parser::request_del(const vector<string>& tokens) {
 string Parser::request_search(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
-	SchOption option = SchOption(tokens[1], tokens[2], tokens[4], tokens[5]);
+	SchOption option = SchOption(tokens[4], tokens[5], tokens[2]);
+	option.fillOption1(tokens[1]);
 
 	//search
 	recived_value = employManager_.search(&option);
@@ -90,7 +92,8 @@ string Parser::request_search(const vector<string>& tokens) {
 string Parser::request_mod(const vector<string>& tokens) {
 	string return_str;
 	map<int, Employee> recived_value;
-	ModOption option = ModOption(tokens[1], tokens[2], tokens[4], tokens[5], tokens[6], tokens[7]);
+	ModOption option = ModOption(tokens[4], tokens[5], tokens[6], tokens[7], tokens[2]);
+	option.fillOption1(tokens[1]);
 
 	//search
 	recived_value = employManager_.search(&option);

@@ -42,7 +42,7 @@ TEST(EmployeeManagerHMTest, AddTest) {
 	AddOption option = AddOption(employee);
 	employeeManager.execute(&results, &option);
 
-	SchOption option2 = SchOption(" ", " ", "employeeNum", "13009524");
+	SchOption option2 = SchOption("employeeNum", "13009524");
 	results = employeeManager.search(&option2);
 	EXPECT_EQ(1, results.size());
 	results.clear();
