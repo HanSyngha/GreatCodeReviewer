@@ -16,32 +16,61 @@ vector<string> stringTokenize(const std::string& orgString, const char delimiter
 	return tokens;
 }
 
-void fillOptionCommand(Option& option, string token) {
-	if (token == "ADD") option.cmd = COMMAND::ADD;
-	else if (token == "DEL") option.cmd = COMMAND::DEL;
-	else if (token == "SCH") option.cmd = COMMAND::SCH;
-	else if (token == "MOD") option.cmd = COMMAND::MOD;
-	else throw runtime_error("ERROR:: invalid COMMAND!");
+void fillOptionCommand(Option& option, const string& token) {
+	if (token == "ADD") {
+		option.cmd = COMMAND::ADD;
+	}
+	else if (token == "DEL") {
+		option.cmd = COMMAND::DEL;
+	}
+	else if (token == "SCH") {
+		option.cmd = COMMAND::SCH;
+	}
+	else if (token == "MOD") {
+		option.cmd = COMMAND::MOD;
+	}
+	else {
+		throw runtime_error("ERROR:: invalid COMMAND!");
+	}
 }
 
-void fillOption1(Option& option, string token) {
-	if (token == "-p") option.op1 = OPTION1::P;
-	else option.op1 = OPTION1::NONE;
+void fillOption1(Option& option, const string& token) {
+	if (token == "-p") {
+		option.op1 = OPTION1::P;
+	}
+	else if (token == " ") {
+		option.op1 = OPTION1::NONE;
+	}
+	else {
+		throw runtime_error("ERROR:: invalid option1 type!!");
+	}
 }
 
-void fillOption2(Option& option, string token) {
+void fillOption2(Option& option, const string& token) {
 	if (token == "-f") {
 		option.op2 = OPTION2::FIRST_NAME;
 	}
 	else if (token == "-l") {
-		if (option.searchColumn == COLUMN::PHONENUM) option.op2 = OPTION2::LAST_NUMBER;
-		else if (option.searchColumn == COLUMN::NAME) option.op2 = OPTION2::LAST_NAME;
-		else throw runtime_error("ERROR:: no matching column type!!");
+		if (option.searchColumn == COLUMN::PHONENUM) {
+			option.op2 = OPTION2::LAST_NUMBER;
+		}
+		else if (option.searchColumn == COLUMN::NAME) {
+			option.op2 = OPTION2::LAST_NAME;
+		}
+		else {
+			throw runtime_error("ERROR:: no matching column type!!");
+		}
 	}
 	else if (token == "-m") {
-		if (option.searchColumn == COLUMN::PHONENUM) option.op2 = OPTION2::MID_NUMBER;
-		else if (option.searchColumn == COLUMN::BIRTHDAY) option.op2 = OPTION2::MONTH;
-		else throw runtime_error("ERROR:: no matching column type!!");
+		if (option.searchColumn == COLUMN::PHONENUM) {
+			option.op2 = OPTION2::MID_NUMBER;
+		}
+		else if (option.searchColumn == COLUMN::BIRTHDAY) {
+			option.op2 = OPTION2::MONTH;
+		}
+		else {
+			throw runtime_error("ERROR:: no matching column type!!");
+		}
 	}
 	else if (token == "-y") {
 		option.op2 = OPTION2::YEAR;
@@ -53,18 +82,26 @@ void fillOption2(Option& option, string token) {
 		option.op2 = OPTION2::NONE;
 	}
 	else {
-		throw runtime_error("ERROR:: invalid option string!!");
+		throw runtime_error("ERROR:: invalid option2 string!!");
 	}
 }
 
-void fillColumn(Option& option, string token, bool isSearch) {
+void fillColumn(Option& option, const string& token, bool isSearch) {
 	if (token == "employeeNum") {
-		if (isSearch) option.searchColumn = COLUMN::EMPLOYEENUM;
-		else option.changeColumn = COLUMN::EMPLOYEENUM;
+		if (isSearch) {
+			option.searchColumn = COLUMN::EMPLOYEENUM;
+		}
+		else {
+			option.changeColumn = COLUMN::EMPLOYEENUM;
+		}
 	}
 	else if (token == "name") {
-		if (isSearch) option.searchColumn = COLUMN::NAME;
-		else option.changeColumn = COLUMN::NAME;
+		if (isSearch) {
+			option.searchColumn = COLUMN::NAME;
+		}
+		else {
+			option.changeColumn = COLUMN::NAME;
+		}
 	}
 	else if (token == "cl") {
 		if (isSearch) option.searchColumn = COLUMN::CL;
@@ -83,16 +120,17 @@ void fillColumn(Option& option, string token, bool isSearch) {
 		else option.changeColumn = COLUMN::CERTI;
 	}
 	else {
-		throw runtime_error("ERROD:: column token is invalid!!");
+		throw runtime_error("ERROD:: invalid column type!!");
 	}
 }
 
-void fillSearchData(Option& option, string token) {
-	option.searchData = token;
-}
-
-void fillChangeData(Option& option, string token) {
-	option.changeData = token;
+void fillData(Option& option, const string& token, bool isSearch) {
+	if (isSearch) {
+		option.searchData = token;
+	}
+	else {
+		option.changeData = token;
+	}
 }
 
 string getStringFromOptionCommand(const Option& option) {
@@ -106,6 +144,7 @@ string getStringFromOptionCommand(const Option& option) {
 	case COMMAND::MOD:
 		return "MOD";
 	default:
-		throw runtime_error("ERROR:: NONE case could not hit here!");
+		//All cases are handled above
+		return "";
 	}
 }

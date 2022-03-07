@@ -22,8 +22,7 @@ enum class OPTION2 {
 };
 
 enum class COMMAND { 
-	NONE = 0,
-	ADD,
+	ADD = 0,
 	DEL,
 	SCH,
 	MOD
@@ -53,11 +52,10 @@ struct Option {
 	std::string changeData;	
 };
 
-std::vector<std::string> stringTokenize(const std::string & orgString, const char delimiter);
-void fillOptionCommand(Option& option, string token);
-void fillOption1(Option& option, string token);
-void fillOption2(Option& option, string token);
-void fillColumn(Option& option, string token, bool isSearch);
-void fillSearchData(Option& option, string token);
-void fillChangeData(Option& option, string token);
+std::vector<std::string> stringTokenize(const std::string& orgString, const char delimiter);
+void fillOptionCommand(Option& option, const std::string& token);
+void fillOption1(Option& option, const std::string& token);
+void fillOption2(Option& option, const std::string& token);
+void fillColumn(Option& option, const std::string& token, bool isSearch);
+void fillData(Option& option, const std::string& token, bool isSearch);
 string getStringFromOptionCommand(const Option& option);
