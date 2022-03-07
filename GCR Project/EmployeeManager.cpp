@@ -287,23 +287,17 @@ Executor* FactoryExecutor::getConcreteExecutor(const Option& option) {
 };
 
 map<int, Employee> EmployeeManager::search(const Option& option) {
-	clearResults();
 	Searcher* pSearcher = m_SearcherFactory->getConcreteSearcher(option);
 	if (pSearcher == nullptr)
 		throw runtime_error("ERROR:: Proper Searcher not found!!");
 
-	m_Results = pSearcher->search(option);
-
-	return m_Results;
+	return pSearcher->search(option);
 }
 
 map<int, Employee> EmployeeManager::execute(const std::map<int, Employee>* searchRecords, const Option& option) {
-	clearResults();
 	Executor* pExecutor = m_ExecutorFactory->getConcreteExecutor(option);
 	if (pExecutor == nullptr)
 		throw runtime_error("ERROR:: Proper Executor not found!!");
 
-	m_Results = pExecutor->execute(searchRecords, option);
-
-	return m_Results;
+	return pExecutor->execute(searchRecords, option);
 }
