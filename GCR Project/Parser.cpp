@@ -14,7 +14,9 @@ void Parser::check_input_format(const Employee new_employee) {
 		throw runtime_error("[Error] Input Format Error: Employee Number\n");
 
 	//Name
-	if (stringTokenize(new_employee.Name,' ').size() != Name_chunk)
+	vector<string> name_chunk;
+	stringTokenize(name_chunk, new_employee.Name, ' ');
+	if (name_chunk.size() != Name_chunk)
 		throw runtime_error("[Error] Input Format Error: Name\n");
 
 	//Career_Level
@@ -25,7 +27,8 @@ void Parser::check_input_format(const Employee new_employee) {
 		throw runtime_error("[Error] Input Format Error: Career Level\n");
 
 	//Phone_number
-	vector<string> phone_chunk = stringTokenize(new_employee.Phone_number,'-');
+	vector<string> phone_chunk;
+	stringTokenize(phone_chunk, new_employee.Phone_number, '-');
 	if (phone_chunk.size() != Phonenumber_chunk)
 		throw runtime_error("[Error] Input Format Error: Phone Number\n");
 	for(auto chunk:phone_chunk)
