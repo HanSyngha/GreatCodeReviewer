@@ -2,27 +2,27 @@
 
 using namespace std;
 
-map<int, Employee> EmployeeNumSearcher::search(ISchOption* schOption) const {
-	std::map<int, Employee> results;
+map<int, Employee>* EmployeeNumSearcher::search(ISchOption* schOption) const {
+	pResults_->clear();
 
 	int keyVal = Employee::makeKeyValueFromString(schOption->getSearchData());
 	if ((*pEmployees_).count(keyVal)) {
-		results[keyVal] = (*pEmployees_)[keyVal];
+		(*pResults_)[keyVal] = (*pEmployees_)[keyVal];
 	}
 
-	return results;
+	return pResults_;
 }
 
-map<int, Employee> NameSearcher::search(ISchOption* schOption) const {
-	map<int, Employee> results;
+map<int, Employee>* NameSearcher::search(ISchOption* schOption) const {
+	pResults_->clear();
 	
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Name_, schOption->getOption2())) {
-			results[employee.first] = employee.second;
+			(*pResults_)[employee.first] = employee.second;
 		}
 	}
 
-	return results;
+	return pResults_;
 }
 
 string NameSearcher::getOption2String(const string& name, const Option::OPTION2 option) const {
@@ -47,28 +47,28 @@ string NameSearcher::getOption2String(const string& name, const Option::OPTION2 
 	}
 }
 
-map<int, Employee> ClSearcher::search(ISchOption* schOption) const {
-	map<int, Employee> results;
+map<int, Employee>* ClSearcher::search(ISchOption* schOption) const {
+	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Career_level_) {
-			results[employee.first] = employee.second;
+			(*pResults_)[employee.first] = employee.second;
 		}
 	}
 
-	return results;
+	return pResults_;
 }
 
-map<int, Employee> PhoneNumSearcher::search(ISchOption* schOption) const {
-	map<int, Employee> results;
+map<int, Employee>* PhoneNumSearcher::search(ISchOption* schOption) const {
+	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Phone_number_, schOption->getOption2())) {
-			results[employee.first] = employee.second;
+			(*pResults_)[employee.first] = employee.second;
 		}
 	}
 
-	return results;
+	return pResults_;
 }
 
 string PhoneNumSearcher::getOption2String(const string& name, const Option::OPTION2 option) const {
@@ -93,16 +93,16 @@ string PhoneNumSearcher::getOption2String(const string& name, const Option::OPTI
 	}
 }
 
-map<int, Employee> BirthdaySearcher::search(ISchOption* schOption) const {
-	map<int, Employee> results;
+map<int, Employee>* BirthdaySearcher::search(ISchOption* schOption) const {
+	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.BirthDay_, schOption->getOption2())) {
-			results[employee.first] = employee.second;
+			(*pResults_)[employee.first] = employee.second;
 		}
 	}
 
-	return results;
+	return pResults_;
 }
 
 string BirthdaySearcher::getOption2String(const string& name, const Option::OPTION2 option) const {
@@ -128,25 +128,25 @@ string BirthdaySearcher::getOption2String(const string& name, const Option::OPTI
 	}
 }
 
-map<int, Employee> CertiSearcher::search(ISchOption* schOption) const {
-	map<int, Employee> results;
+map<int, Employee>* CertiSearcher::search(ISchOption* schOption) const {
+	pResults_->clear();
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Certi_) {
-			results[employee.first] = employee.second;
+			(*pResults_)[employee.first] = employee.second;
 		}
 	}
 
-	return results;
+	return pResults_;
 }
 
-FactorySearcher::FactorySearcher(std::map<int, Employee>* pEmployees) {
-	pEmployeeNumSearcher_ = new EmployeeNumSearcher(pEmployees);
-	pNameSearcher_ = new NameSearcher(pEmployees);
-	pClSearcher_ = new ClSearcher(pEmployees);
-	pPhoneNumSearcher_ = new PhoneNumSearcher(pEmployees);
-	pBirthdaySearcher_ = new BirthdaySearcher(pEmployees);
-	pCertiSearcher_ = new CertiSearcher(pEmployees);
+FactorySearcher::FactorySearcher(std::map<int, Employee>* pEmployees, std::map<int, Employee>* pResults) {
+	pEmployeeNumSearcher_ = new EmployeeNumSearcher(pEmployees, pResults);
+	pNameSearcher_ = new NameSearcher(pEmployees, pResults);
+	pClSearcher_ = new ClSearcher(pEmployees, pResults);
+	pPhoneNumSearcher_ = new PhoneNumSearcher(pEmployees, pResults);
+	pBirthdaySearcher_ = new BirthdaySearcher(pEmployees, pResults);
+	pCertiSearcher_ = new CertiSearcher(pEmployees, pResults);
 }
 FactorySearcher::~FactorySearcher() {
 	if (pEmployeeNumSearcher_) {
@@ -201,37 +201,26 @@ Searcher* FactorySearcher::getConcreteSearcher(ISchOption* schOption) const {
 	return pSearcher;
 }
 
-map<int, Employee> AddExecutor::execute(const map<int, Employee>* pSearchResult, Option* option) {
-	map<int, Employee> results;
+void AddExecutor::execute(const map<int, Employee>* pSearchResult, Option* option) {
 	AddOption* addOption = (AddOption*)option;
 	int key = Employee::makeKeyValueFromString(addOption->getEmployee()->EmpNo_);
 
 	if (pSearchResult->size() != 0) {
 		throw runtime_error("ERROR:: Data already exists!");
-		return results;
+		return;
 	}	
 	(*pEmployees_)[key] = *addOption->getEmployee();
-	results[key] = *addOption->getEmployee();
-
-	return results;
 }
 
-map<int, Employee> DeleteExecutor::execute(const map<int, Employee>* pSearchResult, Option* option) {
-	map<int, Employee> results;
-
+void DeleteExecutor::execute(const map<int, Employee>* pSearchResult, Option* option) {
 	for (const auto& employee : (*pSearchResult)) {
-		results[employee.first] = employee.second;
 		(*pEmployees_).erase(employee.first);
 	}
-	return results;
 }
 
-map<int, Employee> ModifyExecutor::execute(const std::map<int, Employee>* pSearchResult, Option* option) {
-	map<int, Employee> results;
+void ModifyExecutor::execute(const std::map<int, Employee>* pSearchResult, Option* option) {
 	ModOption* modOption = (ModOption*)option;
 	for (const auto& employee : (*pSearchResult)) {
-		results[employee.first] = employee.second;
-
 		switch (modOption->getChangeColumn()) {
 		case Option::COLUMN::NAME:
 			(*pEmployees_)[employee.first].Name_ = modOption->getChangeData();
@@ -252,7 +241,6 @@ map<int, Employee> ModifyExecutor::execute(const std::map<int, Employee>* pSearc
 			throw runtime_error("ERROR:: change column type is invalid!!");
 		}
 	}
-	return results;
 }
 
 FactoryExecutor::FactoryExecutor(std::map<int, Employee>* pEmployees) {
@@ -288,7 +276,7 @@ Executor* FactoryExecutor::getConcreteExecutor(Option* option) {
 	return pExecutor;
 };
 
-map<int, Employee> EmployeeManager::search(ISchOption* schOption) {
+map<int, Employee>* EmployeeManager::search(ISchOption* schOption) {
 	Searcher* pSearcher = m_SearcherFactory->getConcreteSearcher(schOption);
 	if (pSearcher == nullptr)
 		throw runtime_error("ERROR:: Proper Searcher not found!!");
@@ -296,7 +284,7 @@ map<int, Employee> EmployeeManager::search(ISchOption* schOption) {
 	return pSearcher->search(schOption);
 }
 
-map<int, Employee> EmployeeManager::execute(const std::map<int, Employee>* searchRecords, Option* option) {
+void EmployeeManager::execute(const std::map<int, Employee>* searchRecords, Option* option) {
 	Executor* pExecutor = m_ExecutorFactory->getConcreteExecutor(option);
 	if (pExecutor == nullptr)
 		throw runtime_error("ERROR:: Proper Executor not found!!");

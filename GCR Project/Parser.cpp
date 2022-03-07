@@ -62,7 +62,7 @@ void Parser::request_add(const vector<string>& tokens) {
 
 string Parser::request_del(const vector<string>& tokens) {
 	string return_str;
-	map<int, Employee> recived_value;
+	map<int, Employee>* recived_value;
 	DelOption option = DelOption(tokens[4], tokens[5], tokens[2]);
 	option.fillOption1(tokens[1]);
 
@@ -70,7 +70,7 @@ string Parser::request_del(const vector<string>& tokens) {
 	recived_value = employManager_.search(&option);
 
 	//execute with searched results
-	employManager_.execute(&recived_value, &option);
+	employManager_.execute(recived_value, &option);
 	
 	return_str = make_return_str(recived_value, &option);
 	return return_str;
@@ -78,7 +78,7 @@ string Parser::request_del(const vector<string>& tokens) {
 
 string Parser::request_search(const vector<string>& tokens) {
 	string return_str;
-	map<int, Employee> recived_value;
+	map<int, Employee>* recived_value;
 	SchOption option = SchOption(tokens[4], tokens[5], tokens[2]);
 	option.fillOption1(tokens[1]);
 
@@ -91,14 +91,14 @@ string Parser::request_search(const vector<string>& tokens) {
 
 string Parser::request_mod(const vector<string>& tokens) {
 	string return_str;
-	map<int, Employee> recived_value;
+	map<int, Employee>* recived_value;
 	ModOption option = ModOption(tokens[4], tokens[5], tokens[6], tokens[7], tokens[2]);
 	option.fillOption1(tokens[1]);
 
 	//search
 	recived_value = employManager_.search(&option);
 	//execute with searched results
-	employManager_.execute(&recived_value, &option);
+	employManager_.execute(recived_value, &option);
 	
 	return_str = make_return_str(recived_value, &option);
 	return return_str;
@@ -117,21 +117,21 @@ string Parser::request_management(const vector<string>& tokens) {
 	return string();
 }
 
-string Parser::make_return_str(const map<int, Employee> recived_value, Option* option)
+string Parser::make_return_str(const map<int, Employee>* recived_value, Option* option)
 {
 	string cmdString = option->getStringFromOptionCommand();
-	if (recived_value.size() == 0) {
+	if ((*recived_value).size() == 0) {
 		return cmdString + ",NONE";
 	}
 
 	if (option->getOption1() == Option::OPTION1::NONE) {
-		return cmdString + "," + to_string(recived_value.size());
+		return cmdString + "," + to_string((*recived_value).size());
 	}
 
 	string return_str;
 	int count = 0;
-	for (auto iter = recived_value.begin(); iter != recived_value.end() && count < 5; iter++) {
-		if(iter != recived_value.begin())
+	for (auto iter = (*recived_value).begin(); iter != (*recived_value).end() && count < 5; iter++) {
+		if(iter != (*recived_value).begin())
 			return_str += "\n";
 		return_str += cmdString + "," + (iter)->second.EmpNo_ + "," + (iter)->second.Name_ + "," + (iter)->second.Career_level_ + "," + (iter)->second.Phone_number_ + "," + (iter)->second.BirthDay_ + "," + (iter)->second.Certi_;
 		count++;
