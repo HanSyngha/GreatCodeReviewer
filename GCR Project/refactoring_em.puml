@@ -26,7 +26,6 @@ class Parser {
 
 class EmployeeManager {
 -m_Employees : map<int, Employee>
--m_Results : map<int, Employee>
 -m_SearcherFactory : IFactorySearcher*
 -m_ExecutorFactory : IFactoryExecutor*
 +search(const Option&) : map<int, Employee>
@@ -60,8 +59,7 @@ DAY,
 }
 
 enum COMMAND {
-NONE = 0,
-ADD,
+ADD = 0,
 DEL,
 SCH,
 MOD,
