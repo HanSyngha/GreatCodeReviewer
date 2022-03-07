@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-using std::string;
 
 struct Employee {
 
@@ -13,8 +12,9 @@ struct Employee {
 	std::string Certi;
 
 	static int makeKeyValueFromString(const std::string& employeeNum) {
-		if (employeeNum.front() == '6' || employeeNum.front() == '7' || employeeNum.front() == '8' || employeeNum.front() == '9') {
-			return(std::stoi("19" + employeeNum));
+		int frontNum = std::stoi(employeeNum.substr(0, 1));
+		if (frontNum >= 6 && frontNum <= 9) {
+			return std::stoi("19" + employeeNum);
 		}
 
 		return std::stoi("20" + employeeNum);

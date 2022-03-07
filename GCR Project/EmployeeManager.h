@@ -7,9 +7,6 @@
 #include "Employee.h"
 #include "common.h"
 
-/////////////////////////////////////
-//// Searcher
-////////////////////////////////////
 class Searcher {
 public:
 	Searcher(std::map<int, Employee>* pEmployees) : pEmployees_(pEmployees) {}
@@ -94,9 +91,6 @@ private:
 	Searcher* pCertiSearcher_;
 };
 
-////////////////////////////////////////
-//// Executor
-///////////////////////////////////////
 class Executor {
 public:
 	Executor(std::map<int, Employee>* pEmployees) : pEmployees_(pEmployees) {};

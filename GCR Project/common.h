@@ -58,4 +58,4 @@ void fillOption1(Option& option, const std::string& token);
 void fillOption2(Option& option, const std::string& token);
 void fillColumn(Option& option, const std::string& token, bool isSearch);
 void fillData(Option& option, const std::string& token, bool isSearch);
-string getStringFromOptionCommand(const Option& option);
+std::string getStringFromOptionCommand(const Option& option);
