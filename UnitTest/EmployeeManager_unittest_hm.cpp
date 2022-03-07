@@ -57,114 +57,127 @@ TEST(EmployeeManagerHMTest, AddTest) {
 	results.clear();	
 }
 
-//TEST(EmployeeManagerHMTest, ModifyByFirstNameTest) 
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//	
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::FIRST_NAME, Employee(), COLUMN::NAME, "Hyeonmin", COLUMN::PHONENUM, "010-8463-5516" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//	
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::LAST_NUMBER, Employee(), COLUMN::PHONENUM, "5516", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(2, result.size());
-//}
-//
-//TEST(EmployeeManagerHMTest, ModifyByLastNameTest) 
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::LAST_NAME, Employee(), COLUMN::NAME, "Seo", COLUMN::CL, "CL4" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//	
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::NONE, Employee(), COLUMN::CL, "CL4", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(3, result.size());
-//}
-//
-//TEST(EmployeeManagerHMTest, ModifyByPhoneMidNumberTest) 
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::MID_NUMBER, Employee(), COLUMN::PHONENUM, "8443", COLUMN::BIRTHDAY, "19691130" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "30", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(2, result.size());
-//}
-//
-//TEST(EmployeeManagerHMTest, ModifyByPhoneLastNumberTest) 
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::LAST_NUMBER, Employee(), COLUMN::PHONENUM, "5516", COLUMN::BIRTHDAY, "19900420" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::YEAR, Employee(), COLUMN::BIRTHDAY, "1990", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(1, result.size());
-//}
-//
-//TEST(EmployeeManagerHMTest, ModifyByBirthYearTest) 
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//	
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::YEAR, Employee(), COLUMN::BIRTHDAY, "1987", COLUMN::BIRTHDAY, "19970402" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::MONTH, Employee(), COLUMN::BIRTHDAY, "04", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(1, result.size());
-//}
-//TEST(EmployeeManagerHMTest, ModifyByBirthMonthTest)
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//	
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::MONTH, Employee(), COLUMN::BIRTHDAY, "11", COLUMN::BIRTHDAY, "19770819" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "19", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(3, result.size());
-//}
-//
-//TEST(EmployeeManagerHMTest, ModifyByBirthDayTest)
-//{
-//	EmployeeManager employeeManager;
-//	initEmployManager(employeeManager);
-//
-//	std::map<int, Employee> result;
-//
-//	Option option1 = { COMMAND::MOD, OPTION1::NONE, OPTION2::DAY, Employee(), COLUMN::BIRTHDAY, "19", COLUMN::NAME, "Hyeonmin Koe" };
-//	result = employeeManager.execute(&employeeManager.search(option1), option1);
-//	result.clear();
-//
-//	Option option2 = { COMMAND::SCH, OPTION1::NONE, OPTION2::FIRST_NAME, Employee(), COLUMN::NAME, "Hyeonmin", COLUMN::NONE, string() };
-//	result = employeeManager.search(option2);
-//	EXPECT_EQ(2, result.size());
-//}
 
+TEST(EmployeeManagerHMTest, ModifyByFirstNameTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("name", "Hyeonmin", "phoneNum", "010-8463-5516", "-f");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("phoneNum", "5516", "-l");
+	result = employeeManager.search(&schOption);
+
+	EXPECT_EQ(2, result.size());
+}
+
+TEST(EmployeeManagerHMTest, ModifyByLastNameTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("name", "Seo", "cl", "CL4", "-l");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("cl", "CL4");
+	result = employeeManager.search(&schOption);
+
+	EXPECT_EQ(3, result.size());
+}
+
+TEST(EmployeeManagerHMTest, ModifyByPhoneMidNumberTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("phoneNum", "8443", "birthday", "19691130", "-m");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("birthday", "30", "-d");
+	result = employeeManager.search(&schOption);
+
+	EXPECT_EQ(2, result.size());
+}
+
+TEST(EmployeeManagerHMTest, ModifyByPhoneLastNumberTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("phoneNum", "5516", "birthday", "19900420", "-l");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("birthday", "1990", "-y");
+	result = employeeManager.search(&schOption);
+
+	EXPECT_EQ(1, result.size());
+}
+
+TEST(EmployeeManagerHMTest, ModifyByBirthYearTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("birthday", "1987", "birthday", "19970402", "-y");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("birthday", "04", "-m");
+	result = employeeManager.search(&schOption);
+
+	EXPECT_EQ(1, result.size());
+}
+TEST(EmployeeManagerHMTest, ModifyByBirthMonthTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("birthday", "11", "birthday", "19770819", "-m");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("birthday", "19", "-d");
+	result = employeeManager.search(&schOption);
+	EXPECT_EQ(3, result.size());
+}
+
+TEST(EmployeeManagerHMTest, ModifyByBirthDayTest)
+{
+	EmployeeManager employeeManager;
+	initEmployManager(employeeManager);
+
+	std::map<int, Employee> result;
+
+	ModOption modOption = ModOption("birthday", "19", "name", "Hyeonmin Koe", "-d");
+	result = employeeManager.search(&modOption);
+	employeeManager.execute(&result, &modOption);
+	result.clear();
+
+	SchOption schOption = SchOption("name", "Hyeonmin", "-f");
+	result = employeeManager.search(&schOption);
+
+	EXPECT_EQ(2, result.size());
+}
