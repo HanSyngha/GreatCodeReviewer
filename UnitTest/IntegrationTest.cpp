@@ -2,10 +2,16 @@
 #include "exception"
 #include "../GCR Project/File.h"
 #include "../GCR Project/Parser.h"
+#include <time.h>
 
 TEST(IntegrationTest, ITScene1) {
+	Delay1Sec();
 	string input_file = "../GCR Project/input_20_20.txt";
-	string output_file = "../GCR Project/output_test.txt";
+	time_t t1 = time(NULL);
+	string output_file;
+	char output_file_cstr[100];
+	sprintf_s(output_file_cstr, "../GCR Project/output_test_%d.txt", (int)t1);
+	output_file = string(output_file_cstr);
 	string compare_file = "../GCR Project/output_20_20.txt";
 
 	// GCR Project 备悼何
@@ -22,7 +28,7 @@ TEST(IntegrationTest, ITScene1) {
 		while (true) {
 			strLineForRead = file.ReadLine();
 			if (strLineForRead == "") break;
-			strLineForWrite = parser.parse(strLineForRead);
+			parser.parse(strLineForWrite, strLineForRead);
 			file.WriteLine(strLineForWrite);
 		}
 	}
@@ -49,7 +55,7 @@ TEST(IntegrationTest, ITScene1) {
 char testArray[100000][100];
 
 TEST(IntegrationTest, ITScene2forSpeedCheck) {
-
+	Delay1Sec();
 	// GCR Project 备悼何	
 	string strLineForRead;
 	string strLineForWrite;
@@ -58,7 +64,7 @@ TEST(IntegrationTest, ITScene2forSpeedCheck) {
 	int cl = 1; int phone1 = 0; int phone2 = 0;
 	int birthday = 19700101; char certi[] = "PRO";
 	for (int i = 0; i < 100000; i++) {
-		sprintf(testArray[i], "ADD, , , ,%08d,%s %s,CL%d,010-%04d-%04d,%8d,%s",
+		sprintf_s(testArray[i], "ADD, , , ,%08d,%s %s,CL%d,010-%04d-%04d,%8d,%s",
 			i, name1, name2, cl, phone1, phone2, birthday, certi
 		);
 		name1[2] = 0;
@@ -78,14 +84,23 @@ TEST(IntegrationTest, ITScene2forSpeedCheck) {
 			//strLineForRead = file.ReadLine();
 			strLineForRead = testArray[i];
 			if (strLineForRead == "") break;
-			strLineForWrite = parser.parse(strLineForRead);
+			parser.parse(strLineForWrite, strLineForRead);
 			//file.WriteLine(strLineForWrite);
 		}
 		strLineForRead = "SCH, , , ,cl,CL2";
-		strLineForWrite = parser.parse(strLineForRead);
+		parser.parse(strLineForWrite, strLineForRead);
 		cout << "result: " << strLineForWrite << endl;
 		strLineForRead = "SCH,-p, , ,certi,PRO";
-		strLineForWrite = parser.parse(strLineForRead);
+		parser.parse(strLineForWrite, strLineForRead);
+		cout << "result: " << strLineForWrite << endl;
+		strLineForRead = "SCH,-p,-l, ,name,BA";
+		parser.parse(strLineForWrite, strLineForRead);
+		cout << "result: " << strLineForWrite << endl;
+		strLineForRead = "DEL, , , ,certi,PRO";
+		parser.parse(strLineForWrite, strLineForRead);
+		cout << "result: " << strLineForWrite << endl;
+		strLineForRead = "SCH,-p, , ,certi,PRO";
+		parser.parse(strLineForWrite, strLineForRead);
 		cout << "result: " << strLineForWrite << endl;
 	}
 	catch (const exception& e) {

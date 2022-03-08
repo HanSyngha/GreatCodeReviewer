@@ -50,19 +50,19 @@ void Parser::check_input_format(const Employee new_employee) {
 		throw runtime_error("[Error] Input Format Error: Certi\n");
 }
 
-void Parser::request_add(const vector<string>& tokens) {
-	map<int, Employee> results;
+void Parser::request_add(string& return_str, const vector<string>& tokens) {
+
 	Employee employee;
 	employee.init(tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9]);
 	AddOption option = AddOption(employee);
 
 	//add
-	employManager_.execute(&results, &option);
+	employManager_.execute(nullptr, &option);
+	return_str = "";
 }
 
-string Parser::request_del(const vector<string>& tokens) {
-	string return_str;
-	map<int, Employee>* recived_value;
+void Parser::request_del(string& return_str, const vector<string>& tokens) {
+	EmployeeResult* recived_value;
 	DelOption option = DelOption(tokens[4], tokens[5], tokens[2]);
 	option.fillOption1(tokens[1]);
 
@@ -72,26 +72,22 @@ string Parser::request_del(const vector<string>& tokens) {
 	//execute with searched results
 	employManager_.execute(recived_value, &option);
 	
-	return_str = make_return_str(recived_value, &option);
-	return return_str;
+	make_return_str(return_str, recived_value, &option);
 }
 
-string Parser::request_search(const vector<string>& tokens) {
-	string return_str;
-	map<int, Employee>* recived_value;
+void Parser::request_search(string& return_str, const vector<string>& tokens) {
+	EmployeeResult* recived_value;
 	SchOption option = SchOption(tokens[4], tokens[5], tokens[2]);
 	option.fillOption1(tokens[1]);
 
 	//search
 	recived_value = employManager_.search(&option);
 
-	return_str = make_return_str(recived_value, &option);
-	return return_str;
+	make_return_str(return_str, recived_value, &option);
 }
 
-string Parser::request_mod(const vector<string>& tokens) {
-	string return_str;
-	map<int, Employee>* recived_value;
+void Parser::request_mod(string& return_str, const vector<string>& tokens) {
+	EmployeeResult* recived_value;
 	ModOption option = ModOption(tokens[4], tokens[5], tokens[6], tokens[7], tokens[2]);
 	option.fillOption1(tokens[1]);
 
@@ -100,54 +96,48 @@ string Parser::request_mod(const vector<string>& tokens) {
 	//execute with searched results
 	employManager_.execute(recived_value, &option);
 	
-	return_str = make_return_str(recived_value, &option);
-	return return_str;
+	make_return_str(return_str, recived_value, &option);
 }
 
-string Parser::request_management(const vector<string>& tokens) {
+void Parser::request_management(string& return_str, const vector<string>& tokens) {
 	if (!tokens[0].compare("ADD"))
-		request_add(tokens);
-	else if (!tokens[0].compare("DEL"))
-		return request_del(tokens);
+		request_add(return_str, tokens);
+	else if (!tokens[0].compare("DEL")) 
+		request_del(return_str, tokens);
 	else if (!tokens[0].compare("SCH"))
-		return request_search(tokens);
+		request_search(return_str, tokens);
 	else if (!tokens[0].compare("MOD"))
-		return request_mod(tokens);
-	
-	return string();
+		request_mod(return_str, tokens);
 }
 
-string Parser::make_return_str(const map<int, Employee>* recived_value, Option* option)
+void Parser::make_return_str(string& return_str, const EmployeeResult* recived_value, Option* option)
 {
 	string cmdString = option->getStringFromOptionCommand();
-	if ((*recived_value).size() == 0) {
-		return cmdString + ",NONE";
+	DBG_ASSERT(recived_value->count > Option::LimitCount || recived_value->count == recived_value->entity.size());
+	if (recived_value->count == 0) {
+		return_str = cmdString + ",NONE";
+		return;
 	}
 
 	if (option->getOption1() == Option::OPTION1::NONE) {
-		return cmdString + "," + to_string((*recived_value).size());
+		return_str = cmdString + "," + to_string(recived_value->count);
+		return;
 	}
 
-	string return_str;
 	int count = 0;
-	for (auto iter = (*recived_value).begin(); iter != (*recived_value).end() && count < 5; iter++) {
-		if(iter != (*recived_value).begin())
+	return_str = "";
+	for (auto iter = (recived_value->entity).begin(); iter != (recived_value->entity).end() && count < Option::LimitCount; iter++) {
+		if(iter != (recived_value->entity).begin())
 			return_str += "\n";
 		return_str += cmdString + "," + (iter)->second.EmpNo_ + "," + (iter)->second.Name_ + "," + (iter)->second.Career_level_ + "," + (iter)->second.Phone_number_ + "," + (iter)->second.BirthDay_ + "," + (iter)->second.Certi_;
 		count++;
 	}
-
-	return return_str;
 }
 
-string Parser::parse(const string input_txt)
-{
-	string return_str, recived_str;
-	
+void Parser::parse(string& return_str, const string input_txt)
+{	
 	vector<string> tokens;
 	Option::stringTokenize(tokens, input_txt, ',');
 
-	recived_str = request_management(tokens);
-	
-	return recived_str;
+	request_management(return_str, tokens);
 }

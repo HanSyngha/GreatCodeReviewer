@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="EmployeeManager.h" />
     <ClInclude Include="File.h" />
@@ -147,7 +146,6 @@
     <ClInclude Include="Parser.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common.cpp" />
     <ClCompile Include="EmployeeManager.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="main.cpp" />
