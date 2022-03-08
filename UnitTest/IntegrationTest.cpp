@@ -96,7 +96,10 @@ TEST(IntegrationTest, ITScene2forSpeedCheck) {
 		strLineForRead = "SCH,-p,-l, ,name,BA";
 		parser.parse(strLineForWrite, strLineForRead);
 		cout << "result: " << strLineForWrite << endl;
-		strLineForRead = "SCH, , , ,certi,PRO";
+		strLineForRead = "DEL, , , ,certi,PRO";
+		parser.parse(strLineForWrite, strLineForRead);
+		cout << "result: " << strLineForWrite << endl;
+		strLineForRead = "SCH,-p, , ,certi,PRO";
 		parser.parse(strLineForWrite, strLineForRead);
 		cout << "result: " << strLineForWrite << endl;
 	}

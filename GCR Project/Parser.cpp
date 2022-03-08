@@ -51,15 +51,13 @@ void Parser::check_input_format(const Employee new_employee) {
 }
 
 void Parser::request_add(string& return_str, const vector<string>& tokens) {
-	EmployeeResult results;
-	results.clear();
 
 	Employee employee;
 	employee.init(tokens[4], tokens[5], tokens[6], tokens[7], tokens[8], tokens[9]);
 	AddOption option = AddOption(employee);
 
 	//add
-	employManager_.execute(&results, &option);
+	employManager_.execute(nullptr, &option);
 	return_str = "";
 }
 

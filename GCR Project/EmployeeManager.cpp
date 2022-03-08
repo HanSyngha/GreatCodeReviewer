@@ -19,8 +19,9 @@ EmployeeResult* NameSearcher::search(ISchOption* schOption) const {
 	
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Name_, schOption->getOption2())) {
-			if (ISchOption::isLimitOverCount(pResults_->count) == false)
-				(pResults_->entity)[employee.first] = employee.second;
+			//if (ISchOption::isLimitOverCount(pResults_->count) == false)
+			//limit에 걸리더라도 값 리턴에는 추가해야 함. 속도 향상 개선에서 제외함.
+			(pResults_->entity)[employee.first] = employee.second;
 			pResults_->increase();
 		}
 	}
@@ -55,8 +56,9 @@ EmployeeResult* ClSearcher::search(ISchOption* schOption) const {
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Career_level_) {
-			if (ISchOption::isLimitOverCount(pResults_->count) == false)
-				(pResults_->entity)[employee.first] = employee.second;
+			//if (ISchOption::isLimitOverCount(pResults_->count) == false)
+			//limit에 걸리더라도 값 리턴에는 추가해야 함. 속도 향상 개선에서 제외함.
+			(pResults_->entity)[employee.first] = employee.second;
 			pResults_->increase();
 		}
 	}
@@ -69,8 +71,9 @@ EmployeeResult* PhoneNumSearcher::search(ISchOption* schOption) const {
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.Phone_number_, schOption->getOption2())) {
-			if (ISchOption::isLimitOverCount(pResults_->count) == false)
-				(pResults_->entity)[employee.first] = employee.second;
+			//if (ISchOption::isLimitOverCount(pResults_->count) == false)
+			//limit에 걸리더라도 값 리턴에는 추가해야 함. 속도 향상 개선에서 제외함.
+			(pResults_->entity)[employee.first] = employee.second;
 			pResults_->increase();
 		}
 	}
@@ -105,8 +108,9 @@ EmployeeResult* BirthdaySearcher::search(ISchOption* schOption) const {
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == getOption2String(employee.second.BirthDay_, schOption->getOption2())) {
-			if (ISchOption::isLimitOverCount(pResults_->count) == false)
-				(pResults_->entity)[employee.first] = employee.second;
+			//if (ISchOption::isLimitOverCount(pResults_->count) == false)
+			//limit에 걸리더라도 값 리턴에는 추가해야 함. 속도 향상 개선에서 제외함.
+			(pResults_->entity)[employee.first] = employee.second;
 			pResults_->increase();
 		}
 	}
@@ -142,8 +146,9 @@ EmployeeResult* CertiSearcher::search(ISchOption* schOption) const {
 
 	for (auto& employee : (*pEmployees_)) {
 		if (schOption->getSearchData() == employee.second.Certi_) {
-			if (ISchOption::isLimitOverCount(pResults_->count) == false)
-				(pResults_->entity)[employee.first] = employee.second;
+			//if (ISchOption::isLimitOverCount(pResults_->count) == false)
+			//limit에 걸리더라도 값 리턴에는 추가해야 함. 속도 향상 개선에서 제외함.
+			(pResults_->entity)[employee.first] = employee.second;
 			pResults_->increase();
 		}
 	}
@@ -216,10 +221,10 @@ void AddExecutor::execute(const EmployeeResult* pSearchResult, Option* option) {
 	AddOption* addOption = (AddOption*)option;
 	int key = Employee::makeKeyValueFromString(addOption->getEmployee()->EmpNo_);
 
-	if (pSearchResult->count != 0) {
-		throw runtime_error("ERROR:: Data already exists!");
-		return;
-	}	
+	//if (pSearchResult->count != 0) {
+	//	throw runtime_error("ERROR:: Data already exists!");
+	//	return;
+	//}	
 	(*pEmployees_)[key] = *addOption->getEmployee();
 }
 
