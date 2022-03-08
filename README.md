@@ -13,12 +13,16 @@ PR Ground-Rule
 * 제목에 [Feature], [BugFix ], [Refactoring] 사용
 * 3명 리뷰 후 merge
 
+UML
+![uml](https://user-images.githubusercontent.com/100739486/157168881-2997fedc-4e56-4afa-b4f6-fbee63374273.png)
+
+
 수행 방법
 * ./GCR Porject.exe input.txt output.txt
 
 TC list 및 Test 결과 (2022-03-08 updated)
 ------------------------------------------------------------------------
-Running main() from c:\a\1\s\thirdparty\googletest\googletest\src\gtest_main.cc
+```Running main() from c:\a\1\s\thirdparty\googletest\googletest\src\gtest_main.cc
 [==========] Running 34 tests from 5 test cases.
 [----------] Global test environment set-up.
 [----------] 16 tests from EmployeeManagerTest2
@@ -120,5 +124,5 @@ Time Elapsed :8
 
 [----------] Global test environment tear-down
 [==========] 34 tests from 5 test cases ran. (11091 ms total)
-[  PASSED  ] 34 tests.
+[  PASSED  ] 34 tests.```
 ------------------------------------------------------------------------
