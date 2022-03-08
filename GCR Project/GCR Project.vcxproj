@@ -158,7 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="legacy.puml" />
-    <None Include="refactoring_em.puml" />
+    <None Include="refactoring.puml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

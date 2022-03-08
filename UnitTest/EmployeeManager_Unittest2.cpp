@@ -348,7 +348,6 @@ TEST(EmployeeManagerTest2, DeleteNoOptionTest) {
 	//CL delete
 	SchOption schop2 = SchOption("cl", "CL3");
 	searchResults = em.search(&schop2);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 
 	DelOption delop2 = DelOption("cl", "CL3");
@@ -361,14 +360,12 @@ TEST(EmployeeManagerTest2, DeleteNoOptionTest) {
 	//Certi delete
 	SchOption schop3 = SchOption("certi", "PRO");
 	searchResults = em.search(&schop3);
-	
 	EXPECT_EQ(4, (searchResults->entity).size());
 
 	DelOption delop3 = DelOption("cl", "CL3");
 	searchResults = em.search(&delop3);
 	em.execute(searchResults, &delop3);
 	searchResults = em.search(&schop3);
-
 	EXPECT_EQ(4, (searchResults->entity).size());
 }
 
@@ -380,7 +377,6 @@ TEST(EmployeeManagerTest2, DeleteFirstNameTest) {
 
 	SchOption schop = SchOption("name", "LFIS", "-f");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 
 	DelOption delop = DelOption("name", "LFIS", "-f");
@@ -398,7 +394,6 @@ TEST(EmployeeManagerTest2, DeleteLastNameTest) {
 
 	SchOption schop = SchOption("name", "LTODDO", "-l");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 	
 	DelOption delop = DelOption("name", "LTODDO", "-l");
@@ -416,7 +411,6 @@ TEST(EmployeeManagerTest2, DeletePhoneMidNumberTest) {
 
 	SchOption schop = SchOption("phoneNum", "7914", "-m");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 
 	DelOption delop = DelOption("phoneNum", "7914", "-m");
@@ -434,7 +428,6 @@ TEST(EmployeeManagerTest2, DeletePhoneLastNumberTest) {
 
 	SchOption schop = SchOption("phoneNum", "4054", "-l");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 	
 	DelOption delop = DelOption("phoneNum", "4054", "-l");
@@ -452,7 +445,6 @@ TEST(EmployeeManagerTest2, DeleteBirthYearTest) {
 
 	SchOption schop = SchOption("birthday", "1966", "-y");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 
 	DelOption delop = DelOption("birthday", "1966", "-y");
@@ -470,10 +462,9 @@ TEST(EmployeeManagerTest2, DeleteBirthMonthTest) {
 
 	SchOption schop = SchOption("birthday", "02", "-m");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(2, (searchResults->entity).size());
 
-	DelOption delop = DelOption("birthday", "02", "-m");
+  DelOption delop = DelOption("birthday", "02", "-m");
 	searchResults = em.search(&delop);
 	em.execute(searchResults, &delop);
 
@@ -489,7 +480,6 @@ TEST(EmployeeManagerTest2, DeleteBirthDayTest) {
 
 	SchOption schop = SchOption("birthday", "30", "-d");
 	searchResults = em.search(&schop);
-
 	EXPECT_EQ(1, (searchResults->entity).size());
 
 	DelOption delop = DelOption("birthday", "30", "-d");
